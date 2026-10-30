@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import type { PropertyType, PropertyWithRelations } from '@/types/database';
 import { SectionHeading } from '@/components/ui/section-heading';
+import { PropertyCarousel } from '@/components/properties/property-carousel';
 
 const PROPERTY_TYPE_LABELS: Record<PropertyType, string> = {
   appartement: 'Appartement',
@@ -59,7 +60,6 @@ export function FeaturedProperties({
 }: {
   properties: PropertyWithRelations[];
 }) {
-  const repeatedProperties = properties.length > 0 ? [...properties, ...properties] : [];
 
   return (
     <section className="border-y border-ink-100 bg-white py-16 sm:py-20">
@@ -80,17 +80,16 @@ export function FeaturedProperties({
         </div>
 
         {properties.length > 0 ? (
-          <div className="mt-9 overflow-hidden">
-            <div className="flex w-max min-w-full animate-marquee gap-5 [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)] motion-reduce:animate-none">
-              {repeatedProperties.map((property, index) => {
+          <PropertyCarousel>
+              {properties.map((property) => {
                 const primaryImage =
                   property.property_images.find((image) => image.is_primary) ??
                   property.property_images[0];
 
                 return (
                   <article
-                    key={`${property.id}-${index}`}
-                    className="group w-[calc(100vw-2.5rem)] max-w-[360px] shrink-0 overflow-hidden rounded-2xl border border-ink-100 bg-white shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-lifted sm:w-[320px]"
+                    key={property.id}
+                    className="group w-full min-w-0 shrink-0 snap-start overflow-hidden rounded-2xl border border-ink-100 bg-white shadow-soft transition-shadow duration-300 hover:shadow-card sm:w-[calc((100%_-_1.25rem)/2)] lg:w-[calc((100%_-_2.5rem)/3)]"
                   >
                     <Link
                       href={`/appartements/${property.slug}`}
@@ -168,8 +167,7 @@ export function FeaturedProperties({
                   </article>
                 );
               })}
-            </div>
-          </div>
+          </PropertyCarousel>
         ) : (
           <p className="mt-9 rounded-2xl border border-dashed border-ink-200 bg-sand-50 p-6 text-center text-ink-500">
             Er zijn momenteel geen uitgelichte appartementen beschikbaar.
