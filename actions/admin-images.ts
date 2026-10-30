@@ -43,15 +43,21 @@ export async function uploadPropertyImages(propertyId: string, formData: FormDat
 
   let nextOrder = (maxOrderRow?.sort_order ?? -1) + 1;
   const uploaded: PropertyImage[] = [];
+  const failures: string[] = [];
 
   for (const file of files) {
-    if (!(file instanceof File) || file.size === 0) continue;
+    if (!(file instanceof File) || file.size === 0) {
+      failures.push('Fichier vide ou invalide.');
+      continue;
+    }
 
     if (!ALLOWED_TYPES.includes(file.type)) {
-      continue; // type non supporté, on ignore silencieusement ce fichier
+      failures.push('Format non pris en charge : utilisez JPG, PNG, WebP ou AVIF.');
+      continue;
     }
     if (file.size > MAX_SIZE) {
-      continue; // fichier trop volumineux
+      failures.push('La photo dépasse la limite de 10 Mo.');
+      continue;
     }
 
     const extension = file.name.split('.').pop()?.replace(/[^a-zA-Z0-9]/g, '') || 'jpg';
@@ -62,6 +68,9 @@ export async function uploadPropertyImages(propertyId: string, formData: FormDat
       .upload(storagePath, file, { contentType: file.type, upsert: false });
     if (uploadError) {
       console.error('Supabase image upload failed:', uploadError.message);
+      failures.push(uploadError.message.toLowerCase().includes('bucket')
+        ? 'Le stockage des photos est indisponible : vérifier le bucket property-images dans Supabase.'
+        : 'Supabase a refusé le téléversement. Vérifiez les droits, les limites et la disponibilité du stockage.');
       continue;
     }
 
@@ -83,12 +92,14 @@ export async function uploadPropertyImages(propertyId: string, formData: FormDat
       uploaded.push(imageRow);
       nextOrder += 1;
     } else {
+      console.error('Property image record failed:', insertError?.message);
+      failures.push('La photo a été reçue, mais son enregistrement dans la base a échoué.');
       await supabase.storage.from('property-images').remove([storagePath]);
     }
   }
 
   if (uploaded.length === 0) {
-    return { success: false, message: 'Aucune image n’a pu être téléversée (format ou taille non supportés).' };
+    return { success: false, message: [...new Set(failures)].join(' ') || 'Aucune image reçue.' };
   }
 
   await logAdminAction({
@@ -102,7 +113,7 @@ export async function uploadPropertyImages(propertyId: string, formData: FormDat
   revalidatePath(`/appartements/${property.slug}`);
   revalidatePath('/appartements');
 
-  return { success: true, message: `${uploaded.length} image(s) ajoutée(s).`, data: uploaded };
+  return { success: true, message: `${uploaded.length} image(s) ajoutée(s).${failures.length ? ` ${failures.length} fichier(s) refusé(s) : ${[...new Set(failures)].join(' ')}` : ''}`, data: uploaded };
 }
 
 export async function deletePropertyImage(imageId: string): Promise<ActionResult> {

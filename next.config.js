@@ -13,7 +13,8 @@ const nextConfig = {
   },
   experimental: {
     serverActions: {
-      bodySizeLimit: '10mb',
+      // 10 Mo de fichier + enveloppe multipart, une photo par requête.
+      bodySizeLimit: '12mb',
     },
   },
 };

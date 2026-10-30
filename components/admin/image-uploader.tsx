@@ -32,19 +32,35 @@ export function ImageUploader({ propertyId, initialImages }: { propertyId: strin
     setIsUploading(true);
     setPendingCount(fileList.length);
 
-    const formData = new FormData();
-    Array.from(fileList).forEach((file) => formData.append('images', file));
-
+    const added: PropertyImage[] = [];
+    const failures: string[] = [];
     try {
-      const result = await uploadPropertyImages(propertyId, formData);
-      if (result.success && result.data) {
-        setImages((prev) => [...prev, ...result.data!].sort((a, b) => a.sort_order - b.sort_order));
-        toast.success(result.message);
-      } else {
-        toast.error(result.message);
+      // Une requête par photo pour ne pas cumuler la taille de toute la sélection.
+      for (const file of Array.from(fileList)) {
+        if (!['image/jpeg', 'image/png', 'image/webp', 'image/avif'].includes(file.type)) {
+          failures.push(`${file.name} : utilisez JPG, PNG, WebP ou AVIF.`);
+          continue;
+        }
+        if (!file.size || file.size > 10 * 1024 * 1024) {
+          failures.push(`${file.name} : fichier vide ou supérieur à 10 Mo.`);
+          continue;
+        }
+        const formData = new FormData();
+        formData.append('images', file);
+        try {
+          const result = await uploadPropertyImages(propertyId, formData);
+          if (result.success && result.data) {
+            added.push(...result.data);
+            setImages(prev => [...prev, ...result.data!].sort((a, b) => a.sort_order - b.sort_order));
+          } else {
+            failures.push(`${file.name} : ${result.message}`);
+          }
+        } catch {
+          failures.push(`${file.name} : connexion interrompue ou requête refusée.`);
+        }
       }
-    } catch {
-      toast.error('Verbinding mislukt. Er is geen foto toegevoegd.');
+      if (added.length) toast.success(`${added.length} photo(s) ajoutée(s).`);
+      if (failures.length) toast.error(failures.join(' '), { duration: 10000 });
     } finally {
       setIsUploading(false);
       setPendingCount(0);
@@ -145,7 +161,7 @@ export function ImageUploader({ propertyId, initialImages }: { propertyId: strin
             <p className="text-sm font-medium text-ink-600">
               Klik om foto’s te selecteren of sleep ze hiernaartoe
             </p>
-            <p className="text-xs text-ink-400">JPG, PNG of WebP — 10 Mo max. par image</p>
+            <p className="text-xs text-ink-400">JPG, PNG, WebP of AVIF — 10 Mo max. par image</p>
           </>
         )}
       </label>
