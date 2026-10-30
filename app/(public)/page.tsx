@@ -62,7 +62,7 @@ export default async function HomePage() {
         <div className="container-app relative pb-10 pt-12 sm:pb-14 sm:pt-16">
           <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
             <FadeIn>
-              <span className="inline-flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-emerald"><span className="h-px w-8 bg-champagne" /> Wonen met vertrouwen</span>
+              <span className="inline-flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-emerald">Wonen met vertrouwen</span>
               <h1 className="mt-6 max-w-2xl font-display text-[2.8rem] leading-[1.07] tracking-tight text-emerald sm:text-6xl lg:text-[4.25rem]">
                 Een bijzonder huis.<br /><span className="italic text-ink-500">Een nieuw begin.</span>
               </h1>
@@ -153,7 +153,6 @@ export default async function HomePage() {
       </section>
 
       <div className="container-app">
-        <div className="canal-divider" />
       </div>
 
       {/* COMMENT ÇA MARCHE */}
