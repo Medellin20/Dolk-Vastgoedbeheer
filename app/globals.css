@@ -1,0 +1,156 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-sand-100 text-ink antialiased;
+    font-feature-settings: 'tnum' on, 'lnum' on;
+    min-height: 100dvh;
+    overflow-x: clip;
+  }
+
+  ::selection {
+    @apply bg-canal-200 text-ink-900;
+  }
+
+  /* Anneau de focus visible et cohérent au clavier partout dans l'app */
+  :focus-visible {
+    @apply outline-none ring-2 ring-ink-700 ring-offset-2 ring-offset-sand-100;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .container-app {
+    @apply mx-auto w-full max-w-7xl;
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+  }
+
+  @media (min-width: 640px) {
+    .container-app {
+      padding-left: max(1.5rem, env(safe-area-inset-left));
+      padding-right: max(1.5rem, env(safe-area-inset-right));
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container-app {
+      padding-left: max(2rem, env(safe-area-inset-left));
+      padding-right: max(2rem, env(safe-area-inset-right));
+    }
+  }
+
+  /* Motif "ligne de canal" — signature visuelle utilisée entre les sections */
+  .canal-divider {
+    @apply relative h-px w-full bg-canal-line;
+  }
+  .canal-divider::after {
+    content: '';
+    @apply absolute left-1/2 top-1/2 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rotate-45 bg-brick-500;
+  }
+}
+
+/* Skeleton shimmer keyframe fallback (au cas où le plugin tailwind ne l'ait pas injecté) */
+@keyframes shimmer {
+  from { background-position: -700px 0; }
+  to { background-position: 700px 0; }
+}
+
+@layer base {
+  :root {
+    color-scheme: light;
+    --brand-emerald: #064E3B;
+    --brand-sage: #A3B18A;
+    --brand-ivory: #FAF9F6;
+    --brand-charcoal: #18181B;
+    --brand-champagne: #D4AF75;
+  }
+  body { line-height: 1.65; }
+  h1, h2, h3 { text-wrap: balance; }
+  button, input, select, textarea { -webkit-tap-highlight-color: transparent; }
+  button, a, input, select, textarea, summary { scroll-margin-top: 9rem; }
+  input, select, textarea { accent-color: var(--brand-emerald); }
+  input[type='date'], input[type='time'] { min-width: 0; }
+  input[type='file']::file-selector-button {
+    border: 0;
+    border-radius: 0.5rem;
+    padding: 0.5rem 0.8rem;
+    margin-right: 0.75rem;
+    background: #E9EDE0;
+    color: #064E3B;
+    cursor: pointer;
+  }
+}
+
+@layer components {
+  .public-shell main h1:not(.luxury-hero h1),
+  .public-shell main h2,
+  .public-shell main h3 {
+    font-family: 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+    font-weight: 500;
+    letter-spacing: -0.025em;
+  }
+  .public-shell main > .container-app { padding-top: 3.5rem; padding-bottom: 4.5rem; }
+  .public-shell main section:not(.luxury-hero) { scroll-margin-top: 8rem; }
+  .public-shell main [class~='text-eyebrow'] {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    letter-spacing: 0.19em;
+    font-size: 0.65rem;
+  }
+  .public-shell main [class~='text-eyebrow']::before {
+    content: '';
+    width: 1.5rem;
+    height: 1px;
+    background: #D4AF75;
+  }
+  .luxury-hero { background: radial-gradient(ellipse at 95% 30%, #E9EDE0 0%, transparent 65%), #FAF9F6; }
+  .architectural-mark { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+  .architectural-mark span { position: absolute; width: 65%; height: 110%; border: 1px solid #D4AF7540; border-radius: 50% 50% 0 0; transform: translateY(25%); }
+  .architectural-mark span:nth-child(2) { width: 80%; height: 130%; }
+  .architectural-mark span:nth-child(3) { width: 95%; height: 150%; }
+  .luxury-cta::before { content: ''; position: absolute; top: -8rem; right: -5rem; width: 22rem; height: 22rem; border: 1px solid #D4AF7530; border-radius: 50%; pointer-events: none; }
+  .property-card { border-color: #064E3B15; box-shadow: 0 4px 24px #064E3B06; }
+  .property-card:hover { border-color: #D4AF75; }
+  .admin-shell { background-image: radial-gradient(ellipse at top right, #E9EDE055, transparent 60%); }
+  .admin-shell main > div { max-width: 100rem; margin-inline: auto; }
+  .admin-shell main h1 { letter-spacing: -0.035em; }
+  .admin-shell main > div > .mb-6:not(.dashboard-intro) {
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #064E3B18;
+    margin-bottom: 1.75rem;
+  }
+  .admin-shell main [class~='bg-white'][class~='border'] { border-color: #064E3B14; box-shadow: 0 3px 18px #064E3B04; }
+  .admin-shell table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 0.8125rem; }
+  .admin-shell thead { background: #F0F5EC; }
+  .admin-shell th { padding: 1rem 1.25rem; color: #58645B; font-size: 0.625rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; border-bottom: 1px solid #064E3B18; }
+  .admin-shell td { padding: 1rem 1.25rem; border-bottom: 1px solid #064E3B0D; vertical-align: middle; }
+  .admin-shell tbody tr { transition: background-color 180ms ease; }
+  .admin-shell tbody tr:hover { background: #FAF9F6; }
+  .admin-shell tbody tr:last-child td { border-bottom: 0; }
+  .admin-shell details { overflow: hidden; }
+  .admin-shell summary { transition: background-color 180ms ease; }
+  .admin-shell summary:hover { background: #E9EDE055; }
+  .stat-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #064E3B, #A3B18A, #D4AF75); opacity: 0.65; }
+  .admin-shell input:not([type='checkbox']):not([type='hidden']), .admin-shell select, .admin-shell textarea { border-color: #064E3B26; }
+  .admin-shell input[aria-invalid='true'], .admin-shell textarea[aria-invalid='true'], .admin-shell select[aria-invalid='true'] { border-color: #DC2626; }
+  .prose { --tw-prose-links: #064E3B; --tw-prose-headings: #18181B; --tw-prose-bullets: #A3B18A; }
+  .prose h2 { padding-top: 1rem; border-top: 1px solid #064E3B14; }
+}

@@ -1,0 +1,140 @@
+import 'server-only';
+import { createAdminClient } from '@/lib/supabase/admin';
+import type { GuaranteeStatus, RefundStatus, ReservationStatus, ViewingStatus } from '@/types/database';
+
+export async function getAllViewingsAdmin(params: { status?: string; date?: string } = {}) {
+  try {
+    const supabase = createAdminClient();
+    let query = supabase
+      .from('viewing_requests')
+      .select('*, properties(title, slug, city), clients(first_name, last_name, email, phone)')
+      .order('created_at', { ascending: false });
+
+    const status = params.status as ViewingStatus;
+    if (params.status && ['pending', 'payment_pending', 'paid', 'confirmed', 'cancelled', 'completed'].includes(status)) {
+      query = query.eq('status', status);
+    }
+    if (params.date) query = query.eq('requested_date', params.date);
+
+    const { data, error } = await query;
+    if (error) {
+      console.error('ADMIN VIEWINGS QUERY ERROR:', error);
+      return { viewings: [], error: error.message };
+    }
+
+    return { viewings: data ?? [], error: null };
+  } catch (error) {
+    console.error('ADMIN VIEWINGS SETUP ERROR:', error);
+    return {
+      viewings: [],
+      error: 'La connexion à la base de données a échoué. Vérifiez la configuration Supabase.',
+    };
+  }
+}
+
+export async function getAllReservationsAdmin(params: { status?: string; scope?: string } = {}) {
+  try {
+    const supabase = createAdminClient();
+    let query = supabase
+      .from('reservations')
+      .select('*, properties(title, slug, city), clients(first_name, last_name, email, phone)')
+      .order('created_at', { ascending: false });
+
+    const status = params.status as ReservationStatus;
+    if (params.status && ['submitted', 'under_review', 'accepted', 'rejected', 'awaiting_guarantee', 'guarantee_paid', 'confirmed', 'cancelled'].includes(status)) {
+      query = query.eq('status', status);
+    }
+    if (params.scope === 'pending') query = query.in('status', ['submitted', 'under_review']);
+
+    const { data, error } = await query;
+    if (error) {
+      console.error('ADMIN RESERVATIONS QUERY ERROR:', error);
+      return { reservations: [], error: error.message };
+    }
+
+    return { reservations: data ?? [], error: null };
+  } catch (error) {
+    console.error('ADMIN RESERVATIONS SETUP ERROR:', error);
+    return {
+      reservations: [],
+      error: 'La connexion à la base de données a échoué. Vérifiez la configuration Supabase.',
+    };
+  }
+}
+
+export async function getReservationStatusHistory(reservationIds: string[]) {
+  if (reservationIds.length === 0) return {};
+
+  const supabase = createAdminClient();
+  const { data } = await supabase
+    .from('status_history')
+    .select('*')
+    .eq('entity_type', 'reservation')
+    .in('entity_id', reservationIds)
+    .order('created_at', { ascending: false });
+
+  return (data ?? []).reduce<Record<string, typeof data>>((history, entry) => {
+    (history[entry.entity_id] ??= []).push(entry);
+    return history;
+  }, {});
+}
+
+export async function getAllGuaranteesAdmin(params: { status?: string } = {}) {
+  const supabase = createAdminClient();
+  let query = supabase
+    .from('guarantee_payments')
+    .select('*, reservations(reference, property_id, properties(title)), clients(first_name, last_name, email)')
+    .order('created_at', { ascending: false });
+
+  const status = params.status as GuaranteeStatus;
+  if (params.status && ['awaiting_payment', 'payment_declared', 'payment_received', 'reservation_confirmed', 'refund_requested', 'refund_processing', 'refunded', 'cancelled'].includes(status)) {
+    query = query.eq('status', status);
+  }
+
+  const { data, error } = await query;
+  if (error) return [];
+  return data ?? [];
+}
+
+export async function getAllRefundsAdmin(params: { status?: string } = {}) {
+  const supabase = createAdminClient();
+  let query = supabase
+    .from('refund_requests')
+    .select('*, reservations(reference, properties(title)), clients(first_name, last_name, email)')
+    .order('created_at', { ascending: false });
+
+  const status = params.status as RefundStatus;
+  if (params.status && ['requested', 'approved', 'processing', 'refunded', 'rejected'].includes(status)) {
+    query = query.eq('status', status);
+  }
+
+  const { data, error } = await query;
+  if (error) return [];
+  return data ?? [];
+}
+
+export async function getAllClientsAdmin(search?: string) {
+  const supabase = createAdminClient();
+  let query = supabase.from('clients').select('*').order('created_at', { ascending: false });
+
+  const normalizedSearch = search?.trim();
+  if (normalizedSearch) {
+    query = query.or(`first_name.ilike.%${normalizedSearch}%,last_name.ilike.%${normalizedSearch}%,email.ilike.%${normalizedSearch}%`);
+  }
+
+  const { data, error } = await query;
+  if (error) return [];
+  return data ?? [];
+}
+
+export async function getClientDetailAdmin(clientId: string) {
+  const supabase = createAdminClient();
+  const [{ data: client }, { data: viewings }, { data: reservations }] = await Promise.all([
+    supabase.from('clients').select('*').eq('id', clientId).maybeSingle(),
+    supabase.from('viewing_requests').select('*, properties(title, slug)').eq('client_id', clientId),
+    supabase.from('reservations').select('*, properties(title, slug)').eq('client_id', clientId),
+  ]);
+
+  if (!client) return null;
+  return { client, viewings: viewings ?? [], reservations: reservations ?? [] };
+}

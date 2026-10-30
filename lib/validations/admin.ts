@@ -1,0 +1,27 @@
+import { z } from 'zod';
+
+export const adminLoginSchema = z.object({
+  password: z.string().min(1, 'Merci de saisir le mot de passe.'),
+});
+
+export const bankSettingsSchema = z.object({
+  beneficiaryName: z.string().trim().min(2, 'Merci d’indiquer le bénéficiaire.'),
+  iban: z.string().trim().min(10, 'IBAN invalide.'),
+  bic: z.string().trim().max(20, 'BIC invalide.').optional().or(z.literal('')),
+  bankName: z.string().trim().min(2, 'Merci d’indiquer le nom de la banque.'),
+  paymentInstructions: z.string().trim().min(5, 'Merci d’indiquer des instructions de paiement.'),
+  defaultDepositAmount: z.coerce.number().min(0),
+  showOnConfirmations: z.boolean(),
+});
+
+export type BankSettingsInput = z.infer<typeof bankSettingsSchema>;
+
+export const siteSettingsSchema = z.object({
+  footerPhone: z.string().trim().min(6, 'Merci d’indiquer un numéro de téléphone valide.').max(30),
+  paymentLink: z.string().trim().url('Merci d’indiquer un lien de paiement valide.'),
+  showPaymentLink: z.boolean(),
+  viewingFee: z.coerce.number().min(0, 'Les frais de visite ne peuvent pas être négatifs.'),
+  showOnConfirmations: z.boolean(),
+});
+
+export type SiteSettingsInput = z.infer<typeof siteSettingsSchema>;

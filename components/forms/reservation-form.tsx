@@ -1,0 +1,269 @@
+'use client';
+
+import * as React from 'react';
+import { useRouter } from 'next/navigation';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { AnimatePresence, motion } from 'framer-motion';
+import { toast } from 'sonner';
+import { ArrowLeft, ArrowRight, ClipboardList, User } from 'lucide-react';
+import { reservationSchema, type ReservationInput } from '@/lib/validations/reservation';
+import { createReservation } from '@/actions/reservations';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Select } from '@/components/ui/select';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Label, FieldError } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils/cn';
+import { formatDutchPhoneInput } from '@/lib/utils/phone';
+
+const STEPS = ['Uw gegevens', 'Uw huurplan'] as const;
+
+export function ReservationForm({
+  propertyId,
+  propertyTitle,
+  reservationFee,
+  confirmationUrl,
+}: {
+  propertyId: string;
+  propertyTitle: string;
+  reservationFee: string;
+  confirmationUrl: string;
+}) {
+  const router = useRouter();
+  const [step, setStep] = React.useState(0);
+  const [isPending, startTransition] = React.useTransition();
+
+  const {
+    register,
+    handleSubmit,
+    trigger,
+    watch,
+    formState: { errors },
+  } = useForm<ReservationInput>({
+    resolver: zodResolver(reservationSchema),
+    defaultValues: {
+      propertyId,
+      durationMonths: 12,
+      occupantsCount: 1,
+      hasPets: false,
+    },
+  });
+
+  const values = watch();
+  const minDate = new Date().toISOString().split('T')[0];
+
+  async function goNext() {
+    const fieldsByStep: (keyof ReservationInput)[][] = [
+      ['firstName', 'lastName', 'email', 'phone'],
+      ['desiredMoveInDate', 'durationMonths', 'occupantsCount', 'hasPets', 'employmentContract', 'monthlyIncome', 'originCity'],
+    ];
+    const valid = await trigger(fieldsByStep[step]);
+    if (!valid) return;
+
+    if (step === 1) {
+      onSubmit(watch());
+      return;
+    }
+
+    setStep((s) => Math.min(s + 1, STEPS.length - 1));
+  }
+
+  function onSubmit(data: ReservationInput) {
+    startTransition(async () => {
+      const result = await createReservation(data);
+      if (result && !result.success) {
+        toast.error(result.message);
+      } else if (result?.success) {
+        router.replace(confirmationUrl);
+      }
+    });
+  }
+
+  return (
+    <div>
+      <div className="mb-8 flex items-center gap-2">
+        {STEPS.map((label, i) => (
+          <React.Fragment key={label}>
+            <div className="flex items-center gap-2">
+              <span
+                className={cn(
+                  'flex h-8 w-8 items-center justify-center rounded-full text-xs font-bold transition-colors',
+                  i < step ? 'bg-canal-600 text-white' : i === step ? 'bg-ink-700 text-white' : 'bg-ink-100 text-ink-400'
+                )}
+              >
+                {i + 1}
+              </span>
+              <span className={cn('hidden text-sm font-medium sm:block', i === step ? 'text-ink-900' : 'text-ink-400')}>
+                {label}
+              </span>
+            </div>
+            {i < STEPS.length - 1 && <div className="h-px flex-1 bg-ink-100" />}
+          </React.Fragment>
+        ))}
+      </div>
+
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <AnimatePresence mode="wait">
+          {step === 0 && (
+            <motion.div
+              key="s0"
+              initial={{ opacity: 0, x: 16 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -16 }}
+              transition={{ duration: 0.2 }}
+              className="space-y-4"
+            >
+              <div className="flex items-center gap-2 text-ink-700">
+                <User className="h-5 w-5 text-canal-600" />
+                <h3 className="font-bold">Uw gegevens</h3>
+              </div>
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                <div>
+                  <Label htmlFor="firstName">Voornaam</Label>
+                  <Input id="firstName" {...register('firstName')} />
+                  <FieldError message={errors.firstName?.message} />
+                </div>
+                <div>
+                  <Label htmlFor="lastName">Achternaam</Label>
+                  <Input id="lastName" {...register('lastName')} />
+                  <FieldError message={errors.lastName?.message} />
+                </div>
+              </div>
+              <div>
+                <Label htmlFor="email">E-mail</Label>
+                <Input id="email" type="email" {...register('email')} />
+                <FieldError message={errors.email?.message} />
+              </div>
+              <div>
+                <Label htmlFor="phone">Telefoon</Label>
+                <Input
+                  id="phone"
+                  type="tel"
+                  inputMode="tel"
+                  maxLength={13}
+                  placeholder="+31 635219711"
+                  {...register('phone', { onChange: (event) => { event.target.value = formatDutchPhoneInput(event.target.value); } })}
+                />
+                <FieldError message={errors.phone?.message} />
+              </div>
+            </motion.div>
+          )}
+
+          {step === 1 && (
+            <motion.div
+              key="s1"
+              initial={{ opacity: 0, x: 16 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -16 }}
+              transition={{ duration: 0.2 }}
+              className="space-y-4"
+            >
+              <div className="flex items-center gap-2 text-ink-700">
+                <ClipboardList className="h-5 w-5 text-canal-600" />
+                <h3 className="font-bold">Uw huurplan</h3>
+              </div>
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                <div>
+                  <Label htmlFor="desiredMoveInDate">Gewenste verhuisdatum</Label>
+                  <Input id="desiredMoveInDate" type="date" min={minDate} {...register('desiredMoveInDate')} />
+                  <FieldError message={errors.desiredMoveInDate?.message} />
+                </div>
+                <div>
+                  <Label htmlFor="durationMonths">Huurperiode (maanden)</Label>
+                  <Input id="durationMonths" type="number" min={1} max={60} {...register('durationMonths')} />
+                  <FieldError message={errors.durationMonths?.message} />
+                </div>
+              </div>
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                <div>
+                  <Label htmlFor="occupantsCount">Aantal bewoners</Label>
+                  <Select id="occupantsCount" {...register('occupantsCount')}>
+                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((number) => (
+                      <option key={number} value={number}>{number}</option>
+                    ))}
+                  </Select>
+                  <FieldError message={errors.occupantsCount?.message} />
+                </div>
+                <label className="flex cursor-pointer items-center gap-2.5 pt-7 text-sm text-ink-700">
+                  <Checkbox {...register('hasPets')} />
+                  Huisdieren
+                </label>
+              </div>
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                <div>
+                  <Label htmlFor="monthlyIncome">Geschat maandelijks inkomen (€)</Label>
+                  <Input id="monthlyIncome" type="number" min={0} step="50" {...register('monthlyIncome')} />
+                  <FieldError message={errors.monthlyIncome?.message} />
+                </div>
+                <div>
+                  <Label htmlFor="employmentContract">Arbeidscontract</Label>
+                  <Select id="employmentContract" {...register('employmentContract')}>
+                    <option value="">Selecteer uw contract</option>
+                    <option value="CDI">CDI</option><option value="CDD">CDD</option>
+                    <option value="Indépendant">Zelfstandig</option><option value="Intérim">Tijdelijk contract</option>
+                    <option value="Étudiant">Student</option><option value="Autre">Anders</option>
+                  </Select>
+                  <FieldError message={errors.employmentContract?.message} />
+                </div>
+              </div>
+              <div>
+                <Label htmlFor="originCity">Plaats van herkomst</Label>
+                <Input id="originCity" {...register('originCity')} />
+                <FieldError message={errors.originCity?.message} />
+              </div>
+              <div>
+                <Label htmlFor="message">Aanvullend bericht (optioneel)</Label>
+                <Textarea id="message" rows={4} {...register('message')} />
+                <FieldError message={errors.message?.message} />
+              </div>
+            </motion.div>
+          )}
+
+          {step === 1 && (
+            <motion.div
+              key="s1"
+              initial={{ opacity: 0, x: 16 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -16 }}
+              transition={{ duration: 0.2 }}
+              className="space-y-4"
+            >
+              <p className="rounded-xl bg-canal-50 p-4 text-sm leading-relaxed text-ink-600">
+                De reserveringskosten bedragen 50% van één maand huur ({reservationFee}).
+                Klik op « Doorgaan » om uw dossier te verzenden en naar de betaling te gaan.
+              </p>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <div className="mt-7 flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => setStep((s) => Math.max(0, s - 1))}
+            className={cn('w-full sm:w-auto', step === 0 && 'hidden sm:inline-flex sm:invisible')}
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Terug
+          </Button>
+
+          <Button type="button" onClick={goNext} isLoading={isPending} className="w-full sm:w-auto">
+            Doorgaan
+            <ArrowRight className="h-4 w-4" />
+          </Button>
+        </div>
+      </form>
+    </div>
+  );
+}
+
+function Row({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="flex flex-col gap-0.5 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+      <span className="text-ink-400">{label}</span>
+      <span className="break-words font-medium text-ink-700 sm:text-right">{value}</span>
+    </div>
+  );
+}

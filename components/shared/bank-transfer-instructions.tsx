@@ -1,0 +1,53 @@
+import { AlertTriangle, Landmark } from 'lucide-react';
+import type { BankSettings } from '@/types/database';
+import { formatPrice } from '@/lib/utils/format';
+import { CopyableField } from '@/components/shared/copyable-field';
+
+export function BankTransferInstructions({
+  bankSettings,
+  reference,
+  amount,
+  isExample = false,
+}: {
+  bankSettings: BankSettings;
+  reference?: string;
+  amount?: number;
+  isExample?: boolean;
+}) {
+  return (
+    <div className="rounded-2xl border border-ink-100 bg-white p-4 text-left sm:p-5">
+      <div className="flex items-start gap-2 text-ink-700">
+        <Landmark className="mt-0.5 h-4 w-4 shrink-0 text-canal-600" />
+        <h3 className="text-sm font-bold leading-snug sm:text-base">Bankgegevens voor uw overschrijving</h3>
+      </div>
+
+      {isExample && (
+        <div className="mt-4 flex items-start gap-2 rounded-xl border border-amber-300 bg-amber-50 p-3 text-sm font-semibold text-amber-800">
+          <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
+          Demo-bankgegevens: voer geen overschrijving uit. Vervang deze in de beheeromgeving.
+        </div>
+      )}
+
+      {amount !== undefined && (
+        <div className="mt-4 flex flex-col gap-1 rounded-xl bg-ink-700 px-4 py-3.5 text-white min-[380px]:flex-row min-[380px]:items-center min-[380px]:justify-between">
+          <span className="text-sm font-medium">Over te maken bedrag</span>
+          <span className="text-lg font-extrabold">{formatPrice(amount)}</span>
+        </div>
+      )}
+
+      <div className="mt-4 space-y-3">
+        <CopyableField label="Begunstigde" value={bankSettings.beneficiary_name} />
+        <CopyableField label="IBAN" value={bankSettings.iban} mono />
+        {bankSettings.bic && <CopyableField label="BIC" value={bankSettings.bic} mono />}
+        <CopyableField label="Bank" value={bankSettings.bank_name} />
+        {reference && <CopyableField label="Op te geven referentie" value={reference} mono highlight />}
+      </div>
+
+      {bankSettings.payment_instructions && (
+        <p className="mt-4 rounded-xl bg-sand-100/70 p-3.5 text-xs leading-relaxed text-ink-500">
+          {bankSettings.payment_instructions}
+        </p>
+      )}
+    </div>
+  );
+}

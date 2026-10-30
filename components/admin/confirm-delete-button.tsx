@@ -1,0 +1,64 @@
+'use client';
+
+import { useAdminAction } from '@/lib/hooks/use-admin-action';
+
+import * as React from 'react';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
+import { Trash2 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Modal } from '@/components/ui/modal';
+import type { ActionResult } from '@/types';
+
+export function ConfirmDeleteButton({
+  action,
+  confirmTitle,
+  confirmDescription,
+  label = 'Verwijderen',
+  size = 'sm',
+}: {
+  action: () => Promise<ActionResult>;
+  confirmTitle: string;
+  confirmDescription: string;
+  label?: string;
+  size?: 'sm' | 'md';
+}) {
+  const router = useRouter();
+  const [open, setOpen] = React.useState(false);
+  const [isPending, startTransition] = useAdminAction();
+
+  function handleConfirm() {
+    startTransition(async () => {
+      try {
+        const result = await action();
+        if (result.success) {
+          toast.success(result.message);
+          setOpen(false);
+          router.refresh();
+        } else toast.error(result.message);
+      } catch {
+        toast.error('Verbinding mislukt. Probeer het opnieuw.');
+      }
+    });
+  }
+
+  return (
+    <>
+      <Button type="button" variant="destructive" size={size} onClick={() => setOpen(true)}>
+        <Trash2 className="h-3.5 w-3.5" />
+        {label}
+      </Button>
+      <Modal open={open} onClose={() => { if (!isPending) setOpen(false); }} title={confirmTitle}>
+        <p className="text-sm text-ink-500">{confirmDescription}</p>
+        <div className="mt-6 flex gap-2.5">
+          <Button type="button" disabled={isPending} variant="outline" className="flex-1" onClick={() => setOpen(false)}>
+            Annuler
+          </Button>
+          <Button type="button" variant="destructive" className="flex-1" isLoading={isPending} onClick={handleConfirm}>
+            Confirmer la suppression
+          </Button>
+        </div>
+      </Modal>
+    </>
+  );
+}
