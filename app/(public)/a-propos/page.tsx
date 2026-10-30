@@ -5,7 +5,7 @@ import { SectionHeading } from '@/components/ui/section-heading';
 
 export const metadata: Metadata = {
   title: 'Over ons',
-  description: 'Dolk Vastgoedbeheer is gespecialiseerd in de verhuur van appartementen in Nederland.',
+  description: 'Dolk Real Estate Management BV is gespecialiseerd in de verhuur van appartementen in Nederland.',
 };
 
 const VALUES = [
@@ -42,7 +42,7 @@ export default function AProposPage() {
               Uw betrouwbare partner voor huren in Nederland
             </h1>
             <p className="mt-4 max-w-xl text-sand-200">
-              Dolk Vastgoedbeheer begeleidt particulieren, professionals en expats bij het vinden
+              Dolk Real Estate Management BV begeleidt particulieren, professionals en expats bij het vinden
               van een huurwoning in heel Nederland.
             </p>
           </FadeIn>
@@ -57,7 +57,7 @@ export default function AProposPage() {
               title="Appartementen huren in Nederland eenvoudig maken"
             />
             <p className="mt-4 leading-relaxed text-ink-500">
-              De Nederlandse huurmarkt kan complex zijn, vooral voor nieuwkomers. Dolk Vastgoedbeheer
+              De Nederlandse huurmarkt kan complex zijn, vooral voor nieuwkomers. Dolk Real Estate Management BV
               is opgericht om een duidelijk en transparant traject te bieden: gecontroleerde
               advertenties, een gestructureerd bezichtigingsproces en een zorgvuldige opvolging
               van elk reserveringsdossier, van de eerste aanvraag tot de sleuteloverdracht.

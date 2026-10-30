@@ -85,14 +85,14 @@ export function AdminSidebar() {
       {/* Topbar mobile */}
       <div className="sticky top-0 z-40 flex w-full items-center justify-between border-b border-ink-100 bg-white/95 px-4 py-3 backdrop-blur lg:hidden">
         <Link href="/admin" className="flex min-w-0 items-center gap-2">
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald text-champagne">
+          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-emerald text-champagne">
             <Home className="h-4 w-4" />
           </span>
-          <span className="truncate font-extrabold text-ink-900">Dolk Vastgoedbeheer</span>
+          <span className="min-w-0 text-sm font-extrabold leading-snug text-ink-900">Dolk Real Estate Management BV</span>
         </Link>
         <button
           onClick={() => setMobileOpen(true)}
-          className="rounded-lg p-2 text-ink-700"
+          className="shrink-0 rounded-lg p-2 text-ink-700"
           aria-label="Beheermenu openen"
           aria-expanded={mobileOpen}
         >
@@ -130,7 +130,7 @@ function SidebarHeader({ compact }: { compact?: boolean }) {
         <Home className="h-4.5 w-4.5 text-champagne" />
       </span>
       <div>
-        <p className="font-display text-lg text-white">Dolk Vastgoedbeheer</p>
+        <p className="font-display text-lg text-white">Dolk Real Estate Management BV</p>
         <p className="mt-1 text-[9px] font-medium uppercase tracking-[0.18em] text-champagne">Private workspace</p>
       </div>
     </Link>

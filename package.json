@@ -2,7 +2,7 @@
   "name": "real-estate-nl",
   "version": "1.0.0",
   "private": true,
-  "description": "Real Estate NL — plateforme de location d'appartements aux Pays-Bas",
+  "description": "Dolk Real Estate Management BV — plateforme de location d'appartements aux Pays-Bas",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

@@ -28,11 +28,11 @@ export async function Footer() {
       <div className="container-app grid gap-10 py-16 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
         <div>
           <Link href="/" className="flex items-center gap-2">
-            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-champagne/10">
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-champagne/10">
               <Home className="h-4.5 w-4.5 text-white" strokeWidth={2.25} />
             </span>
             <span className="font-display text-xl font-medium tracking-tight text-white">
-              Dolk Vastgoedbeheer
+              Dolk Real Estate Management BV
             </span>
           </Link>
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-sand-300">
@@ -43,21 +43,21 @@ export async function Footer() {
             <a
               href="#"
               aria-label="Facebook"
-              className="flex h-9 w-9 items-center justify-center rounded-full bg-white/5 text-sand-200 transition-colors hover:bg-white/15 hover:text-white"
+              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/5 text-sand-200 transition-colors hover:bg-white/15 hover:text-white"
             >
               <Facebook className="h-4 w-4" />
             </a>
             <a
               href="#"
               aria-label="Instagram"
-              className="flex h-9 w-9 items-center justify-center rounded-full bg-white/5 text-sand-200 transition-colors hover:bg-white/15 hover:text-white"
+              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/5 text-sand-200 transition-colors hover:bg-white/15 hover:text-white"
             >
               <Instagram className="h-4 w-4" />
             </a>
             <a
               href="#"
               aria-label="LinkedIn"
-              className="flex h-9 w-9 items-center justify-center rounded-full bg-white/5 text-sand-200 transition-colors hover:bg-white/15 hover:text-white"
+              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/5 text-sand-200 transition-colors hover:bg-white/15 hover:text-white"
             >
               <Linkedin className="h-4 w-4" />
             </a>
@@ -120,7 +120,7 @@ export async function Footer() {
           <div className="flex min-w-0 gap-2.5">
             <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-sand-300" />
             <p>
-              <span className="font-semibold text-sand-200">Dolk Vastgoedbeheer</span> · Besloten vennootschap (BV) · Hoofdvestiging ·
+              <span className="font-semibold text-sand-200">Dolk Real Estate Management BV</span> · Besloten vennootschap (BV) · Hoofdvestiging ·
               Waterjufferpad 24, 1706 BW Heerhugowaard, Nederland
             </p>
           </div>
@@ -130,7 +130,7 @@ export async function Footer() {
 
       <div className="border-t border-white/10">
         <div className="container-app flex flex-col items-center justify-between gap-3 py-5 text-xs text-sand-400 sm:flex-row">
-          <p>© {year} Dolk Vastgoedbeheer. Alle rechten voorbehouden.</p>
+          <p>© {year} Dolk Real Estate Management BV. Alle rechten voorbehouden.</p>
           <p>Appartementen huren in Nederland</p>
         </div>
       </div>

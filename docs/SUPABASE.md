@@ -1,4 +1,4 @@
-# Supabase — Dolk Vastgoedbeheer
+# Supabase — Dolk Real Estate Management BV
 
 ## Ce qui est fourni
 

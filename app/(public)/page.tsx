@@ -15,9 +15,9 @@ import { DUTCH_TESTIMONIALS } from '@/lib/data/testimonials';
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: 'Dolk Vastgoedbeheer — Appartementen huren in Nederland',
+  title: 'Dolk Real Estate Management BV — Appartementen huren in Nederland',
   description:
-    'Vind uw volgende woning in Nederland. Dolk Vastgoedbeheer maakt het zoeken, bezichtigen en reserveren van appartementen in Amsterdam, Rotterdam, Utrecht en daarbuiten eenvoudig.',
+    'Vind uw volgende woning in Nederland. Dolk Real Estate Management BV maakt het zoeken, bezichtigen en reserveren van appartementen in Amsterdam, Rotterdam, Utrecht en daarbuiten eenvoudig.',
 };
 
 const STEPS = [
@@ -67,7 +67,7 @@ export default async function HomePage() {
                 Een bijzonder huis.<br /><span className="italic text-ink-500">Een nieuw begin.</span>
               </h1>
               <p className="mt-6 max-w-lg text-base leading-relaxed text-ink-500">
-                Vind uw volgende woning in Nederland. Dolk Vastgoedbeheer begeleidt u persoonlijk, van de eerste bezichtiging tot de sleuteloverdracht.
+                Vind uw volgende woning in Nederland. Dolk Real Estate Management BV begeleidt u persoonlijk, van de eerste bezichtiging tot de sleuteloverdracht.
               </p>
               <Link href="/appartements" className="mt-7 inline-flex items-center gap-4 border-b border-emerald/30 pb-2 text-sm font-semibold text-emerald transition hover:border-champagne">Ontdek onze woningen <ArrowRight className="h-4 w-4" /></Link>
             </FadeIn>
@@ -80,7 +80,7 @@ export default async function HomePage() {
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-transparent to-transparent" />
                 <div className="absolute bottom-7 left-7 right-7 flex items-end justify-between gap-4 text-white">
-                  <div><p className="text-[10px] uppercase tracking-[0.2em] text-champagne">Dolk Vastgoedbeheer</p><p className="mt-2 font-display text-2xl">{featuredProperties[0]?.city ?? 'Thuis in Nederland'}</p></div>
+                  <div><p className="text-[10px] uppercase tracking-[0.2em] text-champagne">Dolk Real Estate Management BV</p><p className="mt-2 font-display text-2xl">{featuredProperties[0]?.city ?? 'Thuis in Nederland'}</p></div>
                   <span className="flex h-11 w-11 items-center justify-center rounded-full border border-white/30"><ArrowRight className="h-5 w-5" /></span>
                 </div>
               </div>
@@ -200,7 +200,7 @@ export default async function HomePage() {
           <FadeIn>
             <SectionHeading
               eyebrow="Ervaringen"
-              title="Wat onze klanten over RealEstate zeggen"
+              title="Wat onze klanten over Dolk Real Estate Management BV zeggen"
               description="Feedback van klanten die zijn begeleid bij hun zoektocht naar een woning in Nederland. Blader door 50 ervaringen."
             />
           </FadeIn>
@@ -221,7 +221,7 @@ export default async function HomePage() {
                   “{testimonial}”
                 </blockquote>
                 <p className="mt-5 border-t border-ink-100 pt-4 text-xs font-semibold uppercase tracking-wide text-ink-400">
-                  Klant van Dolk Vastgoedbeheer · Ervaring {index + 1}
+                  Klant van Dolk Real Estate Management BV · Ervaring {index + 1}
                 </p>
               </article>
             ))}

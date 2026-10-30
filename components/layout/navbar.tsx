@@ -39,12 +39,12 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-emerald/10 bg-sand-100/95 backdrop-blur-xl">
       <div className="hidden border-b border-emerald/10 bg-emerald px-4 py-2 text-center text-[10px] font-medium uppercase tracking-[0.22em] text-sand-200 sm:block">
-        Dolk Vastgoedbeheer <span className="mx-3 text-champagne">/</span> Uw volgende hoofdstuk begint hier
+        Dolk Real Estate Management BV <span className="mx-3 text-champagne">/</span> Uw volgende hoofdstuk begint hier
       </div>
       <nav aria-label="Hoofdnavigatie" className="container-app flex h-20 items-center justify-between gap-4">
-        <Link href="/" className="flex min-w-0 shrink-0 items-center gap-3" aria-label="Dolk Vastgoedbeheer — Home">
-          <span className="flex h-11 w-11 items-center justify-center rounded-t-2xl border border-champagne bg-emerald text-champagne"><Building2 className="h-6 w-6" strokeWidth={1.3} /></span>
-          <span className="flex flex-col"><span className="font-display text-2xl leading-none text-emerald">Dolk<span className="text-champagne">.</span></span><span className="mt-1 text-[9px] font-semibold uppercase tracking-[0.16em] text-ink-500">Vastgoedbeheer</span></span>
+        <Link href="/" className="flex min-w-0 items-center gap-2 sm:gap-3" aria-label="Dolk Real Estate Management BV — Home">
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center sm:h-11 sm:w-11 rounded-t-2xl border border-champagne bg-emerald text-champagne"><Building2 className="h-6 w-6" strokeWidth={1.3} /></span>
+          <span className="flex min-w-0 flex-col"><span className="font-display text-2xl leading-none text-emerald">Dolk</span><span className="mt-1 max-w-[12rem] text-[9px] font-semibold uppercase leading-relaxed tracking-[0.1em] text-ink-500">Real Estate Management BV</span></span>
         </Link>
         <div className="hidden items-center gap-1 xl:flex">
           {NAV_LINKS.map(link => <Link key={link.href} href={link.href} aria-current={isActive(pathname, link.href) ? 'page' : undefined} className={cn('rounded-lg px-3 py-2 text-sm font-medium transition-colors', isActive(pathname, link.href) ? 'bg-emerald/5 text-emerald' : 'text-ink-500 hover:text-emerald hover:bg-white')}>{link.label}</Link>)}
@@ -52,7 +52,7 @@ export function Navbar() {
         <div className="flex items-center gap-2 sm:gap-3">
           <Link href="/mon-compte" aria-label="Mijn account" className="hidden rounded-full border border-emerald/15 p-3 text-emerald transition hover:bg-white sm:inline-flex"><User className="h-4 w-4" /></Link>
           <Link href="/appartements" className="hidden items-center gap-3 rounded-xl bg-champagne px-5 py-3 text-sm font-semibold text-ink-900 transition hover:bg-champagne-300 md:inline-flex">Bekijk woningen <ArrowUpRight className="h-4 w-4" /></Link>
-          <button ref={toggleRef} type="button" aria-expanded={open} aria-controls="navigation-menu" aria-label={open ? 'Menu sluiten' : 'Menu openen'} onClick={() => setOpen(!open)} className="flex h-11 w-11 items-center justify-center rounded-xl border border-emerald/20 text-emerald hover:bg-white">{open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}</button>
+          <button ref={toggleRef} type="button" aria-expanded={open} aria-controls="navigation-menu" aria-label={open ? 'Menu sluiten' : 'Menu openen'} onClick={() => setOpen(!open)} className="flex h-10 w-10 shrink-0 items-center justify-center sm:h-11 sm:w-11 rounded-xl border border-emerald/20 text-emerald hover:bg-white">{open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}</button>
         </div>
       </nav>
       <AnimatePresence>

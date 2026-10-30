@@ -31,7 +31,7 @@ export default async function MonComptePage({ searchParams }: { searchParams: { 
       <div className="mb-8">
         <h1 className="text-display-sm font-extrabold text-ink-900 sm:text-display-md">Mijn account</h1>
         <p className="mt-2 text-ink-500">
-          Hallo {dossier.client.first_name}, hier vindt u de voortgang van uw aanvragen bij Dolk Vastgoedbeheer.
+          Hallo {dossier.client.first_name}, hier vindt u de voortgang van uw aanvragen bij Dolk Real Estate Management BV.
         </p>
       </div>
 
