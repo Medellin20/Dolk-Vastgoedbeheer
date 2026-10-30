@@ -1,5 +1,6 @@
 'use client';
 
+import { useAdminDraft } from '@/lib/hooks/use-admin-draft';
 import { useAdminAction } from '@/lib/hooks/use-admin-action';
 
 import * as React from 'react';
@@ -21,6 +22,9 @@ export function BankSettingsForm({ settings }: { settings: BankSettings }) {
   const {
     register,
     handleSubmit,
+    getValues,
+    reset,
+    watch,
     formState: { errors },
   } = useForm<BankSettingsInput>({
     resolver: zodResolver(bankSettingsSchema),
@@ -35,10 +39,14 @@ export function BankSettingsForm({ settings }: { settings: BankSettings }) {
     },
   });
 
+  const clearDraft = useAdminDraft<BankSettingsInput>('dolk:admin-draft:bank-settings', { watch, getValues, reset });
+
   function onSubmit(data: BankSettingsInput) {
+    const submitted = getValues();
     startTransition(async () => {
       const result = await updateBankSettings(data);
       if (result.success) {
+        clearDraft(submitted);
         toast.success(result.message);
       } else {
         toast.error(result.message);

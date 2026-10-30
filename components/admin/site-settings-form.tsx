@@ -1,5 +1,6 @@
 'use client';
 
+import { useAdminDraft } from '@/lib/hooks/use-admin-draft';
 import { useAdminAction } from '@/lib/hooks/use-admin-action';
 
 import * as React from 'react';
@@ -24,7 +25,7 @@ export function SiteSettingsForm({
   bankSettings: BankSettings;
 }) {
   const [isPending, startTransition] = useAdminAction();
-  const { register, handleSubmit, formState: { errors } } = useForm<SiteSettingsInput>({
+  const { register, handleSubmit, watch, getValues, reset, formState: { errors } } = useForm<SiteSettingsInput>({
     resolver: zodResolver(siteSettingsSchema),
     defaultValues: {
       footerPhone: settings.footer_phone,
@@ -35,7 +36,10 @@ export function SiteSettingsForm({
     },
   });
 
+  const clearDraft = useAdminDraft<SiteSettingsInput>('dolk:admin-draft:site-settings', { watch, getValues, reset });
+
   function onSubmit(data: SiteSettingsInput) {
+    const submitted = getValues();
     startTransition(async () => {
       const result = await updateSiteSettings(data);
       if (!result.success) {
@@ -53,6 +57,7 @@ export function SiteSettingsForm({
         defaultDepositAmount: bankSettings.default_deposit_amount,
         showOnConfirmations: data.showOnConfirmations,
       });
+      if (bankResult.success) clearDraft(submitted);
       if (!bankResult.success) toast.error(`Le lien est enregistré, mais le RIB n'a pas été mis à jour : ${bankResult.message}`);
     });
   }

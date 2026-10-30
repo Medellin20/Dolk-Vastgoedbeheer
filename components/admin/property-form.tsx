@@ -1,5 +1,6 @@
 'use client';
 
+import { useAdminDraft } from '@/lib/hooks/use-admin-draft';
 import { useAdminAction } from '@/lib/hooks/use-admin-action';
 
 import * as React from 'react';
@@ -92,7 +93,7 @@ export function PropertyForm({
 }) {
   const router = useRouter();
   const [isPending, startTransition] = useAdminAction();
-  const [slugTouched, setSlugTouched] = React.useState(mode === 'edit');
+  const slugTouched = React.useRef(mode === 'edit');
   const [slugExists, setSlugExists] = React.useState(false);
   const [availabilityError, setAvailabilityError] = React.useState(false);
   const [isCheckingSlug, setIsCheckingSlug] = React.useState(false);
@@ -100,6 +101,8 @@ export function PropertyForm({
   const {
     register,
     handleSubmit,
+    getValues,
+    reset,
     control,
     watch,
     setValue,
@@ -113,6 +116,18 @@ export function PropertyForm({
         ? propertyToFormValues(property, currentAmenityIds ?? [])
         : {
             title: '',
+            address: '',
+            postalCode: '',
+            neighborhood: '',
+            latitude: undefined,
+            longitude: undefined,
+            rooms: undefined,
+            floor: undefined,
+            floorsCount: undefined,
+            volumeM3: undefined,
+            constructionYear: undefined,
+            energyLabel: '',
+            availableFrom: '',
             slug: '',
             propertyType: 'appartement',
             city: '',
@@ -141,18 +156,20 @@ export function PropertyForm({
           },
   });
 
+  const clearDraft = useAdminDraft<PropertyInput>(`dolk:admin-draft:property:${propertyId ?? 'new'}`, { watch, getValues, reset }, () => { slugTouched.current = true; });
+
   const title = watch('title');
   const slug = watch('slug');
   const debouncedTitle = useDebouncedValue(title, 200);
   const debouncedSlug = useDebouncedValue(slug, 200);
 
   React.useEffect(() => {
-    if (!slugTouched && title) {
+    if (!slugTouched.current && title) {
       setSlugExists(false);
       setAvailabilityError(false);
       setValue('slug', slugify(title));
     }
-  }, [title, slugTouched, setValue]);
+  }, [title, setValue]);
 
   React.useEffect(() => {
     let isCurrent = true;
@@ -188,6 +205,7 @@ export function PropertyForm({
   }, [debouncedTitle, debouncedSlug, mode, propertyId]);
 
   function onSubmit(data: PropertyInput) {
+    const submitted = getValues();
     if (slugExists) {
       setError('slug', { type: 'validate', message: 'Deze slug is al in gebruik.' });
       return;
@@ -198,6 +216,7 @@ export function PropertyForm({
         mode === 'create' ? await createProperty(data) : await updateProperty(propertyId!, data);
 
       if (result.success) {
+        clearDraft(submitted);
         toast.success(result.message);
         if (mode === 'create' && result.data?.id) {
           router.push(`/admin/appartements/${result.data.id}`);
@@ -243,7 +262,7 @@ export function PropertyForm({
                 type="button"
                 onClick={() => {
                   setValue('slug', slugify(title || ''));
-                  setSlugTouched(false);
+                  slugTouched.current = false;
                   setSlugExists(false);
                   setAvailabilityError(false);
                   clearErrors('slug');
@@ -259,7 +278,7 @@ export function PropertyForm({
               error={slugExists ? 'duplicate' : errors.slug?.message}
               {...register('slug', {
                 onChange: () => {
-                  setSlugTouched(true);
+                  slugTouched.current = true;
                   setSlugExists(false);
                   setAvailabilityError(false);
                   clearErrors('slug');
