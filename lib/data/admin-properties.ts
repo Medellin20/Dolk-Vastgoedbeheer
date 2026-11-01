@@ -9,18 +9,27 @@ type AdminPropertiesParams = {
 };
 
 export function buildPropertySearchFilter(search: string) {
+  const normalizedSearch = search.trim();
+
   // Quote PostgREST values and escape LIKE wildcards so input stays literal.
-  const pattern = `%${search.replace(/[\\%_*]/g, '\\$&')}%`;
+  const pattern = `%${normalizedSearch.replace(/[\\%_*]/g, '\\$&')}%`;
   const value = JSON.stringify(pattern);
   const filters = ['title', 'city', 'neighborhood', 'address', 'postal_code', 'slug']
     .map((column) => `${column}.ilike.${value}`);
-  if (/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(search)) {
-    filters.push(`id.eq.${search}`);
+
+  if (/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(normalizedSearch)) {
+    filters.push(`id.eq.${normalizedSearch}`);
   }
-  const price = search.replace(/€/g, '').replace(/\s/g, '').replace(',', '.');
+
+  const price = normalizedSearch
+    .replace(/[€\s]/g, '')
+    .replace(/\.(?=\d{3}(?:[.,]|$))/g, '')
+    .replace(',', '.');
+
   if (/^\d+(?:\.\d{1,2})?$/.test(price) && Number.isFinite(Number(price))) {
     filters.push(`monthly_price.eq.${Number(price)}`);
   }
+
   return filters.join(',');
 }
 
@@ -38,8 +47,8 @@ export async function getAllPropertiesAdmin(params: AdminPropertiesParams = {}) 
 
   const search = params.search?.trim();
   if (search) query = query.or(buildPropertySearchFilter(search));
-  const status = params.status as PropertyStatus;
-  if (params.status && ['draft', 'available', 'reserved', 'rented', 'unavailable'].includes(status)) {
+  const status = params.status?.trim() as PropertyStatus | undefined;
+  if (status && ['draft', 'available', 'reserved', 'rented', 'unavailable'].includes(status)) {
     query = query.eq('status', status);
   }
 

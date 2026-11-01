@@ -33,6 +33,7 @@ test('supports UUID identifiers and numeric prices without invalid numeric filte
   const id = 'ABCDEF12-1234-1234-1234-123456789012';
   assert(filter(id).includes(`id.eq.${id}`));
   assert(filter('€ 1 250,50').includes('monthly_price.eq.1250.5'));
+  assert(filter(' 1.250,50 ').includes('monthly_price.eq.1250.5'));
   assert(!filter('Rotterdam').includes('monthly_price.eq'));
   assert(!filter('invalid-id').includes('id.eq'));
 });
