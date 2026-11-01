@@ -49,7 +49,7 @@ export default async function AdminDashboardPage() {
       )}
       <div className="dashboard-intro mb-8 flex flex-wrap items-center justify-between gap-5 rounded-2xl border border-emerald/10 bg-emerald p-6 sm:p-8">
         <div>
-          <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-champagne">Dolk Real Estate Management BV / Beheer & overzicht</p>
+          <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-champagne">Dolk Vastgoedbeheer BV / Beheer & overzicht</p>
           <h1 className="font-display text-3xl font-normal text-white sm:text-4xl">Uw vastgoed, in één overzicht.</h1>
           <p className="mt-3 text-sm text-sand-300">Overzicht van de activiteiten van het agentschap.</p>
         </div>

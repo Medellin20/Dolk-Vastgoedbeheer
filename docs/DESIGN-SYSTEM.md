@@ -1,4 +1,4 @@
-# Dolk Real Estate Management BV — identité visuelle
+# Dolk Vastgoedbeheer BV — identité visuelle
 
 La palette globale est définie dans `tailwind.config.ts`, avec les mêmes couleurs de base dans les variables CSS de `app/globals.css`.
 

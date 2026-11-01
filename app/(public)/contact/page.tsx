@@ -6,7 +6,7 @@ import { getSiteSettings } from '@/lib/data/site-settings';
 
 export const metadata: Metadata = {
   title: 'Contact',
-  description: 'Neem contact op met het team van Dolk Real Estate Management BV voor vragen over het huren van een appartement in Nederland.',
+  description: 'Neem contact op met het team van Dolk Vastgoedbeheer BV voor vragen over het huren van een appartement in Nederland.',
 };
 
 export default async function ContactPage() {

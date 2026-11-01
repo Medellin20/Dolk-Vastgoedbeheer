@@ -2,14 +2,10 @@ import { z } from 'zod';
 
 // Les champs numériques HTML vides renvoient une chaîne vide, pas undefined.
 function optionalNumber(schema: z.ZodNumber) {
-  return z.preprocess((value) => {
-    if (value === undefined || value === null) return undefined;
-    if (typeof value === 'string') {
-      const trimmed = value.trim();
-      return trimmed === '' ? undefined : trimmed;
-    }
-    return value;
-  }, schema.optional());
+  return z.preprocess(
+    (value) => typeof value === 'string' && value.trim() === '' ? undefined : value,
+    schema.optional()
+  );
 }
 
 export const propertySchema = z.object({

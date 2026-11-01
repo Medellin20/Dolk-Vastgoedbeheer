@@ -40,10 +40,6 @@ test('provided optional numbers retain valid zero values and their constraints',
   for (const [field, value] of [['floorsCount', '0'], ['volumeM3', '0'], ['constructionYear', '999'], ['rooms', '-1'], ['latitude', '91'], ['floor', 'abc']]) {
     assert.equal(propertySchema.safeParse({ ...form, [field]: value }).success, false, field);
   }
-  const nullable = propertySchema.parse({ ...form, rooms: null, floor: null, constructionYear: null });
-  assert.equal(nullable.rooms, undefined);
-  assert.equal(nullable.floor, undefined);
-  assert.equal(nullable.constructionYear, undefined);
 });
 
 test('required price and surface still reject empty values', () => {

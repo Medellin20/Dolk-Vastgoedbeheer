@@ -8,7 +8,7 @@ export default function MentionsLegalesPage() {
     <LegalPage title="Juridische kennisgeving" updatedAt="30 oktober 2026">
       <h2>Website-uitgever</h2>
       <p>
-        De website Dolk Real Estate Management BV wordt uitgegeven door <strong>Dolk Real Estate Management BV</strong>,
+        De website Dolk Vastgoedbeheer BV wordt uitgegeven door <strong>Dolk Vastgoedbeheer BV</strong>,
         een besloten vennootschap (BV), ingeschreven bij de Kamer van Koophandel onder nummer{' '}
         <strong>KvK 42139168</strong>.
       </p>
@@ -26,7 +26,7 @@ export default function MentionsLegalesPage() {
 
       <h2>Aansprakelijkheid</h2>
       <p>
-        Dolk Real Estate Management BV doet haar best om de juistheid van de informatie op deze website te waarborgen,
+        Dolk Vastgoedbeheer BV doet haar best om de juistheid van de informatie op deze website te waarborgen,
         maar kan niet aansprakelijk worden gesteld voor fouten, weglatingen of tijdelijke onbeschikbaarheid.
       </p>
 

@@ -211,7 +211,7 @@ export async function sendAdminAlert(
 
     const info = await transporter.sendMail({
       from: {
-        name: 'Dolk Real Estate Management BV',
+        name: 'Dolk Vastgoedbeheer BV',
         address: user,
       },
 
@@ -240,13 +240,13 @@ export async function sendAdminAlert(
 
           <body style="margin:0;padding:0;background:#FAF9F6;font-family:Arial,Helvetica,sans-serif;color:#18181B;">
             <div style="display:none;max-height:0;overflow:hidden;opacity:0;color:transparent;">
-              Nouvelle demande reçue sur Dolk Real Estate Management BV.
+              Nouvelle demande reçue sur Dolk Vastgoedbeheer BV.
             </div>
             <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="padding:32px 12px;background:#FAF9F6;">
               <tr><td align="center">
                 <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="max-width:680px;background:#ffffff;border-radius:16px;overflow:hidden;box-shadow:0 6px 24px rgba(23,43,54,.10);">
                   <tr><td style="padding:24px 28px;background:#064E3B;">
-                    <p style="margin:0 0 6px;color:#D4AF75;font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;">Dolk Real Estate Management BV · Administration</p>
+                    <p style="margin:0 0 6px;color:#D4AF75;font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;">Dolk Vastgoedbeheer BV · Administration</p>
                     <h1 style="margin:0;color:#ffffff;font-size:23px;line-height:1.3;">${escapeHtml(subject)}</h1>
                   </td></tr>
                   <tr><td style="padding:28px;">
@@ -260,7 +260,7 @@ export async function sendAdminAlert(
                     </div>
                   </td></tr>
                   <tr><td style="padding:18px 28px;border-top:1px solid #DFEBE3;background:#FAF9F6;color:#58645B;font-size:12px;line-height:1.5;">
-                    Cet e-mail est envoyé automatiquement par Dolk Real Estate Management BV. Merci de ne pas y répondre.
+                    Cet e-mail est envoyé automatiquement par Dolk Vastgoedbeheer BV. Merci de ne pas y répondre.
                   </td></tr>
                 </table>
               </td></tr>

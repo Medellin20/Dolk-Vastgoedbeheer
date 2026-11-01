@@ -15,30 +15,30 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'Dolk Real Estate Management BV — Appartementen huren in Nederland',
-    template: '%s | Dolk Real Estate Management BV',
+    default: 'Dolk Vastgoedbeheer BV — Appartementen huren in Nederland',
+    template: '%s | Dolk Vastgoedbeheer BV',
   },
   description:
-    'Dolk Real Estate Management BV begeleidt u bij het zoeken, bezichtigen en reserveren van huurappartementen in Nederland: Amsterdam, Rotterdam, Utrecht, Eindhoven, Den Haag en Groningen.',
+    'Dolk Vastgoedbeheer BV begeleidt u bij het zoeken, bezichtigen en reserveren van huurappartementen in Nederland: Amsterdam, Rotterdam, Utrecht, Eindhoven, Den Haag en Groningen.',
   keywords: [
     'appartement huren Nederland',
     'appartement Amsterdam',
     'appartement huren Rotterdam',
     'huisvesting voor expats in Nederland',
-    'Dolk Real Estate Management BV',
+    'Dolk Vastgoedbeheer BV',
   ],
   openGraph: {
     type: 'website',
     locale: 'nl_NL',
-    siteName: 'Dolk Real Estate Management BV',
-    title: 'Dolk Real Estate Management BV — Appartementen huren in Nederland',
+    siteName: 'Dolk Vastgoedbeheer BV',
+    title: 'Dolk Vastgoedbeheer BV — Appartementen huren in Nederland',
     description:
       'Zoek, bezichtig en reserveer uw volgende woning in Nederland met vertrouwen.',
     url: siteUrl,
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Dolk Real Estate Management BV — Appartementen huren in Nederland',
+    title: 'Dolk Vastgoedbeheer BV — Appartementen huren in Nederland',
     description: 'Vind uw volgende woning in Nederland.',
   },
   robots: {

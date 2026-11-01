@@ -1,8 +1,8 @@
-# Dolk Real Estate Management BV
+# Dolk Vastgoedbeheer BV
 
 **Plateforme professionnelle de location d'appartements aux Pays-Bas.**
 
-Dolk Real Estate Management BV est une application web complète permettant à une agence immobilière de publier des logements, gérer les demandes de visite, les réservations, les paiements de garantie et les remboursements — avec un espace client et un dashboard administrateur intégré.
+Dolk Vastgoedbeheer BV est une application web complète permettant à une agence immobilière de publier des logements, gérer les demandes de visite, les réservations, les paiements de garantie et les remboursements — avec un espace client et un dashboard administrateur intégré.
 
 ---
 
@@ -275,7 +275,7 @@ npm start
 
 ## Licence
 
-Projet propriétaire — Dolk Real Estate Management BV. Tous droits réservés.
+Projet propriétaire — Dolk Vastgoedbeheer BV. Tous droits réservés.
 
 ## Installation Supabase détaillée
 

@@ -4,7 +4,7 @@ import { FadeIn } from '@/components/ui/fade-in';
 
 export const metadata: Metadata = {
   title: 'FAQ',
-  description: 'Veelgestelde vragen over bezichtigingen en reserveringen bij Dolk Real Estate Management BV.',
+  description: 'Veelgestelde vragen over bezichtigingen en reserveringen bij Dolk Vastgoedbeheer BV.',
 };
 
 const CATEGORIES = [
