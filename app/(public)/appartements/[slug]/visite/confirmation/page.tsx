@@ -67,8 +67,8 @@ export default async function ViewingConfirmationPage({
 
         <p className="mt-3 rounded-xl border border-red-200 bg-red-50 p-3 text-sm font-semibold leading-relaxed text-red-700">
           Stuur na de betaling de bevestiging per e-mail naar{' '}
-          <a href="mailto:contacts@realestatenl.agency" className="underline">
-            contacts@realestatenl.agency
+          <a href="mailto:Contacts@dolkvastgoednl.agency" className="underline">
+            Contacts@dolkvastgoednl.agency
           </a>{' '}
           of via WhatsApp naar{' '}
           <a
