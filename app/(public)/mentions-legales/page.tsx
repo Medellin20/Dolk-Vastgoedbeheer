@@ -30,7 +30,7 @@ export default function MentionsLegalesPage() {
       </p>
 
       <h2>Contact</h2>
-      <p>Voor vragen over deze juridische kennisgeving kunt u contact opnemen via Contacts@dolkvastgoednl.agency.</p>
+      <p>Voor vragen over deze juridische kennisgeving kunt u contact opnemen via contacts@vastgoedbeheernl.agency.</p>
     </LegalPage>
   );
 }

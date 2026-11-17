@@ -95,11 +95,11 @@ export async function Footer() {
           <ul className="mt-4 space-y-3">
             <li>
               <a
-                href="mailto:Contacts@dolkvastgoednl.agency"
+                href="mailto:contacts@vastgoedbeheernl.agency"
                 className="flex min-w-0 items-center gap-2.5 break-all text-sm text-sand-300 transition-colors hover:text-white"
               >
                 <Mail className="h-4 w-4 shrink-0" />
-                Contacts@dolkvastgoednl.agency
+                contacts@vastgoedbeheernl.agency
               </a>
             </li>
             <li>

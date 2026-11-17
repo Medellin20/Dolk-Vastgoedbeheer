@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default async function ContactPage() {
   const { footer_phone: footerPhone } = await getSiteSettings();
   const info = [
-    { icon: Mail, label: 'Contacts@dolkvastgoednl.agency' },
+    { icon: Mail, label: 'contacts@vastgoedbeheernl.agency' },
     { icon: Phone, label: footerPhone },
     { icon: MapPin, label: 'Hijkerveld 164, 3085 PD Rotterdam, Nederland' },
     { icon: Clock, label: 'Lun–Ven, 9h–18h (CET)' },
