@@ -58,37 +58,31 @@ export default async function HomePage() {
   return (
     <>
       {/* HERO */}
-      <section className="luxury-hero relative overflow-hidden border-b border-emerald/10">
-        <div className="container-app relative pb-10 pt-10 sm:pb-14 sm:pt-14">
-          <div className="grid items-center gap-10 lg:grid-cols-[1fr_1fr] lg:gap-12">
+      <section className="relative isolate bg-sage-50 pb-10 sm:pb-14">
+        <div className="relative min-h-[30rem] overflow-hidden bg-emerald-950 pb-28 pt-14 sm:min-h-[35rem] sm:pb-36 sm:pt-24">
+          {featuredProperties[0]?.property_images[0] ? (
+            <Image src={(featuredProperties[0].property_images.find(image => image.is_primary) ?? featuredProperties[0].property_images[0]).url} alt={featuredProperties[0].title} fill priority sizes="100vw" className="object-cover object-center" />
+          ) : (
+            <div className="architectural-mark" aria-hidden="true"><span /><span /><span /></div>
+          )}
+          <div className="absolute inset-0 bg-gradient-to-r from-emerald-950/95 via-emerald-950/75 to-emerald-950/30" />
+          <div className="container-app relative">
             <FadeIn>
-              <span className="inline-flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-emerald">Rotterdam · Wonen met vertrouwen</span>
-              <h1 className="mt-6 max-w-2xl font-display text-[2.6rem] font-semibold leading-[1.07] tracking-tight text-emerald sm:text-6xl lg:text-[4.25rem]">
-                Een bijzonder huis.<br /><span className="text-ink-500">Een nieuw begin.</span>
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-2 text-xs font-medium text-white backdrop-blur-sm"><MapPin className="h-3.5 w-3.5" /> Rotterdam · Thuis in Nederland</span>
+              <h1 className="mt-6 max-w-3xl font-display text-[2.5rem] font-semibold leading-[1.08] tracking-tight text-white sm:text-6xl lg:text-7xl">
+                Hier begint<br />uw volgende hoofdstuk.
               </h1>
-              <p className="mt-6 max-w-lg text-base leading-relaxed text-ink-500">
-                Vind uw volgende woning in Nederland. Vastgoed Beheer B.V. begeleidt u persoonlijk, van de eerste bezichtiging tot de sleuteloverdracht.
+              <p className="mt-6 max-w-xl text-base leading-relaxed text-white/85 sm:text-lg">
+                Vind een woning die bij u past. Vastgoed Beheer B.V. begeleidt u persoonlijk, van de eerste bezichtiging tot de sleuteloverdracht.
               </p>
-              <Link href="/appartements" className="mt-7 inline-flex items-center gap-4 rounded-xl bg-emerald px-6 py-3.5 text-sm font-semibold text-white shadow-card transition hover:bg-emerald-800">Ontdek onze woningen <ArrowRight className="h-4 w-4" /></Link>
-            </FadeIn>
-            <FadeIn delay={0.1} className="relative">
-              <div className="relative aspect-[5/4] overflow-hidden rounded-3xl lg:rounded-tl-[5rem] bg-emerald sm:aspect-[6/5]">
-                {featuredProperties[0]?.property_images[0] ? (
-                  <Image src={(featuredProperties[0].property_images.find(image => image.is_primary) ?? featuredProperties[0].property_images[0]).url} alt={featuredProperties[0].title} fill priority sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" />
-                ) : (
-                  <div className="architectural-mark" aria-hidden="true"><span /><span /><span /><Building2 className="relative h-20 w-20 text-champagne" strokeWidth={0.7} /></div>
-                )}
-                <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-transparent to-transparent" />
-                <div className="absolute bottom-7 left-7 right-7 flex items-end justify-between gap-4 text-white">
-                  <div><p className="text-[10px] uppercase tracking-[0.2em] text-champagne">Vastgoed Beheer B.V.</p><p className="mt-2 font-display text-2xl">{featuredProperties[0]?.city ?? 'Thuis in Nederland'}</p></div>
-                  <span className="flex h-11 w-11 items-center justify-center rounded-full border border-white/30"><ArrowRight className="h-5 w-5" /></span>
-                </div>
-              </div>
-              <div className="absolute -bottom-4 left-4 rounded-xl border border-emerald/10 bg-sand-100 px-5 py-3 shadow-card sm:left-8"><span className="flex items-center gap-2 text-xs font-semibold text-emerald"><ShieldCheck className="h-4 w-4" /> Persoonlijke begeleiding</span></div>
+              <Link href="/appartements" className="mt-7 inline-flex min-h-12 items-center gap-3 rounded-full bg-champagne px-6 py-3 text-sm font-semibold text-ink-900 transition hover:bg-champagne-200">Ontdek onze woningen <ArrowRight className="h-4 w-4" /></Link>
+              <p className="mt-6 flex items-center gap-2 text-xs text-white/85"><ShieldCheck className="h-4 w-4 text-champagne" /> Persoonlijke begeleiding, van zoeken tot verhuizen</p>
             </FadeIn>
           </div>
-          <FadeIn delay={0.15} className="relative z-10 mt-12"><HeroSearchBar /></FadeIn>
-          <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-ink-500"><span className="font-semibold text-emerald">Populaire steden</span>{DUTCH_CITIES.map(city => <Link key={city} href={`/appartements?city=${encodeURIComponent(city)}`} className="transition hover:text-emerald hover:underline">{city}</Link>)}</div>
+        </div>
+        <div className="container-app relative z-10 -mt-16 sm:-mt-20">
+          <FadeIn delay={0.1}><HeroSearchBar /></FadeIn>
+          <div className="mt-5 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-ink-500"><span className="font-semibold text-emerald">Populaire steden</span>{DUTCH_CITIES.map(city => <Link key={city} href={`/appartements?city=${encodeURIComponent(city)}`} className="transition hover:text-emerald hover:underline">{city}</Link>)}</div>
         </div>
       </section>
 
@@ -125,35 +119,25 @@ export default async function HomePage() {
             </div>
           </FadeIn>
 
-          <div className="mt-9 grid grid-cols-1 gap-5 md:grid-cols-2">
+          <div className="mt-9 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {citySummaries.map((summary, index) => (
               <FadeIn key={summary.city} delay={Math.min(index, 6) * 0.04} className="min-w-0">
-                <Link
-                  href={`/appartements?city=${encodeURIComponent(summary.city)}`}
-                  className="group flex min-w-0 items-center gap-3 rounded-2xl border border-emerald/10 bg-white p-4 shadow-soft transition hover:border-champagne sm:gap-5"
-                >
-                  <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-sand-200 sm:h-28 sm:w-44">
-                    {summary.imageUrl ? (
-                      <Image src={summary.imageUrl} alt={`Appartement in ${summary.city}`} fill sizes="(max-width: 640px) 80px, 176px" className="object-cover transition-transform duration-300 group-hover:scale-105" />
-                    ) : (
-                      <span className="flex h-full items-center justify-center text-canal-500"><MapPin className="h-7 w-7" /></span>
-                    )}
+                <Link href={`/appartements?city=${encodeURIComponent(summary.city)}`} className="group relative flex min-h-72 min-w-0 items-end overflow-hidden rounded-3xl bg-emerald-950 p-6 sm:min-h-80">
+                  {summary.imageUrl ? (
+                    <Image src={summary.imageUrl} alt={`Appartement in ${summary.city}`} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover transition-transform duration-500 group-hover:scale-105" />
+                  ) : <MapPin className="absolute right-8 top-8 h-24 w-24 text-white/10" aria-hidden="true" />}
+                  <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/95 via-emerald-950/25 to-transparent" />
+                  <span className="absolute left-5 top-5 rounded-full bg-white/95 px-3 py-1.5 text-xs font-semibold text-emerald">{summary.count} appartement{summary.count > 1 ? 's' : ''}</span>
+                  <div className="relative flex w-full min-w-0 items-end justify-between gap-3 text-white">
+                    <div className="min-w-0"><h3 className="break-words text-2xl font-semibold sm:text-3xl">{summary.city}</h3><p className="mt-2 text-sm text-white/80">Gem. {formatPrice(summary.averagePrice)} / maand</p></div>
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/40 transition group-hover:bg-white group-hover:text-emerald"><ArrowRight className="h-5 w-5" /></span>
                   </div>
-                  <div className="min-w-0 flex-1">
-                    <h3 className="truncate text-xl font-extrabold text-canal-700 sm:text-2xl">{summary.city}</h3>
-                    <p className="mt-1 text-sm text-ink-600 sm:text-base">{summary.count} appartement{summary.count > 1 ? 's' : ''}</p>
-                    <p className="mt-0.5 text-sm text-ink-500 sm:text-base">Gem. {formatPrice(summary.averagePrice)} / maand</p>
-                  </div>
-                  <ArrowRight className="h-5 w-5 shrink-0 text-canal-500 transition-transform group-hover:translate-x-1 sm:h-8 sm:w-8" />
                 </Link>
               </FadeIn>
             ))}
           </div>
         </div>
       </section>
-
-      <div className="container-app">
-      </div>
 
       {/* COMMENT ÇA MARCHE */}
       <section className="py-16 sm:py-20">
@@ -195,7 +179,7 @@ export default async function HomePage() {
       </section>
 
       {/* TÉMOIGNAGES CLIENTS */}
-      <section className="border-y border-ink-100 bg-sand-100/60 py-16 sm:py-20">
+      <section className="bg-sage-50 py-16 sm:py-20">
         <div className="container-app">
           <FadeIn>
             <SectionHeading
@@ -209,7 +193,7 @@ export default async function HomePage() {
             {DUTCH_TESTIMONIALS.map((testimonial) => (
               <article
                 key={testimonial.name}
-                className="flex min-h-64 w-[85vw] max-w-sm shrink-0 snap-start flex-col rounded-2xl border border-ink-100 bg-white p-6 shadow-soft sm:w-80"
+                className="flex min-h-64 w-[85vw] max-w-sm shrink-0 snap-start flex-col rounded-2xl border border-white bg-white p-7 shadow-soft sm:w-80"
               >
                 <div className="flex items-center justify-between gap-3">
                   <Quote className="h-7 w-7 text-canal-500" aria-hidden="true" />

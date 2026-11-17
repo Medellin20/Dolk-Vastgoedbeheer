@@ -62,7 +62,7 @@ export function FeaturedProperties({
 }) {
 
   return (
-    <section className="border-y border-ink-100 bg-white py-16 sm:py-20">
+    <section className="bg-white py-16 sm:py-20">
       <div className="container-app">
         <div className="flex flex-wrap items-end justify-between gap-5">
           <SectionHeading
@@ -89,11 +89,11 @@ export function FeaturedProperties({
                 return (
                   <article
                     key={property.id}
-                    className="group w-full min-w-0 shrink-0 snap-start overflow-hidden rounded-2xl border border-ink-100 bg-white shadow-soft transition-shadow duration-300 hover:shadow-card sm:w-[calc((100%_-_1.25rem)/2)] lg:w-[calc((100%_-_2.5rem)/3)]"
+                    className="group w-full min-w-0 shrink-0 snap-start overflow-hidden rounded-3xl border border-ink-100 bg-white shadow-soft transition-shadow duration-300 hover:shadow-card sm:w-[calc((100%_-_1.25rem)/2)] lg:w-[calc((100%_-_2.5rem)/3)]"
                   >
                     <Link
                       href={`/appartements/${property.slug}`}
-                      className="relative block aspect-[4/3] overflow-hidden bg-sand-200"
+                      className="relative block aspect-[5/4] overflow-hidden bg-sand-200"
                       aria-label={`Bekijk ${property.title}`}
                     >
                       {primaryImage ? (
@@ -141,7 +141,7 @@ export function FeaturedProperties({
                       </div>
 
                       <p className="mt-4 border-t border-ink-100 pt-4">
-                        <span className="text-xl font-extrabold text-ink-900">
+                        <span className="text-2xl font-extrabold text-emerald">
                           {priceFormatter.format(property.monthly_price)}
                         </span>
                         <span className="ml-1 text-sm text-ink-400">/ maand</span>

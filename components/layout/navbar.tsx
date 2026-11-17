@@ -51,7 +51,7 @@ export function Navbar() {
         </div>
         <div className="flex items-center gap-2 sm:gap-3">
           <Link href="/mon-compte" aria-label="Mijn account" className="hidden rounded-full border border-emerald/15 p-3 text-emerald transition hover:bg-white sm:inline-flex"><User className="h-4 w-4" /></Link>
-          <Link href="/appartements" className="hidden items-center gap-3 rounded-xl bg-champagne px-5 py-3 text-sm font-semibold text-ink-900 transition hover:bg-champagne-300 md:inline-flex">Bekijk woningen <ArrowUpRight className="h-4 w-4" /></Link>
+          <Link href="/appartements" className="hidden items-center gap-3 rounded-full bg-champagne px-5 py-3 text-sm font-semibold text-ink-900 transition hover:bg-champagne-300 md:inline-flex">Bekijk woningen <ArrowUpRight className="h-4 w-4" /></Link>
           <button ref={toggleRef} type="button" aria-expanded={open} aria-controls="navigation-menu" aria-label={open ? 'Menu sluiten' : 'Menu openen'} onClick={() => setOpen(!open)} className="flex h-10 w-10 shrink-0 items-center justify-center sm:h-11 sm:w-11 rounded-xl border border-emerald/20 text-emerald hover:bg-white">{open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}</button>
         </div>
       </nav>

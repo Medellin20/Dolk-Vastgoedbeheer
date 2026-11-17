@@ -23,9 +23,9 @@ export function PropertyCard({ property }: { property: PropertyWithRelations }) 
   return (
     <Link
       href={`/appartements/${property.slug}`}
-      className="property-card group block overflow-hidden rounded-2xl border border-ink-100 bg-white shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-lifted"
+      className="property-card group block overflow-hidden rounded-3xl border border-ink-100 bg-white shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-lifted"
     >
-      <div className="relative aspect-[5/4] w-full overflow-hidden bg-ink-100">
+      <div className="relative aspect-[6/5] w-full overflow-hidden bg-ink-100">
         {primaryImage ? (
           <Image
             src={primaryImage.url}
@@ -66,7 +66,7 @@ export function PropertyCard({ property }: { property: PropertyWithRelations }) 
         </h3>
 
         <div className="mt-2 flex items-baseline gap-1">
-          <span className="text-2xl font-semibold tracking-tight text-emerald">
+          <span className="text-3xl font-semibold tracking-tight text-emerald">
             {formatPrice(property.monthly_price)}
           </span>
           <span className="text-sm text-ink-400">/ maand</span>
