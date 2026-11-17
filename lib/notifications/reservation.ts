@@ -41,25 +41,25 @@ export async function notifyAdminOfReservation(
   }
 
   const result = await sendAdminAlert(
-    `Nouveau dossier de paiement de réservation — ${reservation.reference}`,
+    `Nieuw reserveringsdossier — ${reservation.reference}`,
     {
-      Référence: reservation.reference,
+      'Referentie': reservation.reference,
       ...getPropertyEmailDetails(
         property,
         await getAmenityLabels(property.id)
       ),
-      'Frais de réservation (50 % du loyer)': `${property.monthly_price / 2} €`,
-      Client: `${client.first_name} ${client.last_name}`,
+      'Reserveringskosten (50% van de huur)': `${property.monthly_price / 2} €`,
+      'Klant': `${client.first_name} ${client.last_name}`,
       Email: client.email,
-      Téléphone: client.phone,
-      'Date souhaitée': reservation.desired_move_in_date,
-      Durée: `${reservation.duration_months} mois`,
-      Occupants: reservation.occupants_count,
-      'Animaux de compagnie': reservation.has_pets ? 'Oui' : 'Non',
-      'Contrat de travail': reservation.employment_contract,
-      'Revenu mensuel': reservation.monthly_income === null ? undefined : `${reservation.monthly_income} €`,
-      'Ville d’origine': reservation.origin_city,
-      Message: reservation.message,
+      'Telefoon': client.phone,
+      'Gewenste datum': reservation.desired_move_in_date,
+      'Huurperiode': `${reservation.duration_months} maanden`,
+      'Bewoners': reservation.occupants_count,
+      'Huisdieren': reservation.has_pets ? 'Ja' : 'Nee',
+      'Arbeidscontract': reservation.employment_contract,
+      'Maandelijks inkomen': reservation.monthly_income === null ? undefined : `${reservation.monthly_income} €`,
+      'Plaats van herkomst': reservation.origin_city,
+      'Bericht': reservation.message,
     }
   );
 

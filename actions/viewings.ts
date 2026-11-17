@@ -219,31 +219,31 @@ export async function createViewingRequest(
    */
   const emailResult =
     await sendAdminAlert(
-      `Nouvelle demande de visite — ${reference}`,
+      `Nieuwe bezichtigingsaanvraag — ${reference}`,
       {
-        Référence:
+        'Referentie':
           reference,
 
         ...getPropertyEmailDetails(
           property,
           await getAmenityLabels(property.id)
         ),
-        'Frais de visite': formatPrice(viewingFee),
-        'Lien de paiement': siteSettings.payment_link,
+        'Bezichtigingskosten': formatPrice(viewingFee),
+        'Betaallink': siteSettings.payment_link,
 
-        Client:
+        'Klant':
           `${parsed.data.firstName} ${parsed.data.lastName}`,
 
         Email:
           parsed.data.email,
 
-        Téléphone:
+        'Telefoon':
           parsed.data.phone,
 
         Date:
           parsed.data.requestedDate,
 
-        Créneau:
+        'Tijdstip':
           parsed.data.requestedTimeSlot,
       }
     );

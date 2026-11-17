@@ -46,7 +46,7 @@ test('database insert failure cleans up uploaded object and reports the database
   const { upload, removed } = setup({ insertError: { message: 'database error' } });
   const result = await upload();
   assert.equal(result.success, false);
-  assert.match(result.message, /base a échoué/);
+  assert.match(result.message, /database worden opgeslagen/);
   assert.equal(removed.length, 1);
 });
 test('valid image creates a primary photo record and invalid MIME does not reach the database', async () => {

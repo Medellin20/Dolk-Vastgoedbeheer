@@ -4,6 +4,7 @@ import { useAdminDraft } from '@/lib/hooks/use-admin-draft';
 import { useAdminAction } from '@/lib/hooks/use-admin-action';
 
 import * as React from 'react';
+import { dutchDisplay } from '@/lib/utils/dutch-display';
 import { useRouter } from 'next/navigation';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -494,7 +495,7 @@ export function PropertyForm({
                         else field.onChange((field.value ?? []).filter((id) => id !== amenity.id));
                       }}
                     />
-                    {amenity.label_fr}
+                    {dutchDisplay(amenity.label_fr)}
                   </label>
                 );
               })}

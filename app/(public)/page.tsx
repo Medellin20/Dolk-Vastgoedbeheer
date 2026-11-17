@@ -1,8 +1,9 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import type { Metadata } from 'next';
-import { ArrowRight, ShieldCheck, KeyRound, CalendarCheck, Building2, Quote, Star, MapPin } from 'lucide-react';
+import { ArrowRight, ShieldCheck, KeyRound, CalendarCheck, Building2, Quote, MapPin } from 'lucide-react';
 import { HeroSearchBar } from '@/components/properties/hero-search-bar';
+import { HeroParallax } from '@/components/ui/hero-parallax';
 import { FadeIn } from '@/components/ui/fade-in';
 import { SectionHeading } from '@/components/ui/section-heading';
 import { Button } from '@/components/ui/button';
@@ -10,12 +11,13 @@ import { FeaturedProperties } from '@/components/properties/featured-properties'
 import { getCityPropertySummaries, getFeaturedProperties } from '@/lib/data/properties';
 import { formatPrice } from '@/lib/utils/format';
 import { DUTCH_CITIES } from '@/lib/utils/constants';
-import { DUTCH_TESTIMONIALS } from '@/lib/data/testimonials';
+import { VERIFIED_DUTCH_TESTIMONIALS } from '@/lib/data/testimonials';
 
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: 'Vastgoed Beheer B.V. — Appartementen huren in Nederland',
+  title: { absolute: 'Vastgoed Beheer B.V. — Appartementen huren in Nederland' },
+  alternates: { canonical: '/' },
   description:
     'Vind uw volgende woning in Nederland. Vastgoed Beheer B.V. maakt het zoeken, bezichtigen en reserveren van appartementen in Amsterdam, Rotterdam, Utrecht en daarbuiten eenvoudig.',
 };
@@ -24,12 +26,12 @@ const STEPS = [
   {
     icon: Building2,
     title: 'Zoek een woning',
-    description: 'Filter op stad, budget en aantal slaapkamers uit onze geverifieerde advertenties.',
+    description: 'Filter op stad, budget en aantal slaapkamers uit ons actuele woningaanbod.',
   },
   {
     icon: CalendarCheck,
     title: 'Plan een bezichtiging',
-    description: 'Kies een datum en tijdstip en verstuur uw aanvraag gratis naar het agentschap.',
+    description: 'Kies een datum en tijdstip en verstuur uw aanvraag naar ons team.',
   },
   {
     icon: ShieldCheck,
@@ -39,58 +41,59 @@ const STEPS = [
   {
     icon: KeyRound,
     title: 'Verhuis',
-    description: 'Na goedkeuring van uw dossier ontvangt u de sleutels van uw nieuwe woning.',
+    description: 'Na akkoord over de huur en de afspraken volgt de sleuteloverdracht.',
   },
-];
-
-const TRUST_POINTS = [
-  { value: '6', label: 'steden in Nederland' },
-  { value: '100%', label: 'geverifieerde advertenties van het agentschap' },
-  { value: '48h', label: 'gemiddelde reactietermijn op een aanvraag' },
 ];
 
 export default async function HomePage() {
   const [citySummaries, featuredProperties] = await Promise.all([
     getCityPropertySummaries(),
-    getFeaturedProperties(3),
+    getFeaturedProperties(6),
   ]);
+
+  const heroProperty = featuredProperties.find(property => property.property_images.length > 0);
+  const heroImage = heroProperty && (heroProperty.property_images.find(image => image.is_primary) ?? heroProperty.property_images[0]);
+  const trustPoints = [
+    { value: String(citySummaries.reduce((total, city) => total + city.count, 0)), label: 'woningen in ons aanbod' },
+    { value: String(citySummaries.length), label: 'steden om te ontdekken' },
+    { value: 'Rotterdam', label: 'de thuisbasis van ons kantoor' },
+  ];
 
   return (
     <>
       {/* HERO */}
-      <section className="relative isolate bg-sage-50 pb-10 sm:pb-14">
-        <div className="relative min-h-[30rem] overflow-hidden bg-emerald-950 pb-28 pt-14 sm:min-h-[35rem] sm:pb-36 sm:pt-24">
-          {featuredProperties[0]?.property_images[0] ? (
-            <Image src={(featuredProperties[0].property_images.find(image => image.is_primary) ?? featuredProperties[0].property_images[0]).url} alt={featuredProperties[0].title} fill priority sizes="100vw" className="object-cover object-center" />
-          ) : (
-            <div className="architectural-mark" aria-hidden="true"><span /><span /><span /></div>
-          )}
-          <div className="absolute inset-0 bg-gradient-to-r from-emerald-950/95 via-emerald-950/75 to-emerald-950/30" />
+      <section className="luxury-home-hero relative isolate bg-sand-100 pb-10 sm:pb-16">
+        <div className="relative min-h-[36rem] overflow-hidden bg-emerald-950 pb-32 pt-16 sm:min-h-[42rem] sm:pb-40 sm:pt-24">
+          {heroImage && heroProperty ? (
+            <HeroParallax><Image src={heroImage.url} alt={heroImage.alt_text || heroProperty.title} fill priority sizes="100vw" className="object-cover object-center" /></HeroParallax>
+          ) : <div className="architectural-mark" aria-hidden="true"><span /><span /><span /></div>}
+          <div className="absolute inset-0 bg-gradient-to-r from-emerald-950/90 via-emerald-950/65 to-emerald-950/20" />
           <div className="container-app relative">
             <FadeIn>
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-2 text-xs font-medium text-white backdrop-blur-sm"><MapPin className="h-3.5 w-3.5" /> Rotterdam · Thuis in Nederland</span>
-              <h1 className="mt-6 max-w-3xl font-display text-[2.5rem] font-semibold leading-[1.08] tracking-tight text-white sm:text-6xl lg:text-7xl">
-                Hier begint<br />uw volgende hoofdstuk.
+              <span className="inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-champagne"><MapPin className="h-3.5 w-3.5" /> Rotterdam · Thuis in Nederland</span>
+              <h1 className="mt-6 max-w-3xl font-display text-[3.5rem] leading-[0.98] text-white sm:text-[5.5rem] lg:text-[6.5rem]">
+                Een plek om<br /><span className="italic text-champagne">thuis te komen.</span>
               </h1>
-              <p className="mt-6 max-w-xl text-base leading-relaxed text-white/85 sm:text-lg">
+              <p className="mt-6 max-w-lg text-sm leading-relaxed text-white/85 sm:text-base">
                 Vind een woning die bij u past. Vastgoed Beheer B.V. begeleidt u persoonlijk, van de eerste bezichtiging tot de sleuteloverdracht.
               </p>
-              <Link href="/appartements" className="mt-7 inline-flex min-h-12 items-center gap-3 rounded-full bg-champagne px-6 py-3 text-sm font-semibold text-ink-900 transition hover:bg-champagne-200">Ontdek onze woningen <ArrowRight className="h-4 w-4" /></Link>
+              <Link href="/appartements" className="mt-7 inline-flex min-h-12 items-center gap-3 rounded-md bg-champagne px-6 py-3 text-sm font-semibold text-ink-900 transition hover:bg-champagne-200">Ontdek onze woningen <ArrowRight className="h-4 w-4" /></Link>
               <p className="mt-6 flex items-center gap-2 text-xs text-white/85"><ShieldCheck className="h-4 w-4 text-champagne" /> Persoonlijke begeleiding, van zoeken tot verhuizen</p>
             </FadeIn>
           </div>
+          {heroProperty && heroImage && <div className="container-app relative mt-8"><Link href={`/appartements/${heroProperty.slug}`} className="inline-flex max-w-full items-center gap-2 border-b border-white/30 pb-1 text-xs text-white/85"><span className="truncate">Op de foto: {heroProperty.title} · {heroProperty.city}</span><ArrowRight className="h-3.5 w-3.5 shrink-0" /></Link></div>}
         </div>
         <div className="container-app relative z-10 -mt-16 sm:-mt-20">
           <FadeIn delay={0.1}><HeroSearchBar /></FadeIn>
-          <div className="mt-5 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-ink-500"><span className="font-semibold text-emerald">Populaire steden</span>{DUTCH_CITIES.map(city => <Link key={city} href={`/appartements?city=${encodeURIComponent(city)}`} className="transition hover:text-emerald hover:underline">{city}</Link>)}</div>
+          <div className="mt-5 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-ink-500"><span className="font-semibold text-emerald">Populaire steden</span>{DUTCH_CITIES.slice(0, 7).map(city => <Link key={city} href={`/appartements?city=${encodeURIComponent(city)}`} className="transition hover:text-emerald hover:underline">{city === 'The Hague' ? 'Den Haag' : city}</Link>)}</div>
         </div>
       </section>
 
       {/* CHIFFRES DE CONFIANCE */}
-      <section className="border-b border-emerald/10 bg-white py-8">
+      <section className="border-b border-emerald/10 bg-sand-100 py-8">
         <div className="container-app grid grid-cols-1 gap-6 sm:grid-cols-3">
-          {TRUST_POINTS.map((point) => (
-            <div key={point.label} className="flex items-center gap-4">
+          {trustPoints.map((point) => (
+            <div key={point.label} className="flex min-w-0 flex-col items-start gap-2 border-l border-champagne/50 pl-5">
               <span className="font-display text-4xl text-emerald">{point.value}</span>
               <span className="text-sm text-ink-500">{point.label}</span>
             </div>
@@ -101,7 +104,7 @@ export default async function HomePage() {
       <FeaturedProperties properties={featuredProperties} />
 
       {/* APPARTEMENTS CLASSÉS PAR VILLE */}
-      <section className="py-16 sm:py-20">
+      <section className="py-20 sm:py-28">
         <div className="container-app">
           <FadeIn>
             <div className="flex flex-wrap items-end justify-between gap-4">
@@ -121,8 +124,8 @@ export default async function HomePage() {
 
           <div className="mt-9 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {citySummaries.map((summary, index) => (
-              <FadeIn key={summary.city} delay={Math.min(index, 6) * 0.04} className="min-w-0">
-                <Link href={`/appartements?city=${encodeURIComponent(summary.city)}`} className="group relative flex min-h-72 min-w-0 items-end overflow-hidden rounded-3xl bg-emerald-950 p-6 sm:min-h-80">
+              <FadeIn key={summary.city} delay={Math.min(index, 6) * 0.04} className={`min-w-0 ${index === 0 ? 'sm:col-span-2 lg:col-span-2' : ''}`}>
+                <Link href={`/appartements?city=${encodeURIComponent(summary.city)}`} className="group relative flex min-h-72 min-w-0 items-end overflow-hidden rounded-xl bg-emerald-950 p-6 sm:min-h-80">
                   {summary.imageUrl ? (
                     <Image src={summary.imageUrl} alt={`Appartement in ${summary.city}`} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover transition-transform duration-500 group-hover:scale-105" />
                   ) : <MapPin className="absolute right-8 top-8 h-24 w-24 text-white/10" aria-hidden="true" />}
@@ -139,12 +142,26 @@ export default async function HomePage() {
         </div>
       </section>
 
+      <section className="border-y border-emerald/10 bg-sage-50 py-20 sm:py-28">
+        <div className="container-app grid items-center gap-10 lg:grid-cols-2 lg:gap-20">
+          <FadeIn className="relative aspect-[4/3] overflow-hidden rounded-xl bg-emerald">
+            {heroImage && heroProperty ? <Image src={heroImage.url} alt={heroImage.alt_text || heroProperty.title} fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover transition-transform duration-700 hover:scale-105" /> : <Building2 className="absolute inset-0 m-auto h-20 w-20 text-champagne" />}
+          </FadeIn>
+          <FadeIn>
+            <span className="editorial-label text-emerald">Vastgoed Beheer B.V. · Rotterdam</span>
+            <h2 className="mt-5 text-5xl leading-[1.05] text-emerald sm:text-6xl">Aandacht voor woningen.<br /><span className="italic">Ruimte voor mensen.</span></h2>
+            <p className="mt-6 max-w-lg text-sm leading-7 text-ink-500">Een nieuwe woning is meer dan een adres. Daarom maken we het zoeken overzichtelijk, met duidelijke woninginformatie en persoonlijk contact bij uw bezichtigings- of reserveringsaanvraag.</p>
+            <Link href="/a-propos" className="mt-7 inline-flex items-center gap-4 border-b border-emerald/30 pb-2 text-sm font-semibold text-emerald">Maak kennis met ons <ArrowRight className="h-4 w-4" /></Link>
+          </FadeIn>
+        </div>
+      </section>
+
       {/* COMMENT ÇA MARCHE */}
-      <section className="py-16 sm:py-20">
+      <section className="py-20 sm:py-28">
         <div className="container-app">
           <FadeIn>
             <SectionHeading
-              eyebrow="Processus"
+              eyebrow="Uw woonreis"
               title="Hoe werkt het"
               description="Van zoeken tot verhuizen: een traject dat uw leven eenvoudiger maakt."
               align="center"
@@ -179,27 +196,25 @@ export default async function HomePage() {
       </section>
 
       {/* TÉMOIGNAGES CLIENTS */}
-      <section className="bg-sage-50 py-16 sm:py-20">
+      {VERIFIED_DUTCH_TESTIMONIALS.length > 0 && <section className="bg-sage-50 py-20 sm:py-28">
         <div className="container-app">
           <FadeIn>
             <SectionHeading
               eyebrow="Ervaringen"
               title="Wat onze klanten over Vastgoed Beheer B.V. zeggen"
-              description="Feedback van klanten die zijn begeleid bij hun zoektocht naar een woning in Nederland. Blader door 50 ervaringen."
+              description="Ervaringen van klanten met een geverifieerde bron."
             />
           </FadeIn>
 
           <div className="mt-9 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-5 [scrollbar-width:thin]">
-            {DUTCH_TESTIMONIALS.map((testimonial) => (
+            {VERIFIED_DUTCH_TESTIMONIALS.map((testimonial) => (
               <article
                 key={testimonial.name}
                 className="flex min-h-64 w-[85vw] max-w-sm shrink-0 snap-start flex-col rounded-2xl border border-white bg-white p-7 shadow-soft sm:w-80"
               >
                 <div className="flex items-center justify-between gap-3">
                   <Quote className="h-7 w-7 text-canal-500" aria-hidden="true" />
-                  <div className="flex gap-0.5 text-amber-400" aria-label="5 sterren op 5">
-                    {[1, 2, 3, 4, 5].map((star) => <Star key={star} className="h-3.5 w-3.5 fill-current" />)}
-                  </div>
+
                 </div>
                 <blockquote className="mt-5 flex-1 text-sm leading-relaxed text-ink-600" lang="nl">
                   “{testimonial.text}”
@@ -211,21 +226,21 @@ export default async function HomePage() {
             ))}
           </div>
         </div>
-      </section>
+      </section>}
 
       {/* CTA FINAL */}
       <section className="pb-20">
         <div className="container-app">
           <FadeIn>
-            <div className="luxury-cta relative overflow-hidden rounded-3xl bg-emerald px-6 py-14 text-center sm:px-16">
+            <div className="luxury-cta relative overflow-hidden rounded-xl bg-emerald px-6 py-14 text-center sm:px-16">
               <h2 className="text-display-sm font-extrabold text-white sm:text-display-md">
                 Klaar om uw nieuwe woning te vinden?
               </h2>
               <p className="mx-auto mt-3 max-w-xl text-sand-200">
-                Bekijk onze geverifieerde advertenties en plan in enkele minuten een bezichtiging.
+                Ontdek ons woningaanbod en vraag een bezichtiging aan op een moment dat bij u past.
               </p>
               <Link href="/appartements" className="mt-7 inline-block">
-                <Button variant="secondary" size="lg">
+                <Button variant="primary" size="lg">
                   Bekijk beschikbare appartementen
                   <ArrowRight className="h-4 w-4" />
                 </Button>

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Mail, Phone, MapPin, Clock } from 'lucide-react';
+import { Mail, Phone, MapPin } from 'lucide-react';
 import { ContactForm } from '@/components/forms/contact-form';
 import { FadeIn } from '@/components/ui/fade-in';
 import { getSiteSettings } from '@/lib/data/site-settings';
@@ -15,7 +15,6 @@ export default async function ContactPage() {
     { icon: Mail, label: 'contacts@vastgoedbeheernl.agency' },
     { icon: Phone, label: footerPhone },
     { icon: MapPin, label: 'Hijkerveld 164, 3085 PD Rotterdam, Nederland' },
-    { icon: Clock, label: 'Lun–Ven, 9h–18h (CET)' },
   ];
 
   return (
@@ -26,7 +25,7 @@ export default async function ContactPage() {
           Een vraag? Schrijf ons
         </h1>
         <p className="mt-3 max-w-xl text-ink-500">
-          Ons team antwoordt doorgaans binnen 48 werkuren.
+          Neem contact op voor vragen over een woning of uw aanvraag.
         </p>
       </FadeIn>
 
@@ -42,11 +41,11 @@ export default async function ContactPage() {
             <h2 className="text-lg font-bold">Contactgegevens</h2>
             <ul className="mt-5 space-y-4">
               {info.map((item) => (
-                <li key={item.label} className="flex items-center gap-3 text-sm text-sand-200">
+                <li key={item.label} className="flex min-w-0 items-start gap-3 text-sm text-sand-200">
                   <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/10">
                     <item.icon className="h-4 w-4" />
                   </span>
-                  {item.label}
+                  <span className="min-w-0 break-words">{item.label}</span>
                 </li>
               ))}
             </ul>

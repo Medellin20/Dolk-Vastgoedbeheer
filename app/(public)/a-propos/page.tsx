@@ -12,16 +12,16 @@ const VALUES = [
   {
     icon: ShieldCheck,
     title: 'Vertrouwen',
-    description: 'Elke advertentie wordt vóór publicatie door ons team gecontroleerd.',
+    description: 'Duidelijke woninginformatie en persoonlijk contact over uw aanvraag.',
   },
   {
     icon: MapPinned,
-    title: 'Expertise locale',
+    title: 'Lokale expertise',
     description: 'Uitgebreide kennis van de wijken van Amsterdam, Rotterdam, Utrecht en daarbuiten.',
   },
   {
     icon: Users,
-    title: 'Accompagnement',
+    title: 'Persoonlijke begeleiding',
     description: 'Persoonlijke begeleiding van de zoektocht tot aan de verhuizing.',
   },
   {
@@ -58,7 +58,7 @@ export default function AProposPage() {
             />
             <p className="mt-4 leading-relaxed text-ink-500">
               De Nederlandse huurmarkt kan complex zijn, vooral voor nieuwkomers. Vastgoed Beheer B.V.
-              is opgericht om een duidelijk en transparant traject te bieden: gecontroleerde
+              is opgericht om een duidelijk en transparant traject te bieden: overzichtelijke
               advertenties, een gestructureerd bezichtigingsproces en een zorgvuldige opvolging
               van elk reserveringsdossier, van de eerste aanvraag tot de sleuteloverdracht.
             </p>

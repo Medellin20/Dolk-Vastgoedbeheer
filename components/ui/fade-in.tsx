@@ -17,7 +17,7 @@ export function FadeIn({
   const reduceMotion = useReducedMotion();
   return (
     <motion.div
-      initial={reduceMotion ? false : { opacity: 0, y: 24 }}
+      initial={reduceMotion ? false : { opacity: 1, y: 14 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-80px' }}
       transition={{ duration: reduceMotion ? 0 : 0.7, delay: reduceMotion ? 0 : delay, ease: [0.16, 1, 0.3, 1] }}

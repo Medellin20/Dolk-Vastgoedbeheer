@@ -47,7 +47,7 @@ export function SiteSettingsForm({
         toast.error(result.message);
         return;
       }
-      toast.success('Le lien et le motif de paiement ont été enregistrés.');
+      toast.success('De betaallink en betalingsomschrijving zijn opgeslagen.');
 
       const bankResult = await updateBankSettings({
         beneficiaryName: bankSettings.beneficiary_name,
@@ -59,44 +59,44 @@ export function SiteSettingsForm({
         showOnConfirmations: data.showOnConfirmations,
       });
       if (bankResult.success) clearDraft(submitted);
-      if (!bankResult.success) toast.error(`Le lien est enregistré, mais le RIB n'a pas été mis à jour : ${bankResult.message}`);
+      if (!bankResult.success) toast.error(`De betaallink is opgeslagen, maar de bankgegevens zijn niet bijgewerkt: ${bankResult.message}`);
     });
   }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <div>
-        <Label htmlFor="footerPhone">Numéro de contact et de confirmation de paiement</Label>
+        <Label htmlFor="footerPhone">Contactnummer en betalingsbevestiging</Label>
         <Input id="footerPhone" type="tel" placeholder="+31649496257" {...register('footerPhone')} />
         <FieldError message={errors.footerPhone?.message} />
-        <p className="mt-1 text-xs text-ink-400">Ce numéro est utilisé dans le footer, les contacts et les confirmations de paiement WhatsApp.</p>
+        <p className="mt-1 text-xs text-ink-400">Dit nummer wordt gebruikt in de voettekst, contactgegevens en betalingsbevestigingen via WhatsApp.</p>
       </div>
       <div>
-        <Label htmlFor="viewingFee">Frais de visite (€)</Label>
+        <Label htmlFor="viewingFee">Bezichtigingskosten (€)</Label>
         <Input id="viewingFee" type="number" min="0" step="0.01" {...register('viewingFee')} />
         <FieldError message={errors.viewingFee?.message} />
-        <p className="mt-1 text-xs text-ink-400">Ce montant est indépendant des appartements et s’applique à toutes les visites.</p>
+        <p className="mt-1 text-xs text-ink-400">Dit bedrag geldt voor alle bezichtigingen, ongeacht de woning.</p>
       </div>
       <div>
-        <Label htmlFor="paymentLink">Lien de paiement</Label>
+        <Label htmlFor="paymentLink">Betaallink</Label>
         <Input id="paymentLink" type="url" {...register('paymentLink')} />
         <FieldError message={errors.paymentLink?.message} />
-        <p className="mt-1 text-xs text-ink-400">Ce lien sera utilisé pour les visites et les réservations.</p>
+        <p className="mt-1 text-xs text-ink-400">Deze link wordt gebruikt voor bezichtigingen en reserveringen.</p>
       </div>
       <div>
-        <Label htmlFor="paymentReason">Motif de paiement à imposer</Label>
-        <Input id="paymentReason" maxLength={140} placeholder="Ex. : Frais de dossier" aria-describedby="paymentReason-help" {...register('paymentReason')} />
+        <Label htmlFor="paymentReason">Verplichte betalingsomschrijving</Label>
+        <Input id="paymentReason" maxLength={140} placeholder="Bijv. dossierkosten" aria-describedby="paymentReason-help" {...register('paymentReason')} />
         <FieldError message={errors.paymentReason?.message} />
-        <p id="paymentReason-help" className="mt-1 text-xs text-ink-500">Le client devra recopier ce motif lors du paiement. Il sera affiché sur les confirmations de visite et de réservation. Laissez vide pour ne pas définir de motif.</p>
+        <p id="paymentReason-help" className="mt-1 text-xs text-ink-500">De klant moet deze omschrijving overnemen bij de betaling. De tekst verschijnt op bevestigingen van bezichtigingen en reserveringen. Laat het veld leeg als u geen omschrijving wilt instellen.</p>
       </div>
       <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-ink-100 bg-sand-50 p-3.5">
         <Checkbox id="showPaymentLink" {...register('showPaymentLink')} />
         <span>
           <span className="block text-sm font-semibold text-ink-800">
-            Afficher le lien de paiement
+            Betaallink tonen
           </span>
           <span className="mt-0.5 block text-xs text-ink-500">
-            Affiche le lien de paiement sur les pages de confirmation.
+            Toont de betaallink op de bevestigingspagina’s.
           </span>
         </span>
       </label>
@@ -113,7 +113,7 @@ export function SiteSettingsForm({
       </label>
       <Button type="submit" isLoading={isPending}>
         <Save className="h-4 w-4" />
-        Enregistrer
+        Opslaan
       </Button>
     </form>
   );

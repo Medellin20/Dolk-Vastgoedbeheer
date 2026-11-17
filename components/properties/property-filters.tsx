@@ -83,8 +83,8 @@ export function PropertyFilters({ resultCount, cities }: { resultCount: number; 
   const filterFields = (
     <div className="space-y-4">
       <div>
-        <label className="mb-1.5 block text-xs font-semibold text-ink-500">Stad</label>
-        <Select value={filters.city} onChange={(e) => update('city', e.target.value)}>
+        <label htmlFor="filter-city" className="mb-1.5 block text-xs font-semibold text-ink-500">Stad</label>
+        <Select id="filter-city" value={filters.city} onChange={(e) => update('city', e.target.value)}>
           <option value="">Alle steden</option>
           {cities.map((c) => (
             <option key={c} value={c}>
@@ -96,8 +96,8 @@ export function PropertyFilters({ resultCount, cities }: { resultCount: number; 
 
       <div className="grid grid-cols-2 gap-3">
         <div>
-          <label className="mb-1.5 block text-xs font-semibold text-ink-500">Prijs min.</label>
-          <Select value={filters.minPrice} onChange={(e) => update('minPrice', e.target.value)}>
+          <label htmlFor="filter-minPrice" className="mb-1.5 block text-xs font-semibold text-ink-500">Prijs min.</label>
+          <Select id="filter-minPrice" value={filters.minPrice} onChange={(e) => update('minPrice', e.target.value)}>
             <option value="">—</option>
             {[500, 750, 1000, 1250, 1500, 2000].map((v) => (
               <option key={v} value={v}>
@@ -107,8 +107,8 @@ export function PropertyFilters({ resultCount, cities }: { resultCount: number; 
           </Select>
         </div>
         <div>
-          <label className="mb-1.5 block text-xs font-semibold text-ink-500">Prijs max.</label>
-          <Select value={filters.maxPrice} onChange={(e) => update('maxPrice', e.target.value)}>
+          <label htmlFor="filter-maxPrice" className="mb-1.5 block text-xs font-semibold text-ink-500">Prijs max.</label>
+          <Select id="filter-maxPrice" value={filters.maxPrice} onChange={(e) => update('maxPrice', e.target.value)}>
             <option value="">—</option>
             {[1000, 1500, 2000, 2500, 3000, 4000, 5000].map((v) => (
               <option key={v} value={v}>
@@ -120,8 +120,8 @@ export function PropertyFilters({ resultCount, cities }: { resultCount: number; 
       </div>
 
       <div>
-        <label className="mb-1.5 block text-xs font-semibold text-ink-500">Slaapkamers minimum</label>
-        <Select value={filters.bedrooms} onChange={(e) => update('bedrooms', e.target.value)}>
+        <label htmlFor="filter-bedrooms" className="mb-1.5 block text-xs font-semibold text-ink-500">Slaapkamers minimum</label>
+        <Select id="filter-bedrooms" value={filters.bedrooms} onChange={(e) => update('bedrooms', e.target.value)}>
           <option value="">Geen voorkeur</option>
           {[1, 2, 3, 4].map((v) => (
             <option key={v} value={v}>
@@ -132,8 +132,8 @@ export function PropertyFilters({ resultCount, cities }: { resultCount: number; 
       </div>
 
       <div>
-        <label className="mb-1.5 block text-xs font-semibold text-ink-500">Woningtype</label>
-        <Select value={filters.type} onChange={(e) => update('type', e.target.value)}>
+        <label htmlFor="filter-type" className="mb-1.5 block text-xs font-semibold text-ink-500">Woningtype</label>
+        <Select id="filter-type" value={filters.type} onChange={(e) => update('type', e.target.value)}>
           <option value="">alle types</option>
           {PROPERTY_TYPES.map((t) => (
             <option key={t.value} value={t.value}>
@@ -148,7 +148,7 @@ export function PropertyFilters({ resultCount, cities }: { resultCount: number; 
           Resetten
         </Button>
         <Button type="button" className="flex-1" onClick={() => apply(filters)}>
-          Appliquer
+          Toepassen
         </Button>
       </div>
     </div>
@@ -163,11 +163,12 @@ export function PropertyFilters({ resultCount, cities }: { resultCount: number; 
 
       <div className="flex w-full items-center gap-2 sm:w-auto">
         <Select
+          aria-label="Woningen sorteren"
           value={filters.sort}
           onChange={(e) => update('sort', e.target.value)}
           className="!h-10 min-w-0 flex-1 text-xs sm:w-auto sm:min-w-[9.5rem]"
         >
-          <option value="recent">Nieuwstes</option>
+          <option value="recent">Nieuwste</option>
           <option value="price_asc">Prijs oplopend</option>
           <option value="price_desc">Prijs aflopend</option>
           <option value="surface">Oppervlakte</option>
@@ -175,7 +176,7 @@ export function PropertyFilters({ resultCount, cities }: { resultCount: number; 
 
         <Button variant="outline" size="sm" onClick={() => setDrawerOpen(true)} className="shrink-0">
           <SlidersHorizontal className="h-3.5 w-3.5" />
-          Filtres
+          Filters
           {activeCount > 0 && (
             <span className="ml-0.5 flex h-4.5 w-4.5 items-center justify-center rounded-full bg-ink-700 text-[10px] font-bold text-white">
               {activeCount}

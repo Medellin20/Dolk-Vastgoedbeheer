@@ -49,7 +49,7 @@ const CATEGORIES = [
       {
         question: 'Wanneer ontvang ik antwoord op mijn aanvraag?',
         answer:
-          'Wij beantwoorden bezichtigings- en reserveringsaanvragen doorgaans binnen 48 werkuren.',
+          'Ons team neemt contact met u op om uw bezichtigings- of reserveringsaanvraag op te volgen.',
       },
     ],
   },

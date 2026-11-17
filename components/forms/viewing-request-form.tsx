@@ -257,7 +257,7 @@ React.useEffect(() => {
         }}
       >
         {/* =================================
-            ÉTAPE 1 : DATE ET CRÉNEAU
+            STAP 1: DATUM EN TIJD
             ================================= */}
 
         {step === 0 && (
@@ -324,7 +324,7 @@ React.useEffect(() => {
         )}
 
         {/* =================================
-            ÉTAPE 1 : COORDONNÉES
+            STAP 1: CONTACTGEGEVENS
             ================================= */}
 
         {step === 0 && (
@@ -433,7 +433,7 @@ React.useEffect(() => {
         )}
 
         {/* =================================
-            ÉTAPE 2 : RÉCAPITULATIF ET PAIEMENT
+            STAP 2: OVERZICHT EN BETALING
             ================================= */}
 
         {step === 1 && (

@@ -17,7 +17,7 @@ export async function GET(_request: NextRequest) {
   const isAuthenticated = await isValidAdminSessionToken(token);
 
   if (!isAuthenticated) {
-    return NextResponse.json({ error: 'Non autorisé' }, { status: 401 });
+    return NextResponse.json({ error: 'Niet toegestaan' }, { status: 401 });
   }
 
   const supabase = createAdminClient();
@@ -27,24 +27,24 @@ export async function GET(_request: NextRequest) {
     .order('created_at', { ascending: false });
 
   if (error) {
-    return NextResponse.json({ error: 'Erreur lors de la récupération des données.' }, { status: 500 });
+    return NextResponse.json({ error: 'De gegevens konden niet worden geladen.' }, { status: 500 });
   }
 
   const headers = [
-    'Référence',
+    'Referentie',
     'Logement',
     'Ville',
     'Client',
     'E-mail',
-    'Téléphone',
-    'Entrée souhaitée',
-    'Durée (mois)',
-    'Occupants',
+    'Telefoon',
+    'Gewenste intrekdatum',
+    'Huurperiode (maanden)',
+    'Bewoners',
     'Animaux de compagnie',
-    'Profession',
-    'Revenu mensuel',
-    'Statut',
-    'Créée le',
+    'Beroep',
+    'Maandelijks inkomen',
+    'Status',
+    'Aangemaakt op',
   ];
 
   const rows = (reservations ?? []).map((r: any) => [

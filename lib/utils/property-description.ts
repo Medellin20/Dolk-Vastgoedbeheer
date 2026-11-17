@@ -1,3 +1,4 @@
+import { dutchDisplay } from '@/lib/utils/dutch-display';
 import type { Property } from '@/types/database';
 import type { PropertyInput } from '@/lib/validations/property';
 
@@ -149,7 +150,7 @@ export function generateDutchPropertyDescription(
   const location = property.neighborhood
     ? `in de wijk ${property.neighborhood}, in ${property.city}`
     : `in ${property.city}`;
-  const interior = property.interior_type.trim().toLocaleLowerCase('nl-NL');
+  const interior = dutchDisplay(property.interior_type).trim().toLocaleLowerCase('nl-NL');
   const floor = property.floor === null
     ? ''
     : property.floor === 0
@@ -167,7 +168,7 @@ export function generateDutchPropertyDescription(
     property.has_parking && 'parkeergelegenheid',
     property.has_garage && 'een garage',
     property.has_garden && 'een tuin',
-    ...amenityLabels.map((label) => label.trim()).filter(Boolean),
+    ...amenityLabels.map((label) => dutchDisplay(label).trim()).filter(Boolean),
   ].filter((value): value is string => Boolean(value));
   const availableFrom = property.available_from
     ? new Intl.DateTimeFormat('nl-NL', {
@@ -182,12 +183,12 @@ export function generateDutchPropertyDescription(
     `De woning beschikt over ${rooms.join(' en ')}.`,
     features.length > 0 ? `Daarnaast beschikt de woning over: ${features.join(', ')}.` : '',
     availableFrom ? `Beschikbaar vanaf ${availableFrom}.` : '',
-    `De maandelijkse huur bedraagt ${formatEuro(property.monthly_price)}.`,
+    `De maandelijkse huur bedraagt ${new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(property.monthly_price)}.`,
     property.service_charges > 0
-      ? `Daar komen maandelijkse servicekosten van ${formatEuro(property.service_charges)} bij.`
+      ? `Daar komen maandelijkse servicekosten van ${new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(property.service_charges)} bij.`
       : '',
     property.deposit_amount > 0
-      ? `De waarborgsom bedraagt ${formatEuro(property.deposit_amount)}.`
+      ? `De waarborgsom bedraagt ${new Intl.NumberFormat('nl-NL', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(property.deposit_amount)}.`
       : '',
   ];
 

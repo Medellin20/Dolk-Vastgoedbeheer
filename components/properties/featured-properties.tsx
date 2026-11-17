@@ -62,13 +62,13 @@ export function FeaturedProperties({
 }) {
 
   return (
-    <section className="bg-white py-16 sm:py-20">
+    <section className="bg-sand-100 py-20 sm:py-28">
       <div className="container-app">
         <div className="flex flex-wrap items-end justify-between gap-5">
           <SectionHeading
             eyebrow="Uitgelicht"
             title="Uitgelichte appartementen"
-            description="Ontdek onze uitgelichte woningen, zorgvuldig geselecteerd op toplocaties in Nederland."
+            description="Ontdek onze uitgelichte woningen, op verschillende locaties in Nederland."
           />
           <Link
             href="/appartements"
@@ -89,7 +89,7 @@ export function FeaturedProperties({
                 return (
                   <article
                     key={property.id}
-                    className="group w-full min-w-0 shrink-0 snap-start overflow-hidden rounded-3xl border border-ink-100 bg-white shadow-soft transition-shadow duration-300 hover:shadow-card sm:w-[calc((100%_-_1.25rem)/2)] lg:w-[calc((100%_-_2.5rem)/3)]"
+                    className="group w-full min-w-0 shrink-0 snap-start overflow-hidden rounded-xl border border-ink-100 bg-white shadow-soft transition-shadow duration-300 hover:shadow-card sm:w-[calc((100%_-_1.25rem)/2)] lg:w-[calc((100%_-_2.5rem)/3)]"
                   >
                     <Link
                       href={`/appartements/${property.slug}`}

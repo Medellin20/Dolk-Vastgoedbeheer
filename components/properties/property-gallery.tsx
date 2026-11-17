@@ -86,6 +86,7 @@ export function PropertyGallery({ images, title }: { images: PropertyImage[]; ti
 
         <button
           onClick={() => setFullscreen(true)}
+          aria-label="Woningfoto’s vergroten"
           className="absolute bottom-3 right-3 flex items-center gap-1.5 rounded-full bg-white/90 px-3 py-1.5 text-xs font-semibold text-ink-700 shadow-soft"
         >
           <Expand className="h-3.5 w-3.5" />
@@ -99,6 +100,8 @@ export function PropertyGallery({ images, title }: { images: PropertyImage[]; ti
             <button
               key={img.id}
               onClick={() => setActive(i)}
+              aria-label={`Woningfoto ${i + 1} bekijken`}
+              aria-pressed={i === active}
               className={cn(
                 'relative h-16 w-20 shrink-0 overflow-hidden rounded-lg ring-2 transition-all',
                 i === active ? 'ring-ink-700' : 'ring-transparent opacity-70 hover:opacity-100'

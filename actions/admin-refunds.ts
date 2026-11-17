@@ -28,7 +28,7 @@ export async function updateRefundStatus(id: string, status: RefundStatus, admin
     })
     .eq('id', id);
 
-  if (error) return { success: false, message: 'Impossible de mettre à jour le statut.' };
+  if (error) return { success: false, message: 'De status kon niet worden bijgewerkt.' };
 
   const guaranteeStatusMap: Partial<Record<RefundStatus, GuaranteeStatus>> = {
     approved: 'refund_processing',
@@ -56,5 +56,5 @@ export async function updateRefundStatus(id: string, status: RefundStatus, admin
 
   revalidateStatusViews();
 
-  return { success: true, message: 'Statut du remboursement mis à jour.' };
+  return { success: true, message: 'De terugbetalingsstatus is bijgewerkt.' };
 }

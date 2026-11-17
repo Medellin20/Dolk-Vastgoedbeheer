@@ -13,7 +13,7 @@ function SubmitButton() {
   const { pending } = useFormStatus();
   return (
     <Button type="submit" className="w-full" size="lg" isLoading={pending}>
-      Se connecter
+      Aanmelden
     </Button>
   );
 }
@@ -25,7 +25,7 @@ export function AdminLoginForm() {
     <form action={formAction} className="space-y-5">
       <div>
         <Label htmlFor="password" className="text-ink-600">
-          Mot de passe administrateur
+          Beheerderswachtwoord
         </Label>
         <Input
           id="password"

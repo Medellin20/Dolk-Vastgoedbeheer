@@ -131,7 +131,7 @@ function SidebarHeader({ compact }: { compact?: boolean }) {
       </span>
       <div>
         <p className="font-display text-lg text-white">Vastgoed Beheer B.V.</p>
-        <p className="mt-1 text-[9px] font-medium uppercase tracking-[0.18em] text-champagne">Private workspace</p>
+        <p className="mt-1 text-[9px] font-medium uppercase tracking-[0.18em] text-champagne">Beheeromgeving</p>
       </div>
     </Link>
   );

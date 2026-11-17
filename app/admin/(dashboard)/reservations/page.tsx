@@ -127,7 +127,7 @@ export default async function AdminReservationsPage({ searchParams }: { searchPa
                 <StatusSelect
                   value={reservation.status as ReservationStatus}
                   options={STATUS_OPTIONS}
-                  onUpdate={(status) => updateReservationStatus(reservation.id, status)}
+                  onUpdate={updateReservationStatus.bind(null, reservation.id)}
                 />
               </div>
             </div>

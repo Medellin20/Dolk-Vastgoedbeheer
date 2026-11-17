@@ -20,7 +20,7 @@ export async function uploadPropertyImages(propertyId: string, formData: FormDat
   const files = formData.getAll('images') as File[];
 
   if (!files || files.length === 0) {
-    return { success: false, message: 'Aucune image sélectionnée.' };
+    return { success: false, message: 'Geen afbeelding geselecteerd.' };
   }
 
   const { data: property } = await supabase.from('properties').select('slug').eq('id', propertyId).maybeSingle();
@@ -56,7 +56,7 @@ export async function uploadPropertyImages(propertyId: string, formData: FormDat
       continue;
     }
     if (file.size > MAX_SIZE) {
-      failures.push('La photo dépasse la limite de 10 Mo.');
+      failures.push('De foto is groter dan 10 MB.');
       continue;
     }
 
@@ -69,8 +69,8 @@ export async function uploadPropertyImages(propertyId: string, formData: FormDat
     if (uploadError) {
       console.error('Supabase image upload failed:', uploadError.message);
       failures.push(uploadError.message.toLowerCase().includes('bucket')
-        ? 'Le stockage des photos est indisponible : vérifier le bucket property-images dans Supabase.'
-        : 'Supabase a refusé le téléversement. Vérifiez les droits, les limites et la disponibilité du stockage.');
+        ? 'De foto-opslag is niet beschikbaar. Controleer de bucket property-images in Supabase.'
+        : 'Het uploaden is geweigerd. Controleer de toegangsrechten, limieten en beschikbaarheid van de opslag.');
       continue;
     }
 
@@ -93,13 +93,13 @@ export async function uploadPropertyImages(propertyId: string, formData: FormDat
       nextOrder += 1;
     } else {
       console.error('Property image record failed:', insertError?.message);
-      failures.push('La photo a été reçue, mais son enregistrement dans la base a échoué.');
+      failures.push('De foto is ontvangen, maar kon niet in de database worden opgeslagen.');
       await supabase.storage.from('property-images').remove([storagePath]);
     }
   }
 
   if (uploaded.length === 0) {
-    return { success: false, message: [...new Set(failures)].join(' ') || 'Aucune image reçue.' };
+    return { success: false, message: [...new Set(failures)].join(' ') || 'Geen afbeelding ontvangen.' };
   }
 
   await logAdminAction({
@@ -113,7 +113,7 @@ export async function uploadPropertyImages(propertyId: string, formData: FormDat
   revalidatePath(`/appartements/${property.slug}`);
   revalidatePath('/appartements');
 
-  return { success: true, message: `${uploaded.length} image(s) ajoutée(s).${failures.length ? ` ${failures.length} fichier(s) refusé(s) : ${[...new Set(failures)].join(' ')}` : ''}`, data: uploaded };
+  return { success: true, message: `${uploaded.length} afbeelding(en) toegevoegd.${failures.length ? ` ${failures.length} bestand(en) geweigerd: ${[...new Set(failures)].join(' ')}` : ''}`, data: uploaded };
 }
 
 export async function deletePropertyImage(imageId: string): Promise<ActionResult> {
@@ -131,7 +131,7 @@ export async function deletePropertyImage(imageId: string): Promise<ActionResult
 
   const { error: deleteError } = await supabase.from('property_images').delete().eq('id', imageId);
   if (deleteError) {
-    return { success: false, message: 'Impossible de supprimer la photo de la base de données.' };
+    return { success: false, message: 'De foto kon niet uit de database worden verwijderd.' };
   }
 
   const storagePath = image.storage_path.startsWith('imagekit:') ? null : image.storage_path;
@@ -167,7 +167,7 @@ export async function deletePropertyImage(imageId: string): Promise<ActionResult
   if (slug) revalidatePath(`/appartements/${slug}`);
   revalidatePath('/appartements');
 
-  return { success: true, message: 'Photo supprimée.' };
+  return { success: true, message: 'Foto verwijderd.' };
 }
 
 export async function setPrimaryPropertyImage(propertyId: string, imageId: string): Promise<ActionResult> {
@@ -175,7 +175,7 @@ export async function setPrimaryPropertyImage(propertyId: string, imageId: strin
 
   const { error } = await supabase.from('property_images').update({ is_primary: true }).eq('property_id', propertyId).eq('id', imageId).select('id').single();
   if (error) {
-    return { success: false, message: 'Impossible de définir l’image principale.' };
+    return { success: false, message: 'De hoofdfoto kon niet worden ingesteld.' };
   }
 
   const { data: property } = await supabase.from('properties').select('slug').eq('id', propertyId).maybeSingle();
@@ -185,7 +185,7 @@ export async function setPrimaryPropertyImage(propertyId: string, imageId: strin
   revalidatePath('/appartements');
   revalidatePath('/');
 
-  return { success: true, message: 'Image principale mise à jour.' };
+  return { success: true, message: 'De hoofdfoto is bijgewerkt.' };
 }
 
 export async function reorderPropertyImages(propertyId: string, orderedImageIds: string[]): Promise<ActionResult> {
@@ -199,7 +199,7 @@ export async function reorderPropertyImages(propertyId: string, orderedImageIds:
 
   revalidatePath('/', 'layout');
   if (results.some((result) => result.error)) {
-    return { success: false, message: 'Impossible d’enregistrer tout l’ordre des photos. Rechargez la page avant de réessayer.' };
+    return { success: false, message: 'De fotovolgorde kon niet volledig worden opgeslagen. Laad de pagina opnieuw voordat u het nogmaals probeert.' };
   }
-  return { success: true, message: 'Ordre des photos mis à jour.' };
+  return { success: true, message: 'De fotovolgorde is bijgewerkt.' };
 }

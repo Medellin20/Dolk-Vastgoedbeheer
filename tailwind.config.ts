@@ -9,19 +9,19 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Vastgoed Beheer B.V. : bleu clair, blanc et gris.
-        emerald: { DEFAULT: '#245B88', 50: '#F0F5F9', 100: '#DFE9F1', 200: '#BDD0DF', 300: '#AFC9DC', 400: '#789BB3', 500: '#48738F', 600: '#326FA5', 700: '#245B88', 800: '#1D4B72', 900: '#263746', 950: '#202D38' },
-        champagne: { DEFAULT: '#B9DFFC', 50: '#F4FAFF', 100: '#E7F4FF', 200: '#D5ECFD', 300: '#C9E6FC', 400: '#B9DFFC', 500: '#B9DFFC', 600: '#3778AB', 700: '#355F80', 800: '#294A64' },
-        sage: { DEFAULT: '#AFC9DC', 50: '#F5F8FA', 100: '#EAF0F5', 200: '#CDDBE5', 300: '#AFC9DC', 400: '#87A6BB', 500: '#5A7E97', 600: '#44647C', 700: '#344F64' },
-        ink: { DEFAULT: '#303A43', 50: '#F3F6F8', 100: '#E5EBEF', 200: '#CDD8E0', 300: '#9DAFBD', 400: '#6A8092', 500: '#596773', 600: '#45535F', 700: '#245B88', 800: '#1D4B72', 900: '#303A43', 950: '#202D38' },
-        canal: { DEFAULT: '#245B88', 50: '#F0F5F9', 100: '#E5F3FE', 200: '#CADAE6', 300: '#AFC9DC', 400: '#7C9CB2', 500: '#527B96', 600: '#326FA5', 700: '#245B88', 800: '#1D4B72', 900: '#263746', 950: '#202D38' },
-        brick: { DEFAULT: '#B9DFFC', 50: '#F4FAFF', 100: '#E7F4FF', 200: '#D5ECFD', 300: '#C9E6FC', 400: '#B9DFFC', 500: '#B9DFFC', 600: '#3B739D', 700: '#315D7D', 800: '#294A64' },
-        sand: { DEFAULT: '#FFFFFF', 50: '#FFFFFF', 100: '#FFFFFF', 200: '#E8EEF3', 300: '#D4DFE8', 400: '#B2C5D3' },
-        status: { available: '#245B88', reserved: '#355F80', rented: '#596773', draft: '#6A8092' },
+        // Dutch Luxury Minimalist — existing token names preserve all components.
+        emerald: { DEFAULT: '#173D35', 50: '#F0F4F1', 100: '#DFE9E2', 200: '#BDD0C5', 300: '#9DB6A8', 400: '#729582', 500: '#497762', 600: '#305E4D', 700: '#173D35', 800: '#123129', 900: '#102922', 950: '#0B211B' },
+        champagne: { DEFAULT: '#C5A77D', 50: '#FBF8F2', 100: '#F2EBDD', 200: '#E6D7BD', 300: '#D7BF9B', 400: '#C5A77D', 500: '#C5A77D', 600: '#85653D', 700: '#785C36', 800: '#5B452B' },
+        sage: { DEFAULT: '#9DB6A8', 50: '#F1F4F0', 100: '#E7EDE5', 200: '#CDDACC', 300: '#9DB6A8', 400: '#7F9B87', 500: '#607E68', 600: '#496550', 700: '#374F3E' },
+        ink: { DEFAULT: '#202623', 50: '#F2F3EF', 100: '#E5E7E1', 200: '#D0D6CE', 300: '#A2ADA3', 400: '#637168', 500: '#56645B', 600: '#3D4B42', 700: '#173D35', 800: '#123129', 900: '#202623', 950: '#0B211B' },
+        canal: { DEFAULT: '#173D35', 50: '#F0F4F1', 100: '#DFE9E2', 200: '#BDD0C5', 300: '#9DB6A8', 400: '#729582', 500: '#497762', 600: '#305E4D', 700: '#173D35', 800: '#123129', 900: '#102922', 950: '#0B211B' },
+        brick: { DEFAULT: '#C5A77D', 50: '#FBF8F2', 100: '#F2EBDD', 200: '#E6D7BD', 300: '#D7BF9B', 400: '#C5A77D', 500: '#C5A77D', 600: '#85653D', 700: '#785C36', 800: '#5B452B' },
+        sand: { DEFAULT: '#F7F5F0', 50: '#FFFFFF', 100: '#F7F5F0', 200: '#ECE8DF', 300: '#D7D3C8', 400: '#B5B5A6' },
+        status: { available: '#173D35', reserved: '#785C36', rented: '#56645B', draft: '#637168' },
       },
       fontFamily: {
-        sans: ['"Avenir Next"', '"Segoe UI"', 'Arial', 'sans-serif'],
-        display: ['"Avenir Next"', '"Segoe UI"', 'Arial', 'sans-serif'],
+        sans: ['var(--font-manrope)', 'Arial', 'sans-serif'],
+        display: ['var(--font-cormorant)', 'Georgia', 'serif'],
       },
       fontSize: {
         'display-lg': ['3.5rem', { lineHeight: '1.05', letterSpacing: '-0.02em', fontWeight: '700' }],
@@ -36,9 +36,9 @@ const config: Config = {
         '3xl': '1.5rem',
       },
       boxShadow: {
-        soft: '0 2px 8px -2px rgba(36,91,136,0.05), 0 1px 2px -1px rgba(36,91,136,0.03)',
-        card: '0 4px 16px -4px rgba(36,91,136,0.10), 0 2px 6px -2px rgba(36,91,136,0.03)',
-        lifted: '0 20px 40px -12px rgba(36,91,136,0.16)',
+        soft: '0 2px 8px -2px rgba(23,61,53,0.05), 0 1px 2px -1px rgba(23,61,53,0.03)',
+        card: '0 4px 16px -4px rgba(23,61,53,0.10), 0 2px 6px -2px rgba(23,61,53,0.03)',
+        lifted: '0 20px 40px -12px rgba(23,61,53,0.16)',
       },
       keyframes: {
         'fade-up': {
@@ -71,7 +71,7 @@ const config: Config = {
       },
       backgroundImage: {
         'canal-line':
-          'linear-gradient(90deg, transparent, rgba(185,223,252,0.45) 20%, rgba(185,223,252,0.45) 80%, transparent)',
+          'linear-gradient(90deg, transparent, rgba(197,167,125,0.45) 20%, rgba(197,167,125,0.45) 80%, transparent)',
       },
     },
   },

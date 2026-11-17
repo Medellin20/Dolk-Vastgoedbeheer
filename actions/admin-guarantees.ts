@@ -27,7 +27,7 @@ export async function updateGuaranteeStatus(id: string, status: GuaranteeStatus)
   }
 
   const { error } = await supabase.from('guarantee_payments').update(updatePayload).eq('id', id);
-  if (error) return { success: false, message: 'Impossible de mettre à jour le statut.' };
+  if (error) return { success: false, message: 'De status kon niet worden bijgewerkt.' };
 
   // Lorsque la garantie est confirmée, on fait progresser la réservation associée.
   if (status === 'reservation_confirmed') {
@@ -61,5 +61,5 @@ export async function updateGuaranteeStatus(id: string, status: GuaranteeStatus)
 
   revalidateStatusViews();
 
-  return { success: true, message: 'Statut de la garantie mis à jour.' };
+  return { success: true, message: 'De waarborgstatus is bijgewerkt.' };
 }

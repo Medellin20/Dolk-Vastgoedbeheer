@@ -127,7 +127,7 @@ export async function sendAdminAlert(
     )
     .join('\n');
 
-  const receivedAt = new Intl.DateTimeFormat('fr-FR', {
+  const receivedAt = new Intl.DateTimeFormat('nl-NL', {
     dateStyle: 'full',
     timeStyle: 'short',
     timeZone: 'Europe/Amsterdam',
@@ -149,9 +149,9 @@ export async function sendAdminAlert(
             style="
               width: 42%;
               padding: 13px 16px;
-              color: #596773;
+              color: #56645B;
               background: ${index % 2 === 0 ? '#FFFFFF' : '#ffffff'};
-              border-bottom: 1px solid #DFE9F1;
+              border-bottom: 1px solid #DFE9E2;
               vertical-align: top;
               font-size: 13px;
               font-weight: 600;
@@ -164,9 +164,9 @@ export async function sendAdminAlert(
             style="
               padding: 13px 16px;
               font-weight: 600;
-              color: #303A43;
+              color: #202623;
               background: ${index % 2 === 0 ? '#FFFFFF' : '#ffffff'};
-              border-bottom: 1px solid #DFE9F1;
+              border-bottom: 1px solid #DFE9E2;
               vertical-align: top;
               font-size: 14px;
               line-height: 1.45;
@@ -224,7 +224,7 @@ export async function sendAdminAlert(
       html: `
         <!DOCTYPE html>
 
-        <html lang="fr">
+        <html lang="nl">
           <head>
             <meta charset="UTF-8" />
 
@@ -238,29 +238,29 @@ export async function sendAdminAlert(
             </title>
           </head>
 
-          <body style="margin:0;padding:0;background:#FFFFFF;font-family:Arial,Helvetica,sans-serif;color:#303A43;">
+          <body style="margin:0;padding:0;background:#F7F5F0;font-family:Arial,Helvetica,sans-serif;color:#202623;">
             <div style="display:none;max-height:0;overflow:hidden;opacity:0;color:transparent;">
-              Nouvelle demande reçue sur Vastgoed Beheer B.V..
+              Nieuwe aanvraag bij Vastgoed Beheer B.V.
             </div>
-            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="padding:32px 12px;background:#FFFFFF;">
+            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="padding:32px 12px;background:#F7F5F0;">
               <tr><td align="center">
                 <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="max-width:680px;background:#ffffff;border-radius:16px;overflow:hidden;box-shadow:0 6px 24px rgba(23,43,54,.10);">
-                  <tr><td style="padding:24px 28px;background:#245B88;">
-                    <p style="margin:0 0 6px;color:#B9DFFC;font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;">Vastgoed Beheer B.V. · Administration</p>
+                  <tr><td style="padding:24px 28px;background:#173D35;">
+                    <p style="margin:0 0 6px;color:#C5A77D;font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;">Vastgoed Beheer B.V. · Beheer</p>
                     <h1 style="margin:0;color:#ffffff;font-size:23px;line-height:1.3;">${escapeHtml(subject)}</h1>
                   </td></tr>
                   <tr><td style="padding:28px;">
-                    <p style="margin:0 0 5px;color:#303A43;font-size:16px;font-weight:700;">Une nouvelle demande a été reçue.</p>
-                    <p style="margin:0 0 22px;color:#596773;font-size:13px;line-height:1.5;">Reçue le ${escapeHtml(receivedAt)} · Informations transmises depuis le site.</p>
-                    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="border:1px solid #DFE9F1;border-radius:10px;border-spacing:0;overflow:hidden;">
+                    <p style="margin:0 0 5px;color:#202623;font-size:16px;font-weight:700;">Er is een nieuwe aanvraag ontvangen.</p>
+                    <p style="margin:0 0 22px;color:#56645B;font-size:13px;line-height:1.5;">Ontvangen op ${escapeHtml(receivedAt)} · Gegevens verzonden via de website.</p>
+                    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="border:1px solid #DFE9E2;border-radius:10px;border-spacing:0;overflow:hidden;">
                       ${rows}
                     </table>
-                    <div style="margin-top:24px;padding:14px 16px;border-left:4px solid #B9DFFC;background:#F0F5F9;color:#245B88;font-size:13px;line-height:1.55;">
-                      Consultez l’espace administrateur pour assurer le suivi de cette demande.
+                    <div style="margin-top:24px;padding:14px 16px;border-left:4px solid #C5A77D;background:#F0F4F1;color:#173D35;font-size:13px;line-height:1.55;">
+                      Open de beheeromgeving om deze aanvraag op te volgen.
                     </div>
                   </td></tr>
-                  <tr><td style="padding:18px 28px;border-top:1px solid #DFE9F1;background:#FFFFFF;color:#596773;font-size:12px;line-height:1.5;">
-                    Cet e-mail est envoyé automatiquement par Vastgoed Beheer B.V.. Merci de ne pas y répondre.
+                  <tr><td style="padding:18px 28px;border-top:1px solid #DFE9E2;background:#F7F5F0;color:#56645B;font-size:12px;line-height:1.5;">
+                    Deze e-mail is automatisch verzonden door Vastgoed Beheer B.V. Beantwoord dit bericht niet.
                   </td></tr>
                 </table>
               </td></tr>

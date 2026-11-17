@@ -1,140 +1,45 @@
-import { BrandIcon } from '@/components/shared/brand-icon';
 import Link from 'next/link';
-import { Facebook, Instagram, Linkedin, Mail, MapPin, Phone } from 'lucide-react';
+import { ArrowUpRight, Mail, MapPin, Phone } from 'lucide-react';
+import { BrandIcon } from '@/components/shared/brand-icon';
 import { getSiteSettings } from '@/lib/data/site-settings';
 
-const COLUMN_LINKS = [
+const navigation = [
   { href: '/', label: 'Home' },
-  { href: '/appartements', label: 'Appartementen' },
+  { href: '/appartements', label: 'Woningaanbod' },
   { href: '/comment-ca-marche', label: 'Hoe werkt het' },
   { href: '/a-propos', label: 'Over ons' },
   { href: '/contact', label: 'Contact' },
-  { href: '/faq', label: 'FAQ' },
+  { href: '/faq', label: 'Veelgestelde vragen' },
 ];
-
-const LEGAL_LINKS = [
-  { href: '/mentions-legales', label: 'Juridische kennisgeving' },
-  { href: '/confidentialite', label: 'Privacy' },
+const legal = [
+  { href: '/mentions-legales', label: 'Juridische informatie' },
+  { href: '/confidentialite', label: 'Privacyverklaring' },
   { href: '/conditions-generales', label: 'Algemene voorwaarden' },
 ];
 
 export async function Footer() {
-  const [year, settings] = await Promise.all([
-    Promise.resolve(new Date().getFullYear()),
-    getSiteSettings(),
-  ]);
-
+  const settings = await getSiteSettings();
   return (
-    <footer className="border-t-4 border-champagne bg-emerald-950 text-sand-200">
-      <div className="container-app grid gap-10 py-16 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
-        <div>
-          <Link href="/" className="flex items-center gap-2">
-            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-champagne-100">
-              <BrandIcon className="h-7 w-7" />
-            </span>
-            <span className="font-display text-xl font-medium tracking-tight text-white">
-              Vastgoed Beheer B.V.
-            </span>
-          </Link>
-          <p className="mt-4 max-w-xs text-sm leading-relaxed text-sand-300">
-            Uw betrouwbare agentschap voor het huren van appartementen in Nederland — van de
-            zoektocht tot de verhuizing.
-          </p>
-          <div className="mt-5 flex items-center gap-3">
-            <a
-              href="#"
-              aria-label="Facebook"
-              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/5 text-sand-200 transition-colors hover:bg-white/15 hover:text-white"
-            >
-              <Facebook className="h-4 w-4" />
-            </a>
-            <a
-              href="#"
-              aria-label="Instagram"
-              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/5 text-sand-200 transition-colors hover:bg-white/15 hover:text-white"
-            >
-              <Instagram className="h-4 w-4" />
-            </a>
-            <a
-              href="#"
-              aria-label="LinkedIn"
-              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/5 text-sand-200 transition-colors hover:bg-white/15 hover:text-white"
-            >
-              <Linkedin className="h-4 w-4" />
-            </a>
-          </div>
-        </div>
-
-        <div>
-          <h3 className="text-eyebrow uppercase text-champagne">Navigatie</h3>
-          <ul className="mt-4 space-y-2.5">
-            {COLUMN_LINKS.map((link) => (
-              <li key={link.href}>
-                <Link href={link.href} className="text-sm text-sand-300 transition-colors hover:text-white">
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div>
-          <h3 className="text-eyebrow uppercase text-champagne">Juridische informatie</h3>
-          <ul className="mt-4 space-y-2.5">
-            {LEGAL_LINKS.map((link) => (
-              <li key={link.href}>
-                <Link href={link.href} className="text-sm text-sand-300 transition-colors hover:text-white">
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div>
-          <h3 className="text-eyebrow uppercase text-champagne">Contact</h3>
-          <ul className="mt-4 space-y-3">
-            <li>
-              <a
-                href="mailto:contacts@vastgoedbeheernl.agency"
-                className="flex min-w-0 items-center gap-2.5 break-all text-sm text-sand-300 transition-colors hover:text-white"
-              >
-                <Mail className="h-4 w-4 shrink-0" />
-                contacts@vastgoedbeheernl.agency
-              </a>
-            </li>
-            <li>
-              <a
-                href={`tel:${settings.footer_phone.replace(/[^\d+]/g, '')}`}
-                className="flex min-w-0 items-center gap-2.5 break-all text-sm text-sand-300 transition-colors hover:text-white"
-              >
-                <Phone className="h-4 w-4 shrink-0" />
-                {settings.footer_phone}
-              </a>
-            </li>
-          </ul>
-        </div>
+    <footer className="bg-emerald-950 text-sand-200">
+      <div className="container-app flex flex-col items-start justify-between gap-6 border-b border-white/15 py-12 sm:flex-row sm:items-center">
+        <div><p className="editorial-label text-champagne">Een nieuwe stap begint met een gesprek</p><p className="mt-3 font-display text-4xl text-sand-100 sm:text-5xl">Waar wilt u wonen?</p></div>
+        <Link href="/contact" className="inline-flex min-h-12 items-center gap-5 rounded-md border border-champagne/60 px-6 py-3 text-sm font-semibold text-champagne transition hover:bg-champagne hover:text-ink-900">Neem contact op <ArrowUpRight className="h-4 w-4" /></Link>
       </div>
-
-      <div className="border-t border-white/10">
-        <div className="container-app grid gap-4 py-5 text-xs leading-relaxed text-sand-400 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-start">
-          <div className="flex min-w-0 gap-2.5">
-            <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-sand-300" />
-            <p>
-              <span className="font-semibold text-sand-200">Vastgoed Beheer B.V.</span> · Besloten vennootschap (BV) · Hoofdvestiging ·
-              Hijkerveld 164, 3085 PD Rotterdam, Nederland
-            </p>
-          </div>
-          <p className="sm:text-right">KvK 83136851</p>
+      <div className="container-app grid min-w-0 gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.4fr_0.8fr_1fr_1.2fr]">
+        <div className="min-w-0">
+          <Link href="/" className="inline-flex items-center gap-3" aria-label="Vastgoed Beheer B.V. — Home"><span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-sand-100"><BrandIcon className="h-8 w-8" /></span><span className="font-display text-2xl text-white">Vastgoed Beheer B.V.</span></Link>
+          <p className="mt-5 max-w-xs text-sm leading-7 text-sand-300">Woningen in Nederland. Persoonlijke aandacht, duidelijke informatie en ruimte voor uw volgende hoofdstuk.</p>
+          <p className="mt-5 text-xs tracking-wide text-champagne">Gevestigd in Rotterdam · KvK 83136851</p>
         </div>
+        <div><h2 className="editorial-label text-champagne">Ontdek</h2><ul className="mt-5 space-y-3">{navigation.map(link => <li key={link.href}><Link href={link.href} className="text-sm text-sand-300 transition hover:text-white">{link.label}</Link></li>)}</ul></div>
+        <div><h2 className="editorial-label text-champagne">Goed om te weten</h2><ul className="mt-5 space-y-3">{legal.map(link => <li key={link.href}><Link href={link.href} className="text-sm text-sand-300 transition hover:text-white">{link.label}</Link></li>)}</ul></div>
+        <div className="min-w-0"><h2 className="editorial-label text-champagne">Ons kantoor</h2><address className="mt-5 space-y-4 text-sm not-italic text-sand-300">
+          <p className="flex items-start gap-3"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-champagne" /><span>Hijkerveld 164<br />3085 PD Rotterdam<br />Nederland</span></p>
+          <a href="mailto:contacts@vastgoedbeheernl.agency" className="flex min-w-0 items-start gap-3 hover:text-white"><Mail className="mt-0.5 h-4 w-4 shrink-0 text-champagne" /><span className="min-w-0 break-all">contacts@vastgoedbeheernl.agency</span></a>
+          <a href={`tel:${settings.footer_phone.replace(/[^\d+]/g, '')}`} className="flex items-center gap-3 hover:text-white"><Phone className="h-4 w-4 shrink-0 text-champagne" /><span className="break-all">{settings.footer_phone}</span></a>
+        </address></div>
       </div>
-
-      <div className="border-t border-white/10">
-        <div className="container-app flex flex-col items-center justify-between gap-3 py-5 text-xs text-sand-400 sm:flex-row">
-          <p>© {year} Vastgoed Beheer B.V.. Alle rechten voorbehouden.</p>
-          <p>Appartementen huren in Nederland</p>
-        </div>
-      </div>
+      <div className="border-t border-white/10"><div className="container-app flex flex-col justify-between gap-3 py-6 text-xs leading-relaxed text-sand-400 sm:flex-row"><p>© {new Date().getFullYear()} Vastgoed Beheer B.V. Alle rechten voorbehouden.</p><p>Besloten vennootschap · Rotterdam, Nederland</p></div></div>
     </footer>
   );
 }

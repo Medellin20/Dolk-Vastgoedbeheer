@@ -29,29 +29,29 @@ export function HeroSearchBar() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="w-full rounded-3xl border border-emerald/10 bg-white p-5 shadow-lifted sm:p-7"
+      className="luxury-search w-full border border-emerald/10 bg-white p-5 shadow-lifted sm:p-7"
     >
-      <p className="mb-5 text-xl font-semibold tracking-tight text-ink-900">Vind de woning die bij u past</p>
+      <p className="mb-5 font-display text-3xl font-medium tracking-tight text-ink-900">Vind de woning die bij u past</p>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
         <div className="lg:col-span-1">
-          <label className="mb-1 flex items-center gap-1.5 text-xs font-semibold text-ink-500">
+          <label htmlFor="hero-city" className="mb-1 flex items-center gap-1.5 text-xs font-semibold text-ink-500">
             <MapPin className="h-3.5 w-3.5" /> Stad
           </label>
-          <Select value={city} onChange={(e) => setCity(e.target.value)}>
+          <Select id="hero-city" value={city} onChange={(e) => setCity(e.target.value)}>
             <option value="">Alle steden</option>
             {DUTCH_CITIES.map((c) => (
               <option key={c} value={c}>
-                {c}
+                {c === 'The Hague' ? 'Den Haag' : c}
               </option>
             ))}
           </Select>
         </div>
 
         <div>
-          <label className="mb-1 flex items-center gap-1.5 text-xs font-semibold text-ink-500">
+          <label htmlFor="hero-minPrice" className="mb-1 flex items-center gap-1.5 text-xs font-semibold text-ink-500">
             <Wallet className="h-3.5 w-3.5" /> Budget min.
           </label>
-          <Select value={minPrice} onChange={(e) => setMinPrice(e.target.value)}>
+          <Select id="hero-minPrice" value={minPrice} onChange={(e) => setMinPrice(e.target.value)}>
             <option value="">geen</option>
             {[500, 750, 1000, 1250, 1500, 2000].map((v) => (
               <option key={v} value={v}>
@@ -62,10 +62,10 @@ export function HeroSearchBar() {
         </div>
 
         <div>
-          <label className="mb-1 flex items-center gap-1.5 text-xs font-semibold text-ink-500">
+          <label htmlFor="hero-maxPrice" className="mb-1 flex items-center gap-1.5 text-xs font-semibold text-ink-500">
             <Wallet className="h-3.5 w-3.5" /> Budget max.
           </label>
-          <Select value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)}>
+          <Select id="hero-maxPrice" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)}>
             <option value="">geen</option>
             {[1000, 1500, 2000, 2500, 3000, 4000, 5000].map((v) => (
               <option key={v} value={v}>
@@ -76,10 +76,10 @@ export function HeroSearchBar() {
         </div>
 
         <div>
-          <label className="mb-1 flex items-center gap-1.5 text-xs font-semibold text-ink-500">
+          <label htmlFor="hero-bedrooms" className="mb-1 flex items-center gap-1.5 text-xs font-semibold text-ink-500">
             <BedDouble className="h-3.5 w-3.5" /> Slaapkamers
           </label>
-          <Select value={bedrooms} onChange={(e) => setBedrooms(e.target.value)}>
+          <Select id="hero-bedrooms" value={bedrooms} onChange={(e) => setBedrooms(e.target.value)}>
             <option value="">Geen voorkeur</option>
             {[1, 2, 3, 4].map((v) => (
               <option key={v} value={v}>
@@ -90,10 +90,10 @@ export function HeroSearchBar() {
         </div>
 
         <div>
-          <label className="mb-1 flex items-center gap-1.5 text-xs font-semibold text-ink-500">
+          <label htmlFor="hero-type" className="mb-1 flex items-center gap-1.5 text-xs font-semibold text-ink-500">
             <Building2 className="h-3.5 w-3.5" /> Type
           </label>
-          <Select value={type} onChange={(e) => setType(e.target.value)}>
+          <Select id="hero-type" value={type} onChange={(e) => setType(e.target.value)}>
             <option value="">alle types</option>
             {PROPERTY_TYPES.map((t) => (
               <option key={t.value} value={t.value}>

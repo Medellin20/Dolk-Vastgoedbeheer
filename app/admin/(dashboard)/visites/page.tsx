@@ -56,7 +56,7 @@ export default async function AdminViewingsPage({ searchParams }: { searchParams
 
       {error ? (
         <div role="alert" className="rounded-2xl border border-red-200 bg-red-50 p-5 text-sm text-red-800">
-          Impossible de charger les visites : {error}
+          Bezichtigingen laden mislukt: {error}
         </div>
       ) : viewings.length === 0 ? (
         <EmptyState title="Geen bezichtigingsaanvragen" />
@@ -99,7 +99,7 @@ export default async function AdminViewingsPage({ searchParams }: { searchParams
                   <StatusSelect
                     value={viewing.status as ViewingStatus}
                     options={STATUS_OPTIONS}
-                    onUpdate={(status) => updateViewingStatus(viewing.id, status)}
+                    onUpdate={updateViewingStatus.bind(null, viewing.id)}
                   />
                 </div>
               </div>

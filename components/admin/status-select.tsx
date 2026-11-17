@@ -42,6 +42,7 @@ export function StatusSelect<T extends string>({
 
   return (
     <Select
+      aria-label="Status wijzigen"
       value={value}
       disabled={isSaving || isRefreshing}
       onChange={(e) => handleChange(e.target.value as T)}

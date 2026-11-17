@@ -2,7 +2,7 @@
   <title>Vastgoed Beheer B.V.</title>
   <defs>
     <filter id="brand-blue" color-interpolation-filters="sRGB">
-      <feFlood flood-color="#245B88"/>
+      <feFlood flood-color="#173D35"/>
       <feComposite in2="SourceAlpha" operator="in"/>
     </filter>
   </defs>

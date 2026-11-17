@@ -20,7 +20,7 @@ export async function requestGuaranteeRefund(input: RefundRequestInput): Promise
   if (!parsed.success) {
     return {
       success: false,
-      message: 'Merci de confirmer votre demande de remboursement.',
+      message: 'Bevestig uw verzoek om terugbetaling.',
       fieldErrors: parsed.error.flatten().fieldErrors,
     };
   }
@@ -40,7 +40,7 @@ export async function requestGuaranteeRefund(input: RefundRequestInput): Promise
   if (!['payment_received', 'payment_declared', 'reservation_confirmed'].includes(guarantee.status)) {
     return {
       success: false,
-      message: 'Une demande de remboursement ne peut être faite que pour une garantie versée.',
+      message: 'U kunt alleen een terugbetaling aanvragen voor een betaalde waarborg.',
     };
   }
 
@@ -62,7 +62,7 @@ export async function requestGuaranteeRefund(input: RefundRequestInput): Promise
     .single();
 
   if (insertError || !refund) {
-    return { success: false, message: 'Une erreur est survenue, merci de réessayer.' };
+    return { success: false, message: 'Er is iets misgegaan. Probeer het opnieuw.' };
   }
 
   await supabase
@@ -82,6 +82,6 @@ export async function requestGuaranteeRefund(input: RefundRequestInput): Promise
 
   return {
     success: true,
-    message: `Votre demande de remboursement (${reference}) a été transmise à notre équipe.`,
+    message: `Uw verzoek om terugbetaling (${reference}) is naar ons team verzonden.`,
   };
 }

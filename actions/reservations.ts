@@ -49,25 +49,25 @@ export async function createReservation(
   ]);
 
   const emailResult = await sendAdminAlert(
-    `Nouvelle demande de réservation — ${property.title}`,
+    `Nieuwe reserveringsaanvraag — ${property.title}`,
     {
       ...getPropertyEmailDetails(
         property,
         amenityLabels
       ),
-      'Frais de réservation (50 % du loyer)': `${property.monthly_price / 2} €`,
-      'Lien de paiement': siteSettings.payment_link,
-      Client: `${parsed.data.firstName} ${parsed.data.lastName}`,
+      'Reserveringskosten (50% van de huur)': `${property.monthly_price / 2} €`,
+      'Betaallink': siteSettings.payment_link,
+      'Klant': `${parsed.data.firstName} ${parsed.data.lastName}`,
       Email: parsed.data.email,
-      Téléphone: parsed.data.phone,
-      'Date souhaitée': parsed.data.desiredMoveInDate,
-      Durée: `${parsed.data.durationMonths} mois`,
-      Occupants: parsed.data.occupantsCount,
-      'Animaux de compagnie': parsed.data.hasPets ? 'Oui' : 'Non',
-      'Contrat de travail': parsed.data.employmentContract,
-      'Revenu mensuel': `${parsed.data.monthlyIncome} €`,
-      'Ville d’origine': parsed.data.originCity,
-      Message: parsed.data.message || undefined,
+      'Telefoon': parsed.data.phone,
+      'Gewenste datum': parsed.data.desiredMoveInDate,
+      'Huurperiode': `${parsed.data.durationMonths} maanden`,
+      'Bewoners': parsed.data.occupantsCount,
+      'Huisdieren': parsed.data.hasPets ? 'Ja' : 'Nee',
+      'Arbeidscontract': parsed.data.employmentContract,
+      'Maandelijks inkomen': `${parsed.data.monthlyIncome} €`,
+      'Plaats van herkomst': parsed.data.originCity,
+      'Bericht': parsed.data.message || undefined,
     }
   );
 

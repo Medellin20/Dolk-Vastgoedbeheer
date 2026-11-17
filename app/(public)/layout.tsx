@@ -7,7 +7,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
     <div className="public-shell flex min-h-screen flex-col">
       <StatusAutoRefresh />
       <Navbar />
-      <main className="flex-1">{children}</main>
+      <main id="main-content" tabIndex={-1} className="flex-1">{children}</main>
       <Footer />
     </div>
   );

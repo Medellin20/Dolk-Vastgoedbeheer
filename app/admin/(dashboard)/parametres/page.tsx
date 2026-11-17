@@ -25,8 +25,7 @@ export default function AdminParametresPage() {
             <h2 className="font-bold text-ink-900">Beheerdersauthenticatie</h2>
           </div>
           <p className="mt-2 text-sm text-ink-500">
-            De toegang tot de beheeromgeving wordt beschermd door een wachtwoord in de variabele
-            d’environnement <code className="rounded bg-sand-200 px-1 py-0.5 text-xs">ADMIN_PASSWORD</code>.
+            De toegang tot de beheeromgeving wordt beschermd door een wachtwoord in de omgevingsvariabele <code className="rounded bg-sand-200 px-1 py-0.5 text-xs">ADMIN_PASSWORD</code>.
             De sessiecookie wordt ondertekend met{' '}
             <code className="rounded bg-sand-200 px-1 py-0.5 text-xs">ADMIN_SESSION_SECRET</code>{' '}
             en verloopt na 8 uur. Aanmeldpogingen zijn beperkt tot 5 per periode van 15 minuten
@@ -72,9 +71,9 @@ async function SiteSettingsSection() {
 
   return (
     <div className="rounded-2xl border border-ink-100 bg-white p-5 sm:p-6">
-      <h2 className="font-bold text-ink-900">Coordonnées publiques</h2>
+      <h2 className="font-bold text-ink-900">Openbare contactgegevens</h2>
       <p className="mt-2 mb-4 text-sm text-ink-500">
-        Modifiez le numéro affiché dans le footer et le lien de paiement utilisé pour les visites et réservations.
+        Wijzig het nummer in de voettekst, de betaallink en de betalingsomschrijving voor bezichtigingen en reserveringen.
       </p>
       <SiteSettingsForm settings={settings} bankSettings={bankSettings} />
     </div>

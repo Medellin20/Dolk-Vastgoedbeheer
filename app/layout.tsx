@@ -1,8 +1,12 @@
 import type { Metadata, Viewport } from 'next';
+import localFont from 'next/font/local';
 import { Toaster } from 'sonner';
 import { MotionProvider } from '@/components/ui/motion-provider';
 import './globals.css';
 import { getSiteUrl } from '@/lib/utils/site-url';
+
+const manrope = localFont({ src: '../public/fonts/manrope/latin.woff2', variable: '--font-manrope', display: 'swap', weight: '400 700' });
+const cormorant = localFont({ src: [{ path: '../public/fonts/cormorant-garamond/latin.woff2', style: 'normal' }, { path: '../public/fonts/cormorant-garamond/latin-italic.woff2', style: 'italic' }], variable: '--font-cormorant', display: 'swap', weight: '400 700' });
 
 const siteUrl = getSiteUrl();
 
@@ -49,8 +53,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="nl">
+    <html lang="nl" className={`${manrope.variable} ${cormorant.variable}`}>
       <body className="font-sans">
+        <a href="#main-content" className="skip-link">Ga naar de inhoud</a>
         <MotionProvider>
         {children}
         <Toaster
