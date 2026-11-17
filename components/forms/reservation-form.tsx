@@ -33,14 +33,14 @@ export function ReservationForm({
 }) {
   const router = useRouter();
   const [step, setStep] = React.useState(0);
-  const [isPending, startTransition] = React.useTransition();
+  const submissionInFlight = React.useRef(false);
 
   const {
     register,
     handleSubmit,
     trigger,
-    watch,
-    formState: { errors },
+    setError,
+    formState: { errors, isSubmitting },
   } = useForm<ReservationInput>({
     resolver: zodResolver(reservationSchema),
     defaultValues: {
@@ -51,34 +51,39 @@ export function ReservationForm({
     },
   });
 
-  const values = watch();
   const minDate = new Date().toISOString().split('T')[0];
 
   async function goNext() {
-    const fieldsByStep: (keyof ReservationInput)[][] = [
-      ['firstName', 'lastName', 'email', 'phone'],
-      ['desiredMoveInDate', 'durationMonths', 'occupantsCount', 'hasPets', 'employmentContract', 'monthlyIncome', 'originCity'],
-    ];
-    const valid = await trigger(fieldsByStep[step]);
-    if (!valid) return;
-
-    if (step === 1) {
-      onSubmit(watch());
+    if (step === 0) {
+      const valid = await trigger(['firstName', 'lastName', 'email', 'phone']);
+      if (valid) setStep(1);
       return;
     }
 
-    setStep((s) => Math.min(s + 1, STEPS.length - 1));
+    await handleSubmit(onSubmit)();
   }
 
-  function onSubmit(data: ReservationInput) {
-    startTransition(async () => {
+  async function onSubmit(data: ReservationInput) {
+    if (submissionInFlight.current) return;
+    submissionInFlight.current = true;
+    try {
       const result = await createReservation(data);
-      if (result && !result.success) {
+      if (!result.success) {
+        for (const [field, messages] of Object.entries(result.fieldErrors ?? {})) {
+          setError(field as keyof ReservationInput, { message: messages[0] });
+        }
+        if (['firstName', 'lastName', 'email', 'phone'].some((field) => result.fieldErrors?.[field])) {
+          setStep(0);
+        }
         toast.error(result.message);
-      } else if (result?.success) {
-        router.replace(confirmationUrl);
+        return;
       }
-    });
+      router.replace(confirmationUrl);
+    } catch {
+      toast.error('Uw aanvraag kon niet worden verzonden. Probeer het opnieuw.');
+    } finally {
+      submissionInFlight.current = false;
+    }
   }
 
   return (
@@ -104,7 +109,7 @@ export function ReservationForm({
         ))}
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form noValidate onSubmit={(event) => { event.preventDefault(); void goNext(); }}>
         <AnimatePresence mode="wait">
           {step === 0 && (
             <motion.div
@@ -194,7 +199,7 @@ export function ReservationForm({
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                 <div>
                   <Label htmlFor="monthlyIncome">Geschat maandelijks inkomen (€)</Label>
-                  <Input id="monthlyIncome" type="number" min={0} step="50" {...register('monthlyIncome')} />
+                  <Input id="monthlyIncome" type="number" min={0} step="any" {...register('monthlyIncome')} />
                   <FieldError message={errors.monthlyIncome?.message} />
                 </div>
                 <div>
@@ -218,30 +223,21 @@ export function ReservationForm({
                 <Textarea id="message" rows={4} {...register('message')} />
                 <FieldError message={errors.message?.message} />
               </div>
-            </motion.div>
-          )}
 
-          {step === 1 && (
-            <motion.div
-              key="s1"
-              initial={{ opacity: 0, x: 16 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -16 }}
-              transition={{ duration: 0.2 }}
-              className="space-y-4"
-            >
               <p className="rounded-xl bg-canal-50 p-4 text-sm leading-relaxed text-ink-600">
                 De reserveringskosten bedragen 50% van één maand huur ({reservationFee}).
                 Klik op « Doorgaan » om uw dossier te verzenden en naar de betaling te gaan.
               </p>
             </motion.div>
           )}
+
         </AnimatePresence>
 
         <div className="mt-7 flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between">
           <Button
             type="button"
             variant="outline"
+            disabled={isSubmitting}
             onClick={() => setStep((s) => Math.max(0, s - 1))}
             className={cn('w-full sm:w-auto', step === 0 && 'hidden sm:inline-flex sm:invisible')}
           >
@@ -249,7 +245,7 @@ export function ReservationForm({
             Terug
           </Button>
 
-          <Button type="button" onClick={goNext} isLoading={isPending} className="w-full sm:w-auto">
+          <Button type="submit" isLoading={isSubmitting} className="w-full sm:w-auto">
             Doorgaan
             <ArrowRight className="h-4 w-4" />
           </Button>
