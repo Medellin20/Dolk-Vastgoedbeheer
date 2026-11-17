@@ -1,5 +1,6 @@
 'use client';
 
+import { BrandIcon } from '@/components/shared/brand-icon';
 import * as React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -43,7 +44,7 @@ export function Navbar() {
       </div>
       <nav aria-label="Hoofdnavigatie" className="container-app flex h-20 items-center justify-between gap-4">
         <Link href="/" className="flex min-w-0 items-center gap-2 sm:gap-3" aria-label="Vastgoed Beheer B.V. — Home">
-          <span className="flex h-10 w-10 shrink-0 items-center justify-center sm:h-11 sm:w-11 rounded-xl border border-emerald/15 bg-champagne-100 text-emerald"><Building2 className="h-6 w-6" strokeWidth={1.3} /></span>
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center sm:h-11 sm:w-11 rounded-xl border border-emerald/15 bg-champagne-100 text-emerald"><BrandIcon className="h-8 w-8" /></span>
           <span className="flex min-w-0 flex-col"><span className="font-display text-xl font-bold tracking-tight leading-none text-emerald">Vastgoed</span><span className="mt-1 max-w-[12rem] text-[9px] font-semibold uppercase leading-relaxed tracking-[0.1em] text-ink-500">Beheer B.V.</span></span>
         </Link>
         <div className="hidden items-center gap-1 xl:flex">

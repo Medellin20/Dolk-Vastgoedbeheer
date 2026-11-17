@@ -1,6 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
   <title>Vastgoed Beheer B.V.</title>
-  <rect width="64" height="64" rx="16" fill="#245B88"/>
-  <path d="M23 51V17a4 4 0 0 1 4-4h14a4 4 0 0 1 4 4v34M23 29h-5a3 3 0 0 0-3 3v19h38" fill="none" stroke="#B9DFFC" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5"/>
-  <path d="M31 23h6m-6 9h6m-6 9h6" fill="none" stroke="#B9DFFC" stroke-linecap="round" stroke-width="3.5"/>
+  <defs>
+    <filter id="brand-blue" color-interpolation-filters="sRGB">
+      <feFlood flood-color="#245B88"/>
+      <feComposite in2="SourceAlpha" operator="in"/>
+    </filter>
+  </defs>
+  <image width="48" height="48" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAACa0lEQVR4nO2ZMUhVURzGf6WlSEEFkVoRBUFDLtmSgrWYEVRTa7XU4NIkES1tDro0BM5OIi0SLkFCDoGJ0JAN1RBKEBbSwwyt9MaRv3E5nnc9/+u7794H54MPHnrO9/++c945/4NCQEBAVjgBjAnN5yRcBeaByGIu2As8BJZjRpblZ+Z3Lsw7zOcSoAt4V8aM4QfgsmNelHeAI8AwsJ5gJs7nwLEiBNgN3AK+exqP8wdwH6jLK8B5YDqFcZvT1Q5wAHgK/PUw902YNlzFcRP46lF4Xc7EYeAg8MQzcJRVgNPAC8+ib4EOh0Y78KbaAZqAfmDVo1hJDmV9gl69jCl5BugXD6lwHfjsWWgEaLXmNwCPhOZzHK0yJ/Kg8XBDY/woMOop/hG44tC4CMxa43oc4y4B7xW942SS8T2yvUseYr+Ax0CjpdG8TUMzJo6XqftTUbdB+wSI8yVwxtHQ7klz2m6+MfpAGlgcp4BxTw9bniTPPCZ9ka5r4xwwpbxdNm+rCw69a55nz3j+D/MuWSwz8DcwCOyzCh0ChoC1FOY3uSYaRisOU2tAarvmLVpvqQ10Ap+sga+ANmvcLuA2sLAD4zYXgDuiHUebeIisC8G1cxsw38tuETONx8ZZYLKCxiOLk1LDRrt46pbzpkaTnH6fhrZT/pGnx34qAHNd3QXmqmA8sjgntbdcmb6YULT8LFkSL2pEBaMa2gIrQB/QkpG+GtoCfRnrq6Et0FzrAbQIAfJeobADea9Q2IG8VyjsQN4rpNE2D7rCbbFG+3WtB+it5QAzCf+aKnyAGcefLAsfYEm+871pVz4gIIDawT9vcLYOtPhhagAAAABJRU5ErkJggg==" filter="url(#brand-blue)"/>
 </svg>

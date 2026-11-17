@@ -1,5 +1,6 @@
 'use client';
 
+import { BrandIcon } from '@/components/shared/brand-icon';
 import * as React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -12,7 +13,6 @@ import {
   LogOut,
   Menu,
   X,
-  Home,
   Landmark,
   RefreshCcw,
   ShieldCheck,
@@ -85,8 +85,8 @@ export function AdminSidebar() {
       {/* Topbar mobile */}
       <div className="sticky top-0 z-40 flex w-full items-center justify-between border-b border-ink-100 bg-white/95 px-4 py-3 backdrop-blur lg:hidden">
         <Link href="/admin" className="flex min-w-0 items-center gap-2">
-          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-emerald text-champagne">
-            <Home className="h-4 w-4" />
+          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-champagne-100 text-emerald">
+            <BrandIcon className="h-6 w-6" />
           </span>
           <span className="min-w-0 text-sm font-extrabold leading-snug text-ink-900">Vastgoed Beheer B.V.</span>
         </Link>
@@ -126,8 +126,8 @@ export function AdminSidebar() {
 function SidebarHeader({ compact }: { compact?: boolean }) {
   return (
     <Link href="/admin" className={cn('flex items-center gap-2', !compact && 'border-b border-white/10 px-6 py-7')}>
-      <span className="flex h-9 w-9 items-center justify-center rounded-t-2xl border border-champagne/40 bg-champagne/10">
-        <Home className="h-4.5 w-4.5 text-champagne" />
+      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-champagne/40 bg-champagne-100">
+        <BrandIcon className="h-7 w-7" />
       </span>
       <div>
         <p className="font-display text-lg text-white">Vastgoed Beheer B.V.</p>

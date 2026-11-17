@@ -1,5 +1,6 @@
+import { BrandIcon } from '@/components/shared/brand-icon';
 import type { Metadata } from 'next';
-import { ArrowLeft, Building2, ShieldCheck } from 'lucide-react';
+import { ArrowLeft, ShieldCheck } from 'lucide-react';
 import Link from 'next/link';
 import { AdminLoginForm } from '@/components/admin/login-form';
 
@@ -9,7 +10,7 @@ export default function AdminLoginPage() {
   return (
     <div className="grid min-h-screen lg:grid-cols-2">
       <div className="relative hidden flex-col justify-between overflow-hidden bg-emerald p-12 lg:flex xl:p-20">
-        <Link href="/" className="relative z-10 flex items-center gap-3 text-white"><Building2 className="h-8 w-8 text-champagne" strokeWidth={1.2} /><span className="font-display text-2xl">Vastgoed Beheer B.V.</span></Link>
+        <Link href="/" className="relative z-10 flex items-center gap-3 text-white"><BrandIcon className="h-11 w-11 rounded-xl bg-champagne-100 p-1.5" /><span className="font-display text-2xl">Vastgoed Beheer B.V.</span></Link>
         <div className="architectural-mark opacity-40" aria-hidden="true"><span /><span /><span /></div>
         <div className="relative z-10"><p className="text-xs uppercase tracking-[0.25em] text-champagne">Uw private workspace</p><h1 className="mt-6 max-w-lg font-display text-5xl leading-tight text-white">Aandacht voor vastgoed.<br /><span className="italic text-sage">Ruimte voor mensen.</span></h1><p className="mt-6 max-w-sm text-sm leading-relaxed text-sand-300">Beheer uw woningen, bezichtigingen en klantdossiers vanuit één overzichtelijke omgeving.</p></div>
         <p className="relative text-xs text-sage">Vastgoed Beheer B.V. · Rotterdam, Nederland</p>

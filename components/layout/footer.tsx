@@ -1,5 +1,6 @@
+import { BrandIcon } from '@/components/shared/brand-icon';
 import Link from 'next/link';
-import { Facebook, Home, Instagram, Linkedin, Mail, MapPin, Phone } from 'lucide-react';
+import { Facebook, Instagram, Linkedin, Mail, MapPin, Phone } from 'lucide-react';
 import { getSiteSettings } from '@/lib/data/site-settings';
 
 const COLUMN_LINKS = [
@@ -28,8 +29,8 @@ export async function Footer() {
       <div className="container-app grid gap-10 py-16 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
         <div>
           <Link href="/" className="flex items-center gap-2">
-            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-champagne/10">
-              <Home className="h-4.5 w-4.5 text-white" strokeWidth={2.25} />
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-champagne-100">
+              <BrandIcon className="h-7 w-7" />
             </span>
             <span className="font-display text-xl font-medium tracking-tight text-white">
               Vastgoed Beheer B.V.
