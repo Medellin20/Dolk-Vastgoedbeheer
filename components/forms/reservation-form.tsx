@@ -51,6 +51,8 @@ export function ReservationForm({
     },
   });
 
+  const phoneField = register('phone');
+
   const minDate = new Date().toISOString().split('T')[0];
 
   async function goNext() {
@@ -60,7 +62,12 @@ export function ReservationForm({
       return;
     }
 
-    await handleSubmit(onSubmit)();
+    await handleSubmit(onSubmit, (validationErrors) => {
+      if (['firstName', 'lastName', 'email', 'phone'].some((field) => field in validationErrors)) {
+        setStep(0);
+      }
+      toast.error('Controleer de gemarkeerde velden voordat u doorgaat.');
+    })();
   }
 
   async function onSubmit(data: ReservationInput) {
@@ -149,7 +156,11 @@ export function ReservationForm({
                   inputMode="tel"
                   maxLength={13}
                   placeholder="+31 635219711"
-                  {...register('phone', { onChange: (event) => { event.target.value = formatDutchPhoneInput(event.target.value); } })}
+                  {...phoneField}
+                  onChange={(event) => {
+                    event.target.value = formatDutchPhoneInput(event.target.value);
+                    void phoneField.onChange(event);
+                  }}
                 />
                 <FieldError message={errors.phone?.message} />
               </div>

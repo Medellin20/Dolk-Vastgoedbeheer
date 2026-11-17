@@ -7,7 +7,7 @@ const ts = require('typescript');
 function harness(send) {
   let step = 0;
   const ref = { current: false };
-  const errors = [], redirects = [];
+  const errors = [], redirects = [], phoneValues = [];
   let submit;
   const React = {
     createElement: (type, props, ...children) => ({ type, props: props || {}, children }),
@@ -18,7 +18,7 @@ function harness(send) {
     react: React,
     'next/navigation': { useRouter: () => ({ replace: (url) => redirects.push(url) }) },
     'react-hook-form': { useForm: () => ({
-      register: () => ({}), trigger: async () => true,
+      register: (name) => ({ onChange: (event) => { if (name === 'phone') phoneValues.push(event.target.value); } }), trigger: async () => true,
       handleSubmit: (callback) => { submit = callback; return async () => callback({ monthlyIncome: 2345.67 }); },
       setError: () => {}, formState: { errors: {}, isSubmitting: false },
     }) },
@@ -28,7 +28,7 @@ function harness(send) {
     '@/actions/reservations': { createReservation: send },
     '@/lib/validations/reservation': {},
     '@/lib/utils/cn': { cn: () => '' },
-    '@/lib/utils/phone': { formatDutchPhoneInput: (value) => value },
+    '@/lib/utils/phone': { formatDutchPhoneInput: (value) => '+31 ' + value.replace(/^0/, '') },
   };
   const context = { exports: {}, require: (name) => dependencies[name] || {} };
   vm.runInNewContext(ts.transpileModule(fs.readFileSync('components/forms/reservation-form.tsx', 'utf8'), {
@@ -40,7 +40,7 @@ function harness(send) {
     if (predicate(node)) return node;
     return (node.children || []).flat(Infinity).map((child) => find(child, predicate)).find(Boolean);
   }
-  return { render, find, errors, redirects, getSubmit: () => submit };
+  return { render, find, errors, redirects, phoneValues, getSubmit: () => submit };
 }
 
 test('Enter advances the first step; final submission uses full validation and one animated panel', async () => {
@@ -75,4 +75,13 @@ test('concurrent submissions send once and a network error permits retry', async
   assert.equal(calls, 2);
   reject(new Error('offline'));
   await retry;
+});
+
+ test('phone formatting reaches form state before validation and submission', () => {
+  const h = harness(async () => ({ success: true }));
+  const phone = h.find(h.render(), (node) => node.props.id === 'phone');
+  const event = { target: { value: '0612345678' } };
+  phone.props.onChange(event);
+  assert.equal(event.target.value, '+31 612345678');
+  assert.deepEqual(h.phoneValues, ['+31 612345678']);
 });
