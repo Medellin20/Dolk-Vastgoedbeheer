@@ -125,16 +125,16 @@ export default async function HomePage() {
             </div>
           </FadeIn>
 
-          <div className="mt-9 grid gap-5 md:grid-cols-2">
+          <div className="mt-9 grid grid-cols-1 gap-5 md:grid-cols-2">
             {citySummaries.map((summary, index) => (
-              <FadeIn key={summary.city} delay={Math.min(index, 6) * 0.04}>
+              <FadeIn key={summary.city} delay={Math.min(index, 6) * 0.04} className="min-w-0">
                 <Link
                   href={`/appartements?city=${encodeURIComponent(summary.city)}`}
-                  className="group flex items-center gap-4 rounded-2xl border border-emerald/10 bg-white p-4 shadow-soft transition hover:border-champagne sm:gap-5"
+                  className="group flex min-w-0 items-center gap-3 rounded-2xl border border-emerald/10 bg-white p-4 shadow-soft transition hover:border-champagne sm:gap-5"
                 >
-                  <div className="relative h-24 w-28 shrink-0 overflow-hidden rounded-xl bg-sand-200 sm:h-28 sm:w-44">
+                  <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-sand-200 sm:h-28 sm:w-44">
                     {summary.imageUrl ? (
-                      <Image src={summary.imageUrl} alt={`Appartement in ${summary.city}`} fill sizes="(max-width: 640px) 112px, 176px" className="object-cover transition-transform duration-300 group-hover:scale-105" />
+                      <Image src={summary.imageUrl} alt={`Appartement in ${summary.city}`} fill sizes="(max-width: 640px) 80px, 176px" className="object-cover transition-transform duration-300 group-hover:scale-105" />
                     ) : (
                       <span className="flex h-full items-center justify-center text-canal-500"><MapPin className="h-7 w-7" /></span>
                     )}
@@ -144,7 +144,7 @@ export default async function HomePage() {
                     <p className="mt-1 text-sm text-ink-600 sm:text-base">{summary.count} appartement{summary.count > 1 ? 's' : ''}</p>
                     <p className="mt-0.5 text-sm text-ink-500 sm:text-base">Gem. {formatPrice(summary.averagePrice)} / maand</p>
                   </div>
-                  <ArrowRight className="h-7 w-7 shrink-0 text-canal-500 transition-transform group-hover:translate-x-1 sm:h-8 sm:w-8" />
+                  <ArrowRight className="h-5 w-5 shrink-0 text-canal-500 transition-transform group-hover:translate-x-1 sm:h-8 sm:w-8" />
                 </Link>
               </FadeIn>
             ))}
@@ -206,9 +206,9 @@ export default async function HomePage() {
           </FadeIn>
 
           <div className="mt-9 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-5 [scrollbar-width:thin]">
-            {DUTCH_TESTIMONIALS.map((testimonial, index) => (
+            {DUTCH_TESTIMONIALS.map((testimonial) => (
               <article
-                key={index}
+                key={testimonial.name}
                 className="flex min-h-64 w-[85vw] max-w-sm shrink-0 snap-start flex-col rounded-2xl border border-ink-100 bg-white p-6 shadow-soft sm:w-80"
               >
                 <div className="flex items-center justify-between gap-3">
@@ -218,10 +218,10 @@ export default async function HomePage() {
                   </div>
                 </div>
                 <blockquote className="mt-5 flex-1 text-sm leading-relaxed text-ink-600" lang="nl">
-                  “{testimonial}”
+                  “{testimonial.text}”
                 </blockquote>
-                <p className="mt-5 border-t border-ink-100 pt-4 text-xs font-semibold uppercase tracking-wide text-ink-400">
-                  Klant van Vastgoed Beheer B.V. · Ervaring {index + 1}
+                <p className="mt-5 border-t border-ink-100 pt-4 text-sm font-semibold text-ink-700">
+                  {testimonial.name}
                 </p>
               </article>
             ))}
