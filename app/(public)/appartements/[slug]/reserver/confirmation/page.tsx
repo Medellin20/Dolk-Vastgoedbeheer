@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { PaymentReason } from '@/components/shared/payment-reason';
 import { CheckCircle2, Home } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { getSiteSettings } from '@/lib/data/site-settings';
@@ -10,6 +11,7 @@ export const metadata = { title: 'Betaling reserveringskosten' };
 export default async function ReservationConfirmationPage() {
   const {
     payment_link: paymentLink,
+    payment_reason: paymentReason,
     show_payment_link: showPaymentLink,
     footer_phone: confirmationPhone,
   } = await getSiteSettings();
@@ -26,6 +28,8 @@ export default async function ReservationConfirmationPage() {
         <h1 className="mt-5 text-xl font-extrabold text-ink-900 sm:text-2xl">
           Uw dossier is verzonden
         </h1>
+
+        {(showPaymentLink || showBankDetails) && <PaymentReason reason={paymentReason} />}
 
         <div className="mt-6 grid items-start gap-4 lg:grid-cols-[1.2fr_0.8fr]">
           {showPaymentLink && (

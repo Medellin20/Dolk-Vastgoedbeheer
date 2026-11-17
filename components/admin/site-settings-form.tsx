@@ -30,6 +30,7 @@ export function SiteSettingsForm({
     defaultValues: {
       footerPhone: settings.footer_phone,
       paymentLink: settings.payment_link,
+      paymentReason: settings.payment_reason || '',
       showPaymentLink: settings.show_payment_link,
       viewingFee: settings.viewing_fee,
       showOnConfirmations: bankSettings.show_on_confirmations,
@@ -46,7 +47,7 @@ export function SiteSettingsForm({
         toast.error(result.message);
         return;
       }
-      toast.success('Le lien de paiement a été enregistré.');
+      toast.success('Le lien et le motif de paiement ont été enregistrés.');
 
       const bankResult = await updateBankSettings({
         beneficiaryName: bankSettings.beneficiary_name,
@@ -81,6 +82,12 @@ export function SiteSettingsForm({
         <Input id="paymentLink" type="url" {...register('paymentLink')} />
         <FieldError message={errors.paymentLink?.message} />
         <p className="mt-1 text-xs text-ink-400">Ce lien sera utilisé pour les visites et les réservations.</p>
+      </div>
+      <div>
+        <Label htmlFor="paymentReason">Motif de paiement à imposer</Label>
+        <Input id="paymentReason" maxLength={140} placeholder="Ex. : Frais de dossier" aria-describedby="paymentReason-help" {...register('paymentReason')} />
+        <FieldError message={errors.paymentReason?.message} />
+        <p id="paymentReason-help" className="mt-1 text-xs text-ink-500">Le client devra recopier ce motif lors du paiement. Il sera affiché sur les confirmations de visite et de réservation. Laissez vide pour ne pas définir de motif.</p>
       </div>
       <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-ink-100 bg-sand-50 p-3.5">
         <Checkbox id="showPaymentLink" {...register('showPaymentLink')} />

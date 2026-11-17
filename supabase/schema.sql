@@ -300,6 +300,7 @@ create table public.site_settings (
   id integer primary key check (id = 1) default 1,
   footer_phone text not null default '',
   payment_link text not null default '',
+  payment_reason text not null default '' check (char_length(payment_reason) <= 140),
   show_payment_link boolean not null default false,
   viewing_fee numeric(12,2) not null default 50 check (viewing_fee >= 0),
   updated_at timestamptz not null default now()

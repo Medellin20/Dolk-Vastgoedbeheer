@@ -80,3 +80,9 @@ Après connexion au projet réel :
 - Vérifier les paramètres publics et bancaires, puis supprimer les données de test via l'application et les fichiers par l'API Storage.
 
 Les contrôles SQL sont limités aux permissions et aux fixtures indiquées. Livraison d'e-mails, Stripe, uploads, sauvegardes, quotas et parcours navigateur doivent être vérifiés sur le service connecté. Les sauvegardes et leur restauration se configurent dans Supabase selon l'offre choisie ; aucun paramètre de facturation n'est modifié par ces fichiers.
+
+## Motif de paiement administrable
+
+Pour une base existante, exécuter `supabase/migrations/20261117_payment_reason.sql` dans l’éditeur SQL Supabase avant d’enregistrer les paramètres avec cette version. La migration ajoute `site_settings.payment_reason`, vide par défaut, sans modifier les autres réglages. Les nouvelles bases obtiennent ce champ via `schema.sql`.
+
+Dans Administration → Paramètres, « Motif de paiement à imposer » définit le texte à recopier par le client sur les confirmations de visite et de réservation. Un motif vide masque la consigne. Le champ n’altère pas l’URL du prestataire et ne garantit pas le verrouillage du motif sur son site externe.

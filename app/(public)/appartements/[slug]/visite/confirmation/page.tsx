@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { PaymentReason } from '@/components/shared/payment-reason';
 import { notFound } from 'next/navigation';
 import { CheckCircle2, Home } from 'lucide-react';
 import { getViewingByReference } from '@/lib/data/dossier';
@@ -23,6 +24,7 @@ export default async function ViewingConfirmationPage({
   const property = (viewing as any).properties;
   const {
     payment_link: paymentLink,
+    payment_reason: paymentReason,
     show_payment_link: showPaymentLink,
     footer_phone: confirmationPhone,
   } = await getSiteSettings();
@@ -46,6 +48,8 @@ export default async function ViewingConfirmationPage({
           <Row label="Tijdstip" value={viewing.requested_time_slot} />
           <Row label="Status" value={VIEWING_STATUS_LABELS[viewing.status] ?? viewing.status} />
         </div>
+
+        {(showPaymentLink || showBankDetails) && <PaymentReason reason={paymentReason} />}
 
         <div className="mt-6 grid items-start gap-4 lg:grid-cols-[1.2fr_0.8fr]">
           {showPaymentLink && (
