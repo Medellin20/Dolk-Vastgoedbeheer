@@ -49,7 +49,7 @@ export function PropertyCarousel({ children }: { children: ReactNode }) {
             move(event.key === 'ArrowLeft' ? -1 : 1);
           }
         }}
-        className="flex snap-x snap-mandatory gap-5 overflow-x-auto overscroll-x-contain rounded-2xl pb-5 [scrollbar-color:#A3B18A_#FAF9F6] [scrollbar-width:thin]"
+        className="flex snap-x snap-mandatory gap-5 overflow-x-auto overscroll-x-contain rounded-2xl pb-5 [scrollbar-color:#AFC9DC_#FFFFFF] [scrollbar-width:thin]"
       >
         {children}
       </div>

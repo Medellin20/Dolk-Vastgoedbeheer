@@ -6,7 +6,7 @@ import { getSiteSettings } from '@/lib/data/site-settings';
 
 export const metadata: Metadata = {
   title: 'Contact',
-  description: 'Neem contact op met het team van Dolk Vastgoedbeheer BV voor vragen over het huren van een appartement in Nederland.',
+  description: 'Neem contact op met het team van Vastgoed Beheer B.V. voor vragen over het huren van een appartement in Nederland.',
 };
 
 export default async function ContactPage() {
@@ -14,7 +14,7 @@ export default async function ContactPage() {
   const info = [
     { icon: Mail, label: 'Contacts@dolkvastgoednl.agency' },
     { icon: Phone, label: footerPhone },
-    { icon: MapPin, label: 'Waterjufferpad 24, 1706 BW Heerhugowaard, Nederland' },
+    { icon: MapPin, label: 'Hijkerveld 164, 3085 PD Rotterdam, Nederland' },
     { icon: Clock, label: 'Lun–Ven, 9h–18h (CET)' },
   ];
 

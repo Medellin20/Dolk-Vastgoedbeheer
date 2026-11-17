@@ -1,4 +1,4 @@
-# Supabase — Dolk Vastgoedbeheer BV
+# Supabase — Vastgoed Beheer B.V.
 
 ## Ce qui est fourni
 

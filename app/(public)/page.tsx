@@ -15,9 +15,9 @@ import { DUTCH_TESTIMONIALS } from '@/lib/data/testimonials';
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: 'Dolk Vastgoedbeheer BV — Appartementen huren in Nederland',
+  title: 'Vastgoed Beheer B.V. — Appartementen huren in Nederland',
   description:
-    'Vind uw volgende woning in Nederland. Dolk Vastgoedbeheer BV maakt het zoeken, bezichtigen en reserveren van appartementen in Amsterdam, Rotterdam, Utrecht en daarbuiten eenvoudig.',
+    'Vind uw volgende woning in Nederland. Vastgoed Beheer B.V. maakt het zoeken, bezichtigen en reserveren van appartementen in Amsterdam, Rotterdam, Utrecht en daarbuiten eenvoudig.',
 };
 
 const STEPS = [
@@ -59,20 +59,20 @@ export default async function HomePage() {
     <>
       {/* HERO */}
       <section className="luxury-hero relative overflow-hidden border-b border-emerald/10">
-        <div className="container-app relative pb-10 pt-12 sm:pb-14 sm:pt-16">
-          <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
+        <div className="container-app relative pb-10 pt-10 sm:pb-14 sm:pt-14">
+          <div className="grid items-center gap-10 lg:grid-cols-[1fr_1fr] lg:gap-12">
             <FadeIn>
-              <span className="inline-flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-emerald">Wonen met vertrouwen</span>
-              <h1 className="mt-6 max-w-2xl font-display text-[2.8rem] leading-[1.07] tracking-tight text-emerald sm:text-6xl lg:text-[4.25rem]">
-                Een bijzonder huis.<br /><span className="italic text-ink-500">Een nieuw begin.</span>
+              <span className="inline-flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-emerald">Rotterdam · Wonen met vertrouwen</span>
+              <h1 className="mt-6 max-w-2xl font-display text-[2.6rem] font-semibold leading-[1.07] tracking-tight text-emerald sm:text-6xl lg:text-[4.25rem]">
+                Een bijzonder huis.<br /><span className="text-ink-500">Een nieuw begin.</span>
               </h1>
               <p className="mt-6 max-w-lg text-base leading-relaxed text-ink-500">
-                Vind uw volgende woning in Nederland. Dolk Vastgoedbeheer BV begeleidt u persoonlijk, van de eerste bezichtiging tot de sleuteloverdracht.
+                Vind uw volgende woning in Nederland. Vastgoed Beheer B.V. begeleidt u persoonlijk, van de eerste bezichtiging tot de sleuteloverdracht.
               </p>
-              <Link href="/appartements" className="mt-7 inline-flex items-center gap-4 border-b border-emerald/30 pb-2 text-sm font-semibold text-emerald transition hover:border-champagne">Ontdek onze woningen <ArrowRight className="h-4 w-4" /></Link>
+              <Link href="/appartements" className="mt-7 inline-flex items-center gap-4 rounded-xl bg-emerald px-6 py-3.5 text-sm font-semibold text-white shadow-card transition hover:bg-emerald-800">Ontdek onze woningen <ArrowRight className="h-4 w-4" /></Link>
             </FadeIn>
             <FadeIn delay={0.1} className="relative">
-              <div className="relative aspect-[5/4] overflow-hidden rounded-t-[6rem] rounded-b-2xl bg-emerald sm:aspect-[6/5]">
+              <div className="relative aspect-[5/4] overflow-hidden rounded-3xl lg:rounded-tl-[5rem] bg-emerald sm:aspect-[6/5]">
                 {featuredProperties[0]?.property_images[0] ? (
                   <Image src={(featuredProperties[0].property_images.find(image => image.is_primary) ?? featuredProperties[0].property_images[0]).url} alt={featuredProperties[0].title} fill priority sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" />
                 ) : (
@@ -80,7 +80,7 @@ export default async function HomePage() {
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-transparent to-transparent" />
                 <div className="absolute bottom-7 left-7 right-7 flex items-end justify-between gap-4 text-white">
-                  <div><p className="text-[10px] uppercase tracking-[0.2em] text-champagne">Dolk Vastgoedbeheer BV</p><p className="mt-2 font-display text-2xl">{featuredProperties[0]?.city ?? 'Thuis in Nederland'}</p></div>
+                  <div><p className="text-[10px] uppercase tracking-[0.2em] text-champagne">Vastgoed Beheer B.V.</p><p className="mt-2 font-display text-2xl">{featuredProperties[0]?.city ?? 'Thuis in Nederland'}</p></div>
                   <span className="flex h-11 w-11 items-center justify-center rounded-full border border-white/30"><ArrowRight className="h-5 w-5" /></span>
                 </div>
               </div>
@@ -93,7 +93,7 @@ export default async function HomePage() {
       </section>
 
       {/* CHIFFRES DE CONFIANCE */}
-      <section className="border-b border-emerald/10 bg-sage-100/50 py-8">
+      <section className="border-b border-emerald/10 bg-white py-8">
         <div className="container-app grid grid-cols-1 gap-6 sm:grid-cols-3">
           {TRUST_POINTS.map((point) => (
             <div key={point.label} className="flex items-center gap-4">
@@ -200,7 +200,7 @@ export default async function HomePage() {
           <FadeIn>
             <SectionHeading
               eyebrow="Ervaringen"
-              title="Wat onze klanten over Dolk Vastgoedbeheer BV zeggen"
+              title="Wat onze klanten over Vastgoed Beheer B.V. zeggen"
               description="Feedback van klanten die zijn begeleid bij hun zoektocht naar een woning in Nederland. Blader door 50 ervaringen."
             />
           </FadeIn>
@@ -221,7 +221,7 @@ export default async function HomePage() {
                   “{testimonial}”
                 </blockquote>
                 <p className="mt-5 border-t border-ink-100 pt-4 text-xs font-semibold uppercase tracking-wide text-ink-400">
-                  Klant van Dolk Vastgoedbeheer BV · Ervaring {index + 1}
+                  Klant van Vastgoed Beheer B.V. · Ervaring {index + 1}
                 </p>
               </article>
             ))}

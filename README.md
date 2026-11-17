@@ -1,8 +1,8 @@
-# Dolk Vastgoedbeheer BV
+# Vastgoed Beheer B.V.
 
 **Plateforme professionnelle de location d'appartements aux Pays-Bas.**
 
-Dolk Vastgoedbeheer BV est une application web complète permettant à une agence immobilière de publier des logements, gérer les demandes de visite, les réservations, les paiements de garantie et les remboursements — avec un espace client et un dashboard administrateur intégré.
+Vastgoed Beheer B.V. est une application web complète permettant à une agence immobilière de publier des logements, gérer les demandes de visite, les réservations, les paiements de garantie et les remboursements — avec un espace client et un dashboard administrateur intégré.
 
 ---
 
@@ -275,7 +275,7 @@ npm start
 
 ## Licence
 
-Projet propriétaire — Dolk Vastgoedbeheer BV. Tous droits réservés.
+Projet propriétaire — Vastgoed Beheer B.V.. Tous droits réservés.
 
 ## Installation Supabase détaillée
 

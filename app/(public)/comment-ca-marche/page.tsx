@@ -5,7 +5,7 @@ import { SectionHeading } from '@/components/ui/section-heading';
 
 export const metadata: Metadata = {
   title: 'Hoe werkt het',
-  description: 'Ontdek de stappen om uw appartement in Nederland te vinden, bezichtigen en reserveren met Dolk Vastgoedbeheer BV.',
+  description: 'Ontdek de stappen om uw appartement in Nederland te vinden, bezichtigen en reserveren met Vastgoed Beheer B.V..',
 };
 
 const STEPS = [
@@ -53,7 +53,7 @@ export default function CommentCaMarchePage() {
         <SectionHeading
           eyebrow="Ons proces"
           title="Hoe werkt het"
-          description="Van de eerste zoektocht tot de sleuteloverdracht: zo verloopt uw traject met Dolk Vastgoedbeheer BV."
+          description="Van de eerste zoektocht tot de sleuteloverdracht: zo verloopt uw traject met Vastgoed Beheer B.V.."
         />
       </FadeIn>
 

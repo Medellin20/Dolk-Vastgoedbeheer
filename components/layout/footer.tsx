@@ -32,7 +32,7 @@ export async function Footer() {
               <Home className="h-4.5 w-4.5 text-white" strokeWidth={2.25} />
             </span>
             <span className="font-display text-xl font-medium tracking-tight text-white">
-              Dolk Vastgoedbeheer BV
+              Vastgoed Beheer B.V.
             </span>
           </Link>
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-sand-300">
@@ -120,17 +120,17 @@ export async function Footer() {
           <div className="flex min-w-0 gap-2.5">
             <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-sand-300" />
             <p>
-              <span className="font-semibold text-sand-200">Dolk Vastgoedbeheer BV</span> · Besloten vennootschap (BV) · Hoofdvestiging ·
-              Waterjufferpad 24, 1706 BW Heerhugowaard, Nederland
+              <span className="font-semibold text-sand-200">Vastgoed Beheer B.V.</span> · Besloten vennootschap (BV) · Hoofdvestiging ·
+              Hijkerveld 164, 3085 PD Rotterdam, Nederland
             </p>
           </div>
-          <p className="sm:text-right">KvK 42139168 · Vestigingsnummer 000066437288</p>
+          <p className="sm:text-right">KvK 83136851</p>
         </div>
       </div>
 
       <div className="border-t border-white/10">
         <div className="container-app flex flex-col items-center justify-between gap-3 py-5 text-xs text-sand-400 sm:flex-row">
-          <p>© {year} Dolk Vastgoedbeheer BV. Alle rechten voorbehouden.</p>
+          <p>© {year} Vastgoed Beheer B.V.. Alle rechten voorbehouden.</p>
           <p>Appartementen huren in Nederland</p>
         </div>
       </div>

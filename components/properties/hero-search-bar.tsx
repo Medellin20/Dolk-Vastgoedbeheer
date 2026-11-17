@@ -29,8 +29,9 @@ export function HeroSearchBar() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="w-full rounded-2xl border border-emerald/10 bg-white p-5 shadow-lifted sm:p-6"
+      className="w-full rounded-2xl border border-emerald/10 bg-white p-5 shadow-lifted sm:p-7"
     >
+      <p className="mb-5 text-lg font-semibold tracking-tight text-emerald">Vind de woning die bij u past</p>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
         <div className="lg:col-span-1">
           <label className="mb-1 flex items-center gap-1.5 text-xs font-semibold text-ink-500">

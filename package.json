@@ -2,7 +2,7 @@
   "name": "real-estate-nl",
   "version": "1.0.0",
   "private": true,
-  "description": "Dolk Vastgoedbeheer BV — plateforme de location d'appartements aux Pays-Bas",
+  "description": "Vastgoed Beheer B.V. — plateforme de location d'appartements aux Pays-Bas",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
