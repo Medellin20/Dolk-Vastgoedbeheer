@@ -41,7 +41,7 @@ export async function declareGuaranteeTransfer(
     .maybeSingle();
 
   if (fetchError || !guarantee) {
-    return { success: false, message: 'Dossier de garantie introuvable.' };
+    return { success: false, message: 'Waarborgdossier niet gevonden.' };
   }
 
   let proofStoragePath: string | null = guarantee.proof_storage_path;

@@ -1,5 +1,6 @@
 'use server';
 
+import { dutchDisplay } from '@/lib/utils/dutch-display';
 import { createAdminClient } from '@/lib/supabase/admin';
 import {
   reservationSchema,
@@ -64,7 +65,7 @@ export async function createReservation(
       'Huurperiode': `${parsed.data.durationMonths} maanden`,
       'Bewoners': parsed.data.occupantsCount,
       'Huisdieren': parsed.data.hasPets ? 'Ja' : 'Nee',
-      'Arbeidscontract': parsed.data.employmentContract,
+      'Arbeidscontract': dutchDisplay(parsed.data.employmentContract),
       'Maandelijks inkomen': `${parsed.data.monthlyIncome} €`,
       'Plaats van herkomst': parsed.data.originCity,
       'Bericht': parsed.data.message || undefined,

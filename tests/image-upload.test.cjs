@@ -55,6 +55,6 @@ test('valid image creates a primary photo record and invalid MIME does not reach
   assert.equal(inserted[0].is_primary, true);
   const invalid = await upload(new File(['text'], 'test.txt', { type: 'text/plain' }));
   assert.equal(invalid.success, false);
-  assert.match(invalid.message, /Format non pris en charge/);
+  assert.match(invalid.message, /Bestandstype wordt niet ondersteund/);
   assert.equal(inserted.length, 1);
 });

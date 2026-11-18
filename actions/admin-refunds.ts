@@ -17,7 +17,7 @@ export async function updateRefundStatus(id: string, status: RefundStatus, admin
   const supabase = createAdminClient();
 
   const { data: refund } = await supabase.from('refund_requests').select('*').eq('id', id).maybeSingle();
-  if (!refund) return { success: false, message: 'Demande de remboursement introuvable.' };
+  if (!refund) return { success: false, message: 'Terugbetalingsaanvraag niet gevonden.' };
 
   const { error } = await supabase
     .from('refund_requests')

@@ -37,7 +37,7 @@ export async function loginAdmin(_prevState: AdminLoginState, formData: FormData
   if (!rateLimit.allowed) {
     return {
       success: false,
-      message: `Te veel pogingen. Probeer het opnieuw over ${Math.ceil((rateLimit.retryAfterSeconds ?? 60) / 60)} minute(s).`,
+      message: `Te veel pogingen. Probeer het opnieuw over ${Math.ceil((rateLimit.retryAfterSeconds ?? 60) / 60)} min.`,
     };
   }
 
@@ -58,7 +58,7 @@ export async function loginAdmin(_prevState: AdminLoginState, formData: FormData
 
   if (!isValid) {
     registerFailedAttempt(clientKey);
-    return { success: false, message: 'Mot de passe incorrect.' };
+    return { success: false, message: 'Onjuist wachtwoord.' };
   }
 
   clearRateLimit(clientKey);

@@ -240,7 +240,7 @@ export async function createViewingRequest(
         'Telefoon':
           parsed.data.phone,
 
-        Date:
+        Datum:
           parsed.data.requestedDate,
 
         'Tijdstip':

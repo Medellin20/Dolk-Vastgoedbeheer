@@ -161,7 +161,7 @@ export function ImageUploader({ propertyId, initialImages }: { propertyId: strin
             <p className="text-sm font-medium text-ink-600">
               Klik om foto’s te selecteren of sleep ze hiernaartoe
             </p>
-            <p className="text-xs text-ink-400">JPG, PNG, WebP of AVIF — 10 Mo max. par image</p>
+            <p className="text-xs text-ink-400">JPG, PNG, WebP of AVIF, maximaal 10 MB per afbeelding</p>
           </>
         )}
       </label>

@@ -31,7 +31,7 @@ function getStripeClient(): Stripe {
   const key = process.env.STRIPE_SECRET_KEY;
   if (!key) {
     throw new Error(
-      'STRIPE_SECRET_KEY manquant. Ajoutez votre clé secrète Stripe dans .env.local pour activer le paiement des frais de visite.'
+      'Stel STRIPE_SECRET_KEY in om Stripe-betalingen voor bezichtigingen te activeren.'
     );
   }
   return new Stripe(key, { apiVersion: '2024-06-20' });
@@ -51,6 +51,7 @@ export const stripeProvider: PaymentProvider = {
     const stripe = getStripeClient();
 
     const session = await stripe.checkout.sessions.create({
+      locale: 'nl',
       mode: 'payment',
       payment_method_types: ['card', 'ideal'],
       customer_email: customerEmail,
@@ -61,7 +62,7 @@ export const stripeProvider: PaymentProvider = {
             unit_amount: Math.round(amount * 100),
             product_data: {
               name: description,
-              description: `Référence : ${reference}`,
+              description: `Referentie: ${reference}`,
             },
           },
           quantity: 1,
@@ -73,7 +74,7 @@ export const stripeProvider: PaymentProvider = {
     });
 
     if (!session.url) {
-      throw new Error('Stripe n’a pas renvoyé d’URL de paiement.');
+      throw new Error('Stripe heeft geen betaallink teruggegeven.');
     }
 
     return { url: session.url, sessionId: session.id };

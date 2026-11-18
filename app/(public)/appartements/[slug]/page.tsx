@@ -22,7 +22,7 @@ import { Button } from '@/components/ui/button';
 import { FadeIn } from '@/components/ui/fade-in';
 import { PROPERTY_STATUS_LABELS } from '@/lib/utils/constants';
 import { formatDate, formatPrice, formatSurface } from '@/lib/utils/format';
-import { generateDutchPropertyDescription } from '@/lib/utils/property-description';
+import { generatePropertyDescriptionFromProperty } from '@/lib/utils/property-description';
 
 interface PageProps {
   params: { slug: string };
@@ -31,7 +31,7 @@ interface PageProps {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const property = await getPropertyBySlug(params.slug);
   if (!property) return { title: 'Woning niet gevonden' };
-  const dutchDescription = generateDutchPropertyDescription(property);
+  const dutchDescription = generatePropertyDescriptionFromProperty(property);
 
   const primaryImage = property.property_images.find((i) => i.is_primary) ?? property.property_images[0];
 
@@ -53,9 +53,9 @@ export default async function PropertyDetailPage({ params }: PageProps) {
   const property = await getPropertyBySlug(params.slug);
   if (!property) notFound();
 
-  const dutchDescription = generateDutchPropertyDescription(
+  const dutchDescription = generatePropertyDescriptionFromProperty(
     property,
-    property.amenities.map((amenity) => dutchDisplay(amenity.label_fr))
+    property.amenities.map((amenity) => amenity.label_fr)
   );
   const similar = await getSimilarProperties(property, 3);
   const statusMeta = PROPERTY_STATUS_LABELS[property.status];

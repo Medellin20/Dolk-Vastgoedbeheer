@@ -34,7 +34,7 @@ export async function requestGuaranteeRefund(input: RefundRequestInput): Promise
     .maybeSingle();
 
   if (fetchError || !guarantee) {
-    return { success: false, message: 'Dossier de garantie introuvable.' };
+    return { success: false, message: 'Waarborgdossier niet gevonden.' };
   }
 
   if (!['payment_received', 'payment_declared', 'reservation_confirmed'].includes(guarantee.status)) {

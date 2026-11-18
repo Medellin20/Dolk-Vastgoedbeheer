@@ -19,7 +19,7 @@ export async function getAllViewingsAdmin(params: { status?: string; date?: stri
     const { data, error } = await query;
     if (error) {
       console.error('ADMIN VIEWINGS QUERY ERROR:', error);
-      return { viewings: [], error: error.message };
+      return { viewings: [], error: 'De bezichtigingsaanvragen konden niet worden geladen.' };
     }
 
     return { viewings: data ?? [], error: null };
@@ -49,7 +49,7 @@ export async function getAllReservationsAdmin(params: { status?: string; scope?:
     const { data, error } = await query;
     if (error) {
       console.error('ADMIN RESERVATIONS QUERY ERROR:', error);
-      return { reservations: [], error: error.message };
+      return { reservations: [], error: 'De reserveringen konden niet worden geladen.' };
     }
 
     return { reservations: data ?? [], error: null };

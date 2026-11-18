@@ -104,7 +104,7 @@ export function SiteSettingsForm({
         <Checkbox id="showOnConfirmations" {...register('showOnConfirmations')} />
         <span>
           <span className="block text-sm font-semibold text-ink-800">
-            RIB tonen op de bevestigingspagina&apos;s
+            Bankgegevens tonen op de bevestigingspagina&apos;s
           </span>
           <span className="mt-0.5 block text-xs text-ink-500">
             Toon deze bankgegevens naast de betaallink na een bezoek- of reserveringsaanvraag.

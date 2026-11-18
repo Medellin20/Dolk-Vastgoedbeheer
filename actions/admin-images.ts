@@ -25,7 +25,7 @@ export async function uploadPropertyImages(propertyId: string, formData: FormDat
 
   const { data: property } = await supabase.from('properties').select('slug').eq('id', propertyId).maybeSingle();
   if (!property) {
-    return { success: false, message: 'Logement introuvable.' };
+    return { success: false, message: 'Woning niet gevonden.' };
   }
 
   const { count: existingCount } = await supabase
@@ -47,12 +47,12 @@ export async function uploadPropertyImages(propertyId: string, formData: FormDat
 
   for (const file of files) {
     if (!(file instanceof File) || file.size === 0) {
-      failures.push('Fichier vide ou invalide.');
+      failures.push('Leeg of ongeldig bestand.');
       continue;
     }
 
     if (!ALLOWED_TYPES.includes(file.type)) {
-      failures.push('Format non pris en charge : utilisez JPG, PNG, WebP ou AVIF.');
+      failures.push('Bestandstype wordt niet ondersteund. Gebruik JPG, PNG, WebP of AVIF.');
       continue;
     }
     if (file.size > MAX_SIZE) {
@@ -126,7 +126,7 @@ export async function deletePropertyImage(imageId: string): Promise<ActionResult
     .maybeSingle();
 
   if (!image) {
-    return { success: false, message: 'Image introuvable.' };
+    return { success: false, message: 'Afbeelding niet gevonden.' };
   }
 
   const { error: deleteError } = await supabase.from('property_images').delete().eq('id', imageId);

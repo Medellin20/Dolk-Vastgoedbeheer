@@ -16,7 +16,7 @@ export async function updateGuaranteeStatus(id: string, status: GuaranteeStatus)
   const supabase = createAdminClient();
 
   const { data: guarantee } = await supabase.from('guarantee_payments').select('*').eq('id', id).maybeSingle();
-  if (!guarantee) return { success: false, message: 'Dossier de garantie introuvable.' };
+  if (!guarantee) return { success: false, message: 'Waarborgdossier niet gevonden.' };
 
   const updatePayload: Partial<Pick<GuaranteePayment, 'status' | 'validated_at' | 'validated_by'>> = {
     status,

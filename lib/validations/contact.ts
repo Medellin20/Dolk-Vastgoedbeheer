@@ -6,8 +6,8 @@ export const contactSchema = z.object({
   email: z.string().trim().email('Vul een geldig e-mailadres in.'),
   phone: optionalDutchPhoneSchema,
   subject: z.string().trim().min(3, 'Vul een onderwerp in.'),
-  message: z.string().trim().min(10, 'Uw bericht moet minimaal 10 tekens bevatten.').max(3000),
-  website: z.string().max(0).optional().or(z.literal('')),
+  message: z.string().trim().min(10, 'Uw bericht moet minimaal 10 tekens bevatten.').max(3000, 'Uw bericht mag maximaal 3000 tekens bevatten.'),
+  website: z.string().max(0, 'Laat dit veld leeg.').optional().or(z.literal('')),
 });
 
 export type ContactInput = z.infer<typeof contactSchema>;

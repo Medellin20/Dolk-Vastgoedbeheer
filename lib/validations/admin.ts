@@ -6,18 +6,18 @@ export const adminLoginSchema = z.object({
 
 export const bankSettingsSchema = z.object({
   beneficiaryName: z.string().trim().min(2, 'Vul de naam van de begunstigde in.'),
-  iban: z.string().trim().min(10, 'IBAN invalide.'),
-  bic: z.string().trim().max(20, 'BIC invalide.').optional().or(z.literal('')),
+  iban: z.string().trim().min(10, 'Ongeldig IBAN.'),
+  bic: z.string().trim().max(20, 'Ongeldige BIC.').optional().or(z.literal('')),
   bankName: z.string().trim().min(2, 'Vul de naam van de bank in.'),
   paymentInstructions: z.string().trim().min(5, 'Vul de betaalinstructies in.'),
-  defaultDepositAmount: z.coerce.number().min(0),
+  defaultDepositAmount: z.coerce.number().min(0, 'De waarborgsom mag niet negatief zijn.'),
   showOnConfirmations: z.boolean(),
 });
 
 export type BankSettingsInput = z.infer<typeof bankSettingsSchema>;
 
 export const siteSettingsSchema = z.object({
-  footerPhone: z.string().trim().min(6, 'Vul een geldig telefoonnummer in.').max(30),
+  footerPhone: z.string().trim().min(6, 'Vul een geldig telefoonnummer in.').max(30, 'Het telefoonnummer mag maximaal 30 tekens bevatten.'),
   paymentLink: z.string().trim().url('Vul een geldige betaallink in.'),
   paymentReason: z.string().trim().max(140, 'De betalingsomschrijving mag maximaal 140 tekens bevatten.').default(''),
   showPaymentLink: z.boolean(),

@@ -112,7 +112,7 @@ export default async function AdminReservationsPage({ searchParams }: { searchPa
                           <span className="text-ink-600">
                             {entry.from_status ? `${RESERVATION_STATUS_LABELS[entry.from_status] ?? entry.from_status} → ` : ''}
                             <strong>{RESERVATION_STATUS_LABELS[entry.to_status] ?? entry.to_status}</strong>
-                            <span className="ml-1 text-ink-400">par {entry.changed_by}</span>
+                            <span className="ml-1 text-ink-400">door {entry.changed_by === 'admin' ? 'beheerder' : entry.changed_by === 'client' ? 'klant' : entry.changed_by}</span>
                           </span>
                           <time className="text-ink-400">{formatDateTime(entry.created_at)}</time>
                         </li>

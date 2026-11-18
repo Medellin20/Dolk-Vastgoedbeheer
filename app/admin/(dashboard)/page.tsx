@@ -16,6 +16,25 @@ import { Button } from '@/components/ui/button';
 import { formatDateTime } from '@/lib/utils/format';
 import type { DashboardStats } from '@/types';
 
+const activityLabels: Record<string, string> = {
+  'admin.login': 'Beheerder aangemeld',
+  'admin.logout': 'Beheerder afgemeld',
+  'bank_settings.update': 'Bankinstellingen bijgewerkt',
+  'site_settings.update': 'Website-instellingen bijgewerkt',
+  'property.create': 'Woning toegevoegd',
+  'property.update': 'Woning bijgewerkt',
+  'property.delete': 'Woning verwijderd',
+  'property.publish': 'Woning gepubliceerd',
+  'property.unpublish': 'Woning offline gezet',
+  'property.status_change': 'Woningstatus bijgewerkt',
+  'property.images_upload': 'Woningfoto’s toegevoegd',
+  'reservation.status_change': 'Reserveringsstatus bijgewerkt',
+  'viewing.status_change': 'Bezichtigingsstatus bijgewerkt',
+  'viewing.payment_received': 'Bezichtigingsbetaling ontvangen',
+  'refund.status_change': 'Terugbetalingsstatus bijgewerkt',
+  'guarantee.status_change': 'Waarborgstatus bijgewerkt',
+};
+
 export const metadata: Metadata = { title: 'Dashboard admin' };
 export const dynamic = 'force-dynamic';
 
@@ -85,7 +104,7 @@ export default async function AdminDashboardPage() {
           <ul className="mt-4 divide-y divide-ink-100">
             {logs.map((log) => (
               <li key={log.id} className="flex flex-col gap-1 py-3 text-sm sm:flex-row sm:items-center sm:justify-between sm:gap-4">
-                <span className="min-w-0 text-ink-700">{log.action}</span>
+                <span className="min-w-0 text-ink-700">{activityLabels[log.action] ?? 'Beheeractie geregistreerd'}</span>
                 <span className="shrink-0 text-xs text-ink-400">{formatDateTime(log.created_at)}</span>
               </li>
             ))}

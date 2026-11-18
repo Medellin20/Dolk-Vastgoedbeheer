@@ -65,7 +65,7 @@ export default async function AdminRefundsPage({ searchParams }: { searchParams:
 
               {refund.reason && (
                 <p className="mt-2 rounded-lg bg-sand-100/60 px-3 py-2 text-xs text-ink-500">
-                  Raison : {refund.reason}
+                  Reden: {refund.reason}
                 </p>
               )}
 

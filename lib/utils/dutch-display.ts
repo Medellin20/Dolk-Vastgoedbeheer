@@ -9,7 +9,10 @@ const labels: Record<string, string> = {
   'Internet / Wi-Fi': 'Internet / wifi', 'Ascenseur': 'Lift', 'Balcon': 'Balkon', 'Terrasse': 'Terras',
   'Parking': 'Parkeerplaats', 'Jardin': 'Tuin', 'Cave': 'Berging', 'Local vélo': 'Fietsenberging',
   'Chauffage': 'Verwarming', 'Cuisine équipée': 'Ingerichte keuken', 'Lave-linge': 'Wasmachine',
+  'Bâtiment existant': 'Bestaande bouw',
+  CDI: 'Vast contract', CDD: 'Tijdelijk contract', 'Indépendant': 'Zelfstandig',
+  'Intérim': 'Tijdelijk contract', 'Étudiant': 'Student', Autre: 'Anders',
   'Débarras': 'Berging', 'maison': 'woning', 'chambre': 'kamer',
   'Lave-vaisselle': 'Vaatwasser', 'Climatisation': 'Airconditioning', 'Interphone': 'Intercom',
 };
-export function dutchDisplay(value: string): string { return labels[value] ?? value; }
+export function dutchDisplay(value: string): string { return Object.prototype.hasOwnProperty.call(labels, value) ? labels[value] : value; }

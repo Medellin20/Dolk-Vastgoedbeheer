@@ -1,7 +1,8 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { cookies } from 'next/headers';
 import { isValidAdminSessionToken } from '@/lib/auth/admin-session';
-import { ADMIN_SESSION_COOKIE } from '@/lib/utils/constants';
+import { dutchDisplay } from '@/lib/utils/dutch-display';
+import { ADMIN_SESSION_COOKIE, RESERVATION_STATUS_LABELS } from '@/lib/utils/constants';
 import { createAdminClient } from '@/lib/supabase/admin';
 
 function escapeCsvValue(value: unknown): string {
@@ -32,22 +33,22 @@ export async function GET(_request: NextRequest) {
 
   const headers = [
     'Referentie',
-    'Logement',
-    'Ville',
-    'Client',
+    'Woning',
+    'Plaats',
+    'Klant',
     'E-mail',
     'Telefoon',
     'Gewenste intrekdatum',
     'Huurperiode (maanden)',
     'Bewoners',
-    'Animaux de compagnie',
-    'Beroep',
+    'Huisdieren',
+    'Arbeidscontract',
     'Maandelijks inkomen',
     'Status',
     'Aangemaakt op',
   ];
 
-  const rows = (reservations ?? []).map((r: any) => [
+  const rows = (reservations ?? []).map((r) => [
     r.reference,
     r.properties?.title,
     r.properties?.city,
@@ -57,10 +58,10 @@ export async function GET(_request: NextRequest) {
     r.desired_move_in_date,
     r.duration_months,
     r.occupants_count,
-    r.has_pets ? 'Oui' : 'Non',
-    r.profession,
+    r.has_pets ? 'Ja' : 'Nee',
+    r.employment_contract ? dutchDisplay(r.employment_contract) : '',
     r.monthly_income,
-    r.status,
+    RESERVATION_STATUS_LABELS[r.status] ?? r.status,
     r.created_at,
   ]);
 
@@ -70,7 +71,7 @@ export async function GET(_request: NextRequest) {
   return new NextResponse(bom + csv, {
     headers: {
       'Content-Type': 'text/csv; charset=utf-8',
-      'Content-Disposition': `attachment; filename="reservations-${new Date().toISOString().split('T')[0]}.csv"`,
+      'Content-Disposition': `attachment; filename="reserveringen-${new Date().toISOString().split('T')[0]}.csv"`,
     },
   });
 }

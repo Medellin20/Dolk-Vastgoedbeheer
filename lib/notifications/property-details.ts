@@ -1,16 +1,10 @@
 import { dutchDisplay } from '@/lib/utils/dutch-display';
+import { generatePropertyDescriptionFromProperty } from '@/lib/utils/property-description';
+import { formatPrice } from '@/lib/utils/format';
 import type { Property } from '@/types/database';
 import { getSiteUrl } from '@/lib/utils/site-url';
 
 type EmailDetails = Record<string, string | number | null | undefined>;
-
-function formatPrice(value: number): string {
-  return new Intl.NumberFormat('nl-NL', {
-    style: 'currency',
-    currency: 'EUR',
-    maximumFractionDigits: 0,
-  }).format(value);
-}
 
 function formatDate(value: string): string {
   const [year, month, day] = value.split('-').map(Number);
@@ -46,7 +40,7 @@ export function getPropertyEmailDetails(
     Type: dutchDisplay(property.property_type),
     'Adres': address || property.city,
     'Wijk': property.neighborhood,
-    'Beschrijving': property.description || undefined,
+    'Beschrijving': generatePropertyDescriptionFromProperty(property, amenityLabels),
     'Maandelijkse huur': formatPrice(property.monthly_price),
     'Maandelijkse servicekosten': formatPrice(property.service_charges),
     'Waarborgsom': formatPrice(property.deposit_amount),

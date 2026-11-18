@@ -10,14 +10,14 @@ export const dynamic = 'force-dynamic';
 export async function POST(request: Request) {
   const webhookSecret = getStripeWebhookSecret();
   if (!webhookSecret) {
-    return NextResponse.json({ error: 'Webhook non configuré' }, { status: 500 });
+    return NextResponse.json({ error: 'Webhook is niet ingesteld' }, { status: 500 });
   }
 
   const body = await request.text();
   const signature = headers().get('stripe-signature');
 
   if (!signature) {
-    return NextResponse.json({ error: 'Signature manquante' }, { status: 400 });
+    return NextResponse.json({ error: 'Handtekening ontbreekt' }, { status: 400 });
   }
 
   let event;
@@ -25,8 +25,8 @@ export async function POST(request: Request) {
     const stripe = getStripeClientForWebhook();
     event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
   } catch (err: any) {
-    console.error('Erreur de vérification du webhook Stripe :', err.message);
-    return NextResponse.json({ error: 'Signature invalide' }, { status: 400 });
+    console.error('Verificatie van Stripe-webhook mislukt:', err.message);
+    return NextResponse.json({ error: 'Ongeldige handtekening' }, { status: 400 });
   }
 
   if (event.type === 'checkout.session.completed') {
